@@ -3330,3 +3330,278 @@ audio.playbackRate = <span class="num">1.5</span>; <span class="com">// Speed</s
 <span class="kw">@container</span> (<span class="prop">min-width</span>: <span class="num">400px</span>) {
   <span class="sel">.card</span> { <span class="prop">flex-direction</span>: <span class="val">row</span>; }
 }</code></pre>
+
+      </div>
+    </div>
+  </section>
+
+<script>
+  // =============================================
+  // 1. SCROLL SPY — highlight active nav link
+  // =============================================
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('#sidebar .nav-section a');
+ 
+  function onScroll() {
+    let currentId = '';
+    sections.forEach(section => {
+      const top = section.getBoundingClientRect().top;
+      if (top <= 120) currentId = section.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+    });
+  }
+ 
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); // run once on load
+ 
+ 
+  // =============================================
+  // 2. COPY CODE BUTTON — add to every code block
+  // =============================================
+  document.querySelectorAll('.code-block').forEach(block => {
+    const header = block.querySelector('.code-header');
+    if (!header) return;
+ 
+    const btn = document.createElement('button');
+    btn.textContent = 'Copy';
+    btn.style.cssText = `
+      margin-left: auto;
+      background: var(--surface2);
+      color: var(--text2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.15s;
+    `;
+    btn.addEventListener('mouseenter', () => {
+      btn.style.background = 'var(--accent)';
+      btn.style.color = '#000';
+    });
+    btn.addEventListener('mouseleave', () => {
+      if (btn.textContent !== 'Copied!') {
+        btn.style.background = 'var(--surface2)';
+        btn.style.color = 'var(--text2)';
+      }
+    });
+    btn.addEventListener('click', () => {
+      const pre = block.querySelector('pre');
+      const text = pre ? pre.innerText : '';
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.style.background = 'var(--green)';
+        btn.style.color = '#000';
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.style.background = 'var(--surface2)';
+          btn.style.color = 'var(--text2)';
+        }, 1800);
+      });
+    });
+ 
+    header.style.display = 'flex';
+    header.style.alignItems = 'center';
+    header.appendChild(btn);
+  });
+ 
+ 
+  // =============================================
+  // 3. TAB SWITCHER — .tab-btn / .tab-panel
+  // =============================================
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const container = btn.closest('.subsection') || btn.parentElement.parentElement;
+      const target = btn.dataset.tab;
+ 
+      container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+ 
+      btn.classList.add('active');
+      const panel = container.querySelector('.tab-panel[data-tab="' + target + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+ 
+  // Activate first tab in each group on load
+  document.querySelectorAll('.tab-btn:first-of-type').forEach(btn => btn.click());
+ 
+ 
+  // =============================================
+  // 4. DRAG & DROP DEMO
+  // =============================================
+  let draggedId = null;
+ 
+  window.demoDS = function(e) {
+    draggedId = e.target.id;
+    e.target.style.opacity = '0.5';
+  };
+ 
+  window.demoDO = function(e) {
+    e.preventDefault();
+    const zone = document.getElementById('drop-zone');
+    if (zone) zone.style.borderColor = 'var(--accent)';
+  };
+ 
+  window.demoLeave = function() {
+    const zone = document.getElementById('drop-zone');
+    if (zone) zone.style.borderColor = '';
+  };
+ 
+  window.demoD = function(e) {
+    e.preventDefault();
+    const zone = document.getElementById('drop-zone');
+    if (!zone || !draggedId) return;
+    zone.style.borderColor = '';
+    const el = document.getElementById(draggedId);
+    if (el) {
+      el.style.opacity = '1';
+      zone.appendChild(el);
+    }
+    draggedId = null;
+  };
+ 
+  window.resetDrag = function() {
+    const container = document.getElementById('drag-container');
+    const zone = document.getElementById('drop-zone');
+    if (!container || !zone) return;
+    ['drag1', 'drag2', 'drag3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.opacity = '1';
+        container.appendChild(el);
+      }
+    });
+    zone.style.borderColor = '';
+  };
+ 
+ 
+  // =============================================
+  // 5. CANVAS DEMO
+  // =============================================
+  const canvas = document.getElementById('myCanvas');
+  let animFrame = null;
+ 
+  window.canvasDraw = function() {
+    if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+ 
+    // Filled rect
+    ctx.fillStyle = '#f0a500';
+    ctx.fillRect(10, 10, 90, 55);
+ 
+    // Stroke rect
+    ctx.strokeStyle = '#78a9ff';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(120, 10, 75, 55);
+ 
+    // Circle
+    ctx.beginPath();
+    ctx.arc(270, 37, 28, 0, Math.PI * 2);
+    ctx.fillStyle = '#6fdc8c';
+    ctx.fill();
+ 
+    // Line
+    ctx.beginPath();
+    ctx.moveTo(10, 90);
+    ctx.lineTo(330, 90);
+    ctx.strokeStyle = '#be95ff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+ 
+    // Text
+    ctx.font = 'bold 16px monospace';
+    ctx.fillStyle = '#e8eaf0';
+    ctx.fillText('Canvas API!', 105, 130);
+ 
+    // Gradient bar
+    const grad = ctx.createLinearGradient(0, 155, 340, 190);
+    grad.addColorStop(0, '#ff6b35');
+    grad.addColorStop(1, '#f0a500');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 162, 340, 28);
+  };
+ 
+  window.canvasClear = function() {
+    if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  };
+ 
+  window.canvasAnimate = function() {
+    if (!canvas) return;
+    if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+    const ctx = canvas.getContext('2d');
+    let angle = 0;
+    let x = 30;
+    let dir = 1;
+ 
+    function frame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+ 
+      // Rotating rectangle
+      ctx.save();
+      ctx.translate(canvas.width / 2, 85);
+      ctx.rotate(angle);
+      ctx.fillStyle = '#f0a500';
+      ctx.fillRect(-40, -25, 80, 50);
+      ctx.restore();
+ 
+      // Bouncing circle
+      ctx.beginPath();
+      ctx.arc(x, 155, 20, 0, Math.PI * 2);
+      ctx.fillStyle = '#4ecdc4';
+      ctx.fill();
+ 
+      x += 2 * dir;
+      if (x > canvas.width - 20 || x < 20) dir *= -1;
+      angle += 0.03;
+ 
+      animFrame = requestAnimationFrame(frame);
+    }
+    frame();
+  };
+ 
+  // Auto-draw canvas on load
+  window.addEventListener('load', () => {
+    if (canvas) canvasDraw();
+  });
+ 
+ 
+  // =============================================
+  // 6. SCROLL PROGRESS BAR (optional enhancement)
+  // =============================================
+  const progressBar = document.getElementById('scroll-progress');
+  if (progressBar) {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (scrolled / total * 100) + '%';
+    }, { passive: true });
+  }
+ 
+ 
+  // =============================================
+  // 7. SMOOTH SIDEBAR NAV CLICK
+  // =============================================
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
