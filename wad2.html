@@ -1,0 +1,2942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML & CSS Mastery — Part 2: Advanced Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --bg2: #13161e;
+    --bg3: #1a1e2a;
+    --surface: #1e2330;
+    --surface2: #252a38;
+    --border: #2e3447;
+    --accent: #f0a500;
+    --accent2: #ff6b35;
+    --accent3: #4ecdc4;
+    --text: #e8eaf0;
+    --text2: #9aa0b8;
+    --text3: #6b7290;
+    --code-bg: #111420;
+    --green: #6fdc8c;
+    --blue: #78a9ff;
+    --purple: #be95ff;
+    --red: #ff8389;
+    --yellow: #f1c21b;
+    --sidebar-w: 280px;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Lora', serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.8;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  /* ===== SIDEBAR ===== */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+  }
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-logo h1 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.2;
+  }
+  .sidebar-logo span {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .nav-section { padding: 16px 0 8px; }
+  .nav-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    padding: 0 24px 8px;
+    display: block;
+  }
+  .nav-section a {
+    display: block;
+    padding: 8px 24px;
+    color: var(--text2);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+    line-height: 1.4;
+  }
+  .nav-section a:hover {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: rgba(240,165,0,0.04);
+    padding-left: 28px;
+  }
+  .nav-html .nav-label { color: #78a9ff; }
+  .nav-css .nav-label { color: #be95ff; }
+  .nav-html a:hover { color: var(--blue); border-left-color: var(--blue); background: rgba(120,169,255,0.04); }
+  .nav-css a:hover { color: var(--purple); border-left-color: var(--purple); background: rgba(190,149,255,0.04); }
+
+  /* ===== MAIN ===== */
+  #main {
+    flex: 1;
+    max-width: calc(100vw - var(--sidebar-w));
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 80px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(190,149,255,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  #hero::after {
+    content: '/* Part II */';
+    position: absolute;
+    bottom: 20px; right: 40px;
+    font-family: var(--font-mono);
+    font-size: 72px;
+    color: rgba(255,255,255,0.02);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(190,149,255,0.12);
+    border: 1px solid rgba(190,149,255,0.3);
+    color: var(--purple);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+  #hero h1 {
+    font-family: var(--font-display);
+    font-size: 58px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  #hero h1 em { font-style: normal; color: var(--purple); }
+  #hero p { font-size: 17px; color: var(--text2); max-width: 600px; line-height: 1.7; }
+  .hero-stats { display: flex; gap: 40px; margin-top: 40px; }
+  .stat { text-align: left; }
+  .stat-num { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--purple); line-height: 1; }
+  .stat-label { font-family: var(--font-mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  /* ===== SECTIONS ===== */
+  .topic-section {
+    padding: 60px 80px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .topic-section:last-child { border-bottom: none; }
+  .section-header { margin-bottom: 40px; }
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .section-tag.html { color: var(--blue); }
+  .section-tag.css { color: var(--purple); }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+  .section-header p { color: var(--text2); font-size: 15.5px; max-width: 700px; line-height: 1.75; }
+  .subsection { margin-bottom: 48px; }
+  .subsection h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .subsection h3 .tag-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: var(--surface);
+    color: var(--blue);
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-weight: 400;
+  }
+  .subsection h4 { font-family: var(--font-mono); font-size: 14px; color: var(--accent); margin: 20px 0 8px; font-weight: 500; }
+  .subsection p { color: var(--text2); font-size: 15px; line-height: 1.8; margin-bottom: 12px; }
+  .subsection ul, .subsection ol { color: var(--text2); font-size: 15px; padding-left: 20px; margin-bottom: 14px; line-height: 1.8; }
+  .subsection ul li::marker { color: var(--accent); }
+
+  /* ===== CODE BLOCKS ===== */
+  .code-block { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; margin: 16px 0; overflow: hidden; position: relative; }
+  .code-header { background: var(--surface); padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+  .code-lang { font-family: var(--font-mono); font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; }
+  .code-dots { display: flex; gap: 6px; }
+  .code-dots span { width: 10px; height: 10px; border-radius: 50%; display: block; }
+  .code-dots span:nth-child(1) { background: #ff5f57; }
+  .code-dots span:nth-child(2) { background: #febc2e; }
+  .code-dots span:nth-child(3) { background: #28c840; }
+  .code-block pre { padding: 20px; overflow-x: auto; font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: var(--text); }
+  .code-block pre code { font-family: inherit; }
+
+  /* Syntax */
+  .t { color: var(--text2); }
+  .tag { color: var(--blue); }
+  .attr { color: var(--green); }
+  .val { color: var(--yellow); }
+  .com { color: var(--text3); font-style: italic; }
+  .kw { color: var(--purple); }
+  .prop { color: var(--blue); }
+  .num { color: var(--accent2); }
+  .str { color: var(--yellow); }
+  .sel { color: var(--green); }
+  .fn { color: var(--accent); }
+
+  /* ===== DEMO BOXES ===== */
+  .demo-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; margin: 16px 0; overflow: hidden; }
+  .demo-header { background: var(--surface); padding: 8px 16px; font-family: var(--font-mono); font-size: 11px; color: var(--text3); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .demo-header::before { content: '▶'; color: var(--green); font-size: 9px; }
+  .demo-content { padding: 24px; }
+
+  /* ===== CALLOUTS ===== */
+  .callout { border-left: 3px solid var(--accent); background: rgba(240,165,0,0.05); padding: 14px 18px; margin: 16px 0; border-radius: 0 4px 4px 0; }
+  .callout.info { border-color: var(--blue); background: rgba(120,169,255,0.05); }
+  .callout.tip { border-color: var(--green); background: rgba(111,220,140,0.05); }
+  .callout.warn { border-color: var(--accent2); background: rgba(255,107,53,0.05); }
+  .callout-title { font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 6px; }
+  .callout.info .callout-title { color: var(--blue); }
+  .callout.tip .callout-title { color: var(--green); }
+  .callout.warn .callout-title { color: var(--accent2); }
+  .callout p { font-size: 14px; color: var(--text2); margin: 0; line-height: 1.7; }
+
+  /* ===== TABLES ===== */
+  .attr-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  .attr-table th { background: var(--surface); color: var(--text); font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; padding: 10px 14px; text-align: left; border: 1px solid var(--border); }
+  .attr-table td { padding: 10px 14px; border: 1px solid var(--border); color: var(--text2); vertical-align: top; line-height: 1.6; }
+  .attr-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+  .attr-table tr:hover td { background: rgba(255,255,255,0.03); }
+  .attr-table td code { font-family: var(--font-mono); font-size: 12px; color: var(--blue); background: var(--surface); padding: 1px 6px; border-radius: 3px; }
+
+  /* ===== INLINE CODE ===== */
+  code { font-family: var(--font-mono); font-size: 13px; color: var(--blue); background: var(--surface); padding: 1px 6px; border-radius: 3px; }
+
+  /* ===== GRIDS ===== */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 16px 0; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 16px 0; }
+
+  /* ===== CHAPTER DIVIDERS ===== */
+  .chapter-divider-inner { background: var(--bg2); border-top: 3px solid var(--blue); padding: 24px 80px; }
+  .chapter-divider-inner.css-chapter { border-top-color: var(--purple); }
+  .chapter-title { font-family: var(--font-display); font-size: 48px; font-weight: 900; letter-spacing: -1.5px; color: var(--text); }
+  .chapter-title span { color: var(--blue); }
+  .chapter-title.css-title span { color: var(--purple); }
+  .chapter-subtitle { font-family: var(--font-mono); font-size: 13px; color: var(--text3); margin-top: 6px; }
+
+  /* ===== FOOTER ===== */
+  #footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 40px 80px; font-family: var(--font-mono); font-size: 12px; color: var(--text3); text-align: center; }
+  #footer strong { color: var(--accent); }
+
+  /* ===== BACK TO TOP ===== */
+  #btt {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 44px; height: 44px;
+    background: var(--accent); color: #000;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 18px; opacity: 0; transition: opacity 0.3s; z-index: 999;
+    border: none; box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  #btt.visible { opacity: 1; }
+  #btt:hover { background: #ffc107; transform: translateY(-2px); }
+
+  /* ===== DEMO-SPECIFIC ===== */
+  .demo-btn {
+    background: var(--accent); color: #000; border: none; padding: 9px 20px;
+    border-radius: 4px; font-family: var(--font-mono); font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .demo-btn:hover { background: #ffc107; }
+
+  .demo-input {
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    padding: 8px 12px; border-radius: 4px; font-family: var(--font-mono); font-size: 13px;
+    width: 100%; outline: none; transition: border-color 0.2s;
+  }
+  .demo-input:focus { border-color: var(--blue); box-shadow: 0 0 0 2px rgba(120,169,255,0.15); }
+
+  /* ===== POSITIONING DEMO ===== */
+  .pos-container {
+    position: relative;
+    background: rgba(120,169,255,0.05);
+    border: 1px dashed var(--blue);
+    border-radius: 4px;
+    height: 200px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    overflow: hidden;
+  }
+  .pos-static { background: rgba(111,220,140,0.15); border: 1px solid var(--green); padding: 8px 12px; color: var(--green); border-radius: 3px; display: inline-block; margin: 8px; }
+  .pos-relative { position: relative; top: 20px; left: 20px; background: rgba(240,165,0,0.15); border: 1px solid var(--accent); padding: 8px 12px; color: var(--accent); border-radius: 3px; display: inline-block; }
+  .pos-absolute { position: absolute; top: 16px; right: 16px; background: rgba(190,149,255,0.15); border: 1px solid var(--purple); padding: 8px 12px; color: var(--purple); border-radius: 3px; }
+  .pos-sticky-demo { position: sticky; top: 0; background: rgba(255,131,137,0.15); border: 1px solid var(--red); padding: 6px 12px; color: var(--red); border-radius: 3px; font-size: 11px; }
+
+  /* ===== Z-INDEX DEMO ===== */
+  .z-demo { position: relative; height: 120px; margin: 12px 0; }
+  .z-box {
+    position: absolute; width: 80px; height: 80px;
+    border-radius: 4px; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  }
+
+  /* ===== OVERFLOW DEMO ===== */
+  .overflow-box { width: 100%; height: 80px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 12px; font-family: var(--font-mono); font-size: 12px; color: var(--text2); }
+
+  /* ===== FILTER DEMO ===== */
+  .filter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; margin: 12px 0; }
+  .filter-swatch {
+    height: 80px; border-radius: 6px;
+    background: linear-gradient(135deg, #f0a500, #ff6b35, #be95ff, #78a9ff);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.9);
+    text-align: center; padding: 8px; font-weight: 500;
+  }
+
+  /* ===== BLEND MODE DEMO ===== */
+  .blend-demo {
+    position: relative; height: 100px; overflow: hidden; border-radius: 6px;
+    background: linear-gradient(135deg, #f0a500 0%, #ff6b35 50%, #be95ff 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .blend-text {
+    font-family: var(--font-display);
+    font-size: 40px; font-weight: 900;
+    color: white;
+    mix-blend-mode: overlay;
+    letter-spacing: -1px;
+  }
+
+  /* ===== CLIP PATH DEMO ===== */
+  .clip-grid { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin: 12px 0; }
+  .clip-shape {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, #78a9ff, #be95ff);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 10px; color: white; text-align: center;
+  }
+
+  /* ===== SCROLL SNAP DEMO ===== */
+  .snap-container {
+    display: flex; gap: 0; overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    border: 1px solid var(--border); border-radius: 6px;
+    height: 100px;
+  }
+  .snap-container::-webkit-scrollbar { height: 4px; }
+  .snap-item {
+    min-width: 100%; height: 100%;
+    scroll-snap-align: start;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 20px; font-weight: 700;
+  }
+
+  /* ===== COLUMNS DEMO ===== */
+  .columns-demo { column-count: 3; column-gap: 20px; column-rule: 1px solid var(--border); font-family: var(--font-body); font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+  /* ===== COUNTER DEMO ===== */
+  .counter-list { counter-reset: custom-counter; list-style: none; padding-left: 0; }
+  .counter-list li { counter-increment: custom-counter; padding: 8px 0 8px 44px; position: relative; color: var(--text2); font-size: 14px; border-bottom: 1px solid rgba(46,52,71,0.5); }
+  .counter-list li::before {
+    content: counter(custom-counter, upper-roman) ".";
+    position: absolute; left: 0;
+    font-family: var(--font-mono); font-size: 12px; color: var(--accent); font-weight: 500;
+  }
+
+  /* ===== ASPECT RATIO DEMO ===== */
+  .aspect-demo { background: linear-gradient(135deg, var(--surface), var(--surface2)); border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 12px; color: var(--text3); }
+
+  /* ===== LOGICAL PROPS DEMO ===== */
+  .logical-demo { background: var(--surface); border-radius: 4px; padding: 16px; font-family: var(--font-mono); font-size: 12px; color: var(--text2); border-inline-start: 4px solid var(--purple); margin-block: 12px; }
+
+  /* ===== STORAGE DEMO ===== */
+  .storage-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 16px; font-family: var(--font-mono); font-size: 13px; }
+  .storage-panel input { background: var(--bg3); border: 1px solid var(--border); color: var(--text); padding: 6px 10px; border-radius: 3px; font-family: var(--font-mono); font-size: 12px; margin-right: 8px; outline: none; width: 160px; }
+  .storage-panel input:focus { border-color: var(--blue); }
+  .storage-panel button { background: var(--accent); color: #000; border: none; padding: 6px 14px; border-radius: 3px; font-family: var(--font-mono); font-size: 12px; cursor: pointer; margin-right: 6px; }
+  #storage-output { margin-top: 12px; color: var(--green); min-height: 24px; }
+
+  /* ===== DIALOG DEMO ===== */
+  dialog {
+    background: var(--bg2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 24px; max-width: 400px;
+    font-family: var(--font-body);
+  }
+  dialog::backdrop { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
+  dialog h3 { font-family: var(--font-display); color: var(--accent); margin-bottom: 10px; }
+  dialog p { color: var(--text2); font-size: 14px; margin-bottom: 16px; }
+  dialog button { background: var(--accent); color: #000; border: none; padding: 8px 20px; border-radius: 4px; font-family: var(--font-mono); font-size: 13px; cursor: pointer; }
+
+  /* ===== OBJECT-FIT DEMO ===== */
+  .obj-demo {
+    width: 120px; height: 80px;
+    border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .obj-demo-inner {
+    width: 100%; height: 100%;
+    background: linear-gradient(45deg, #f0a500 0%, #ff6b35 33%, #be95ff 66%, #78a9ff 100%);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1100px) {
+    #sidebar { display: none; }
+    #main { max-width: 100vw; }
+    .topic-section { padding: 40px 32px; }
+    #hero { padding: 50px 32px; }
+    #hero h1 { font-size: 40px; }
+    .two-col { grid-template-columns: 1fr; }
+    .three-col { grid-template-columns: 1fr 1fr; }
+    .chapter-divider-inner { padding: 20px 32px; }
+  }
+
+  /* ===== WILL-CHANGE DEMO ===== */
+  .perf-box {
+    padding: 12px 18px; border-radius: 6px;
+    font-family: var(--font-mono); font-size: 12px;
+    border: 1px solid var(--border); color: var(--text2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer; will-change: transform;
+  }
+  .perf-box:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); border-color: var(--accent); }
+
+  /* ===== MULTI-CHIP GRID ===== */
+  .chip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin: 12px 0; }
+  .chip { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; font-family: var(--font-mono); font-size: 12px; color: var(--text2); }
+  .chip strong { color: var(--blue); display: block; margin-bottom: 3px; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <h1>HTML &amp; CSS<br>Mastery</h1>
+    <span>Part II — Advanced Reference</span>
+  </div>
+
+  <div class="nav-section nav-html">
+    <span class="nav-label">HTML5 Advanced</span>
+    <a href="#html-webstorage">Web Storage API</a>
+    <a href="#html-geolocation">Geolocation API</a>
+    <a href="#html-workers">Web Workers</a>
+    <a href="#html-websocket">WebSockets</a>
+    <a href="#html-history">History API</a>
+    <a href="#html-data-attrs">Data Attributes</a>
+    <a href="#html-aria">ARIA &amp; Accessibility</a>
+    <a href="#html-dialog">Dialog &amp; Popover</a>
+    <a href="#html-template">Template &amp; Slots</a>
+    <a href="#html-webcomponents">Web Components</a>
+    <a href="#html-intersection">Intersection Observer</a>
+    <a href="#html-mutation">Mutation Observer</a>
+    <a href="#html-resize-obs">Resize Observer</a>
+    <a href="#html-fetch">Fetch &amp; XMLHttpRequest</a>
+  </div>
+
+  <div class="nav-section nav-css">
+    <span class="nav-label">CSS3 Advanced</span>
+    <a href="#css-positioning">Positioning</a>
+    <a href="#css-zindex">Z-Index &amp; Stacking</a>
+    <a href="#css-display">Display &amp; Visibility</a>
+    <a href="#css-overflow">Overflow</a>
+    <a href="#css-objectfit">Object-Fit &amp; Aspect Ratio</a>
+    <a href="#css-filters">Filters</a>
+    <a href="#css-blend">Blend Modes</a>
+    <a href="#css-clippath">Clip-Path &amp; Shapes</a>
+    <a href="#css-columns">Multi-Column Layout</a>
+    <a href="#css-scroll">Scroll Behavior &amp; Snap</a>
+    <a href="#css-counters">Counters &amp; Content</a>
+    <a href="#css-math">Math Functions</a>
+    <a href="#css-units">Units &amp; Values</a>
+    <a href="#css-at-rules">@supports, @layer, @scope</a>
+    <a href="#css-logical">Logical Properties</a>
+    <a href="#css-subgrid">Subgrid</a>
+    <a href="#css-performance">Performance &amp; will-change</a>
+    <a href="#css-custom-scrollbar">Custom Scrollbars</a>
+    <a href="#css-nesting">CSS Nesting</a>
+    <a href="#css-shadow">Shadow DOM Styling</a>
+  </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<div id="main">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-badge">Advanced Reference · HTML5 + CSS3 · Part II</div>
+    <h1>Master the <em>Advanced</em><br>Web Platform.</h1>
+    <p>APIs, observers, web components, advanced CSS layout, blend modes, filters, math functions, scroll snap, and every modern technique from the HTML and CSS specifications.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">14</div><div class="stat-label">HTML APIs</div></div>
+      <div class="stat"><div class="stat-num">20</div><div class="stat-label">CSS Modules</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Live Demos</div></div>
+      <div class="stat"><div class="stat-num">2026</div><div class="stat-label">Up to date</div></div>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 3: HTML ADVANCED ==================== -->
+  <div class="chapter-divider-inner">
+    <div class="chapter-title"><span>Chapter 3</span> — HTML5 APIs</div>
+    <div class="chapter-subtitle">Browser Platform APIs · Web Platform Capabilities</div>
+  </div>
+
+  <!-- ===== WEB STORAGE ===== -->
+  <section class="topic-section" id="html-webstorage">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Storage</span>
+      <h2>Web Storage API</h2>
+      <p>The Web Storage API provides two mechanisms — <code>localStorage</code> and <code>sessionStorage</code> — to store key-value string data in the browser. Unlike cookies, storage data is not sent with every request and has much larger limits (typically 5–10 MB per origin).</p>
+    </div>
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">JavaScript — Web Storage</div></div>
+            <pre><code><span class="com">// ─── localStorage ───</span>
+<span class="com">// Persists FOREVER until explicitly cleared</span>
+
+<span class="com">// Store a string</span>
+localStorage.<span class="fn">setItem</span>(<span class="str">'username'</span>, <span class="str">'alice'</span>);
+
+<span class="com">// Store an object (must stringify)</span>
+<span class="kw">const</span> user = { name: <span class="str">'Alice'</span>, age: <span class="num">28</span> };
+localStorage.<span class="fn">setItem</span>(<span class="str">'user'</span>, JSON.<span class="fn">stringify</span>(user));
+
+<span class="com">// Read</span>
+<span class="kw">const</span> raw = localStorage.<span class="fn">getItem</span>(<span class="str">'user'</span>);
+<span class="kw">const</span> parsed = JSON.<span class="fn">parse</span>(raw); <span class="com">// { name:'Alice', age:28 }</span>
+
+<span class="com">// Remove one key</span>
+localStorage.<span class="fn">removeItem</span>(<span class="str">'username'</span>);
+
+<span class="com">// Clear all localStorage</span>
+localStorage.<span class="fn">clear</span>();
+
+<span class="com">// Number of items</span>
+console.<span class="fn">log</span>(localStorage.length);
+
+<span class="com">// Iterate all keys</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; localStorage.length; i++) {
+  <span class="kw">const</span> key = localStorage.<span class="fn">key</span>(i);
+  console.<span class="fn">log</span>(key, localStorage.<span class="fn">getItem</span>(key));
+}
+
+<span class="com">// ─── sessionStorage ───</span>
+<span class="com">// Cleared when the TAB is closed</span>
+sessionStorage.<span class="fn">setItem</span>(<span class="str">'token'</span>, <span class="str">'abc123'</span>);
+sessionStorage.<span class="fn">getItem</span>(<span class="str">'token'</span>);
+sessionStorage.<span class="fn">removeItem</span>(<span class="str">'token'</span>);
+
+<span class="com">// ─── storage EVENT ───</span>
+<span class="com">// Fires in OTHER tabs when localStorage changes</span>
+window.<span class="fn">addEventListener</span>(<span class="str">'storage'</span>, (e) =&gt; {
+  console.<span class="fn">log</span>(e.key);      <span class="com">// changed key</span>
+  console.<span class="fn">log</span>(e.oldValue); <span class="com">// previous value</span>
+  console.<span class="fn">log</span>(e.newValue); <span class="com">// new value</span>
+  console.<span class="fn">log</span>(e.url);      <span class="com">// url that changed it</span>
+});</code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Live Storage Demo</div>
+            <div class="demo-content">
+              <div class="storage-panel">
+                <div style="margin-bottom:12px;color:var(--text3);font-size:11px;letter-spacing:1px;text-transform:uppercase">localStorage playground</div>
+                <div style="margin-bottom:8px">
+                  <input id="s-key" placeholder="key" style="width:100px">
+                  <input id="s-val" placeholder="value" style="width:120px">
+                  <button onclick="storageSet()">SET</button>
+                  <button onclick="storageGet()" style="background:var(--surface);color:var(--text)">GET</button>
+                  <button onclick="storageDel()" style="background:var(--surface2);color:var(--red)">DEL</button>
+                </div>
+                <div id="storage-output">— waiting —</div>
+                <div style="margin-top:12px">
+                  <button onclick="storageClear()" style="background:var(--surface2);color:var(--text3);font-size:11px;padding:4px 10px">CLEAR ALL</button>
+                  <button onclick="storageList()" style="background:var(--surface);color:var(--text3);font-size:11px;padding:4px 10px;margin-left:6px">LIST ALL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <table class="attr-table" style="margin-top:12px">
+            <tr><th>Feature</th><th>localStorage</th><th>sessionStorage</th></tr>
+            <tr><td>Lifetime</td><td>Permanent</td><td>Until tab closes</td></tr>
+            <tr><td>Scope</td><td>All tabs (same origin)</td><td>Current tab only</td></tr>
+            <tr><td>Capacity</td><td>~5–10 MB</td><td>~5–10 MB</td></tr>
+            <tr><td>Sent with requests?</td><td>No</td><td>No</td></tr>
+            <tr><td>Accessible via JS</td><td>Yes</td><td>Yes</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GEOLOCATION ===== -->
+  <section class="topic-section" id="html-geolocation">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · APIs</span>
+      <h2>Geolocation API</h2>
+      <p>The Geolocation API lets web pages request a user's geographic location. It always requires explicit user permission. Accuracy depends on available methods: GPS, Wi-Fi triangulation, cell towers, or IP address.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">JavaScript — Geolocation API</div></div>
+        <pre><code><span class="com">// ─── Check support ───</span>
+<span class="kw">if</span> (<span class="str">'geolocation'</span> <span class="kw">in</span> navigator) {
+  console.<span class="fn">log</span>(<span class="str">'Geolocation supported!'</span>);
+}
+
+<span class="com">// ─── Get current position (one-time) ───</span>
+navigator.geolocation.<span class="fn">getCurrentPosition</span>(
+  <span class="com">// Success callback</span>
+  (position) =&gt; {
+    <span class="kw">const</span> { latitude, longitude, accuracy } = position.coords;
+    console.<span class="fn">log</span>(<span class="str">`Lat: ${latitude}, Lng: ${longitude}`</span>);
+    console.<span class="fn">log</span>(<span class="str">`Accuracy: ±${accuracy}m`</span>);
+    <span class="com">// Other available coords:</span>
+    <span class="com">// altitude, altitudeAccuracy, heading, speed</span>
+    console.<span class="fn">log</span>(position.timestamp); <span class="com">// Unix ms</span>
+  },
+  <span class="com">// Error callback</span>
+  (error) =&gt; {
+    <span class="kw">switch</span>(error.code) {
+      <span class="kw">case</span> <span class="num">1</span>: console.<span class="fn">log</span>(<span class="str">'Permission denied'</span>); <span class="kw">break</span>;
+      <span class="kw">case</span> <span class="num">2</span>: console.<span class="fn">log</span>(<span class="str">'Position unavailable'</span>); <span class="kw">break</span>;
+      <span class="kw">case</span> <span class="num">3</span>: console.<span class="fn">log</span>(<span class="str">'Timeout'</span>); <span class="kw">break</span>;
+    }
+  },
+  <span class="com">// Options</span>
+  {
+    enableHighAccuracy: <span class="kw">true</span>,  <span class="com">// Use GPS if available</span>
+    timeout: <span class="num">5000</span>,             <span class="com">// ms before error</span>
+    maximumAge: <span class="num">60000</span>,         <span class="com">// Cache location 60s</span>
+  }
+);
+
+<span class="com">// ─── Watch position (continuous updates) ───</span>
+<span class="kw">const</span> watchId = navigator.geolocation.<span class="fn">watchPosition</span>(
+  (position) =&gt; {
+    console.<span class="fn">log</span>(<span class="str">'Updated: '</span>, position.coords.latitude);
+  }
+);
+
+<span class="com">// Stop watching</span>
+navigator.geolocation.<span class="fn">clearWatch</span>(watchId);</code></pre>
+      </div>
+      <div class="callout warn">
+        <div class="callout-title">⚠️ Permissions Required</div>
+        <p>Geolocation requires explicit user consent and only works on HTTPS origins (or localhost for development). Mobile devices typically use GPS; desktops use Wi-Fi/IP which is far less accurate.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WEB WORKERS ===== -->
+  <section class="topic-section" id="html-workers">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · APIs</span>
+      <h2>Web Workers</h2>
+      <p>Web Workers run JavaScript in a background thread, completely separate from the main UI thread. This prevents heavy computations from blocking the page and freezing the UI. Workers communicate with the main thread via message passing.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">JavaScript — Web Workers</div></div>
+        <pre><code><span class="com">// ─── Main thread (index.js) ───</span>
+
+<span class="com">// Create a worker from a JS file</span>
+<span class="kw">const</span> worker = <span class="kw">new</span> <span class="fn">Worker</span>(<span class="str">'worker.js'</span>);
+
+<span class="com">// Send data TO the worker</span>
+worker.<span class="fn">postMessage</span>({ task: <span class="str">'compute'</span>, data: [<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>] });
+
+<span class="com">// Receive data FROM the worker</span>
+worker.<span class="fn">addEventListener</span>(<span class="str">'message'</span>, (event) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">'Worker result:'</span>, event.data);
+});
+
+<span class="com">// Handle errors</span>
+worker.<span class="fn">addEventListener</span>(<span class="str">'error'</span>, (err) =&gt; {
+  console.<span class="fn">error</span>(<span class="str">'Worker error:'</span>, err.message);
+});
+
+<span class="com">// Terminate the worker</span>
+worker.<span class="fn">terminate</span>();
+
+<span class="com">// ─────────────────────────────────────</span>
+<span class="com">// worker.js (runs in background thread)</span>
+<span class="com">// ─────────────────────────────────────</span>
+
+<span class="com">// Receive messages from main thread</span>
+self.<span class="fn">addEventListener</span>(<span class="str">'message'</span>, (event) =&gt; {
+  <span class="kw">const</span> { task, data } = event.data;
+
+  <span class="kw">if</span> (task === <span class="str">'compute'</span>) {
+    <span class="com">// Heavy computation — won't freeze UI!</span>
+    <span class="kw">const</span> result = data.<span class="fn">reduce</span>((a, b) =&gt; a + b, <span class="num">0</span>);
+
+    <span class="com">// Send result back to main thread</span>
+    self.<span class="fn">postMessage</span>({ result });
+  }
+});
+
+<span class="com">// ─── Inline Worker (no separate file) ───</span>
+<span class="kw">const</span> blob = <span class="kw">new</span> <span class="fn">Blob</span>([
+  <span class="str">`self.onmessage = e =&gt; self.postMessage(e.data * 2)`</span>
+], { type: <span class="str">'text/javascript'</span> });
+
+<span class="kw">const</span> inlineWorker = <span class="kw">new</span> <span class="fn">Worker</span>(URL.<span class="fn">createObjectURL</span>(blob));
+inlineWorker.<span class="fn">postMessage</span>(<span class="num">21</span>);  <span class="com">// → receives 42</span>
+
+<span class="com">// ─── SharedWorker (shared across tabs) ───</span>
+<span class="kw">const</span> shared = <span class="kw">new</span> <span class="fn">SharedWorker</span>(<span class="str">'shared.js'</span>);
+shared.port.<span class="fn">postMessage</span>(<span class="str">'hello'</span>);
+shared.port.<span class="fn">onmessage</span> = (e) =&gt; console.<span class="fn">log</span>(e.data);</code></pre>
+      </div>
+      <table class="attr-table">
+        <tr><th>Worker Type</th><th>Description</th><th>Shared Across Tabs?</th></tr>
+        <tr><td><code>Worker</code></td><td>Dedicated to one page</td><td>No</td></tr>
+        <tr><td><code>SharedWorker</code></td><td>Shared across same-origin tabs</td><td>Yes</td></tr>
+        <tr><td><code>ServiceWorker</code></td><td>Proxy between app and network (PWAs)</td><td>Yes (all pages)</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== WEBSOCKETS ===== -->
+  <section class="topic-section" id="html-websocket">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · APIs</span>
+      <h2>WebSockets</h2>
+      <p>WebSockets provide a persistent, full-duplex (two-way) communication channel between the browser and a server over a single TCP connection. Unlike HTTP's request/response model, either party can send data at any time — ideal for real-time apps like chat, live dashboards, and multiplayer games.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">JavaScript — WebSocket API</div></div>
+        <pre><code><span class="com">// ─── Create connection ───</span>
+<span class="kw">const</span> ws = <span class="kw">new</span> <span class="fn">WebSocket</span>(<span class="str">'wss://example.com/socket'</span>);
+<span class="com">// wss:// = secure (like https), ws:// = insecure</span>
+
+<span class="com">// ─── Connection opened ───</span>
+ws.<span class="fn">addEventListener</span>(<span class="str">'open'</span>, () =&gt; {
+  console.<span class="fn">log</span>(<span class="str">'Connected!'</span>);
+  ws.<span class="fn">send</span>(<span class="str">'Hello server'</span>);
+  ws.<span class="fn">send</span>(JSON.<span class="fn">stringify</span>({ type: <span class="str">'join'</span>, room: <span class="str">'123'</span> }));
+});
+
+<span class="com">// ─── Receive messages ───</span>
+ws.<span class="fn">addEventListener</span>(<span class="str">'message'</span>, (event) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">'Received:'</span>, event.data);
+  <span class="kw">const</span> msg = JSON.<span class="fn">parse</span>(event.data);
+});
+
+<span class="com">// ─── Connection closed ───</span>
+ws.<span class="fn">addEventListener</span>(<span class="str">'close'</span>, (event) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">'Closed. Code:'</span>, event.code);
+  <span class="com">// Reconnect logic here</span>
+});
+
+<span class="com">// ─── Handle errors ───</span>
+ws.<span class="fn">addEventListener</span>(<span class="str">'error'</span>, (err) =&gt; {
+  console.<span class="fn">error</span>(<span class="str">'WebSocket error'</span>, err);
+});
+
+<span class="com">// ─── Send data ───</span>
+ws.<span class="fn">send</span>(<span class="str">'plain text'</span>);
+ws.<span class="fn">send</span>(JSON.<span class="fn">stringify</span>({ message: <span class="str">'hi'</span> }));
+ws.<span class="fn">send</span>(new <span class="fn">ArrayBuffer</span>(<span class="num">8</span>));  <span class="com">// Binary data</span>
+
+<span class="com">// ─── Connection state ───</span>
+<span class="com">// ws.readyState: 0=CONNECTING, 1=OPEN, 2=CLOSING, 3=CLOSED</span>
+<span class="kw">if</span> (ws.readyState === WebSocket.OPEN) ws.<span class="fn">send</span>(<span class="str">'safe to send'</span>);
+
+<span class="com">// ─── Close connection ───</span>
+ws.<span class="fn">close</span>();
+ws.<span class="fn">close</span>(<span class="num">1000</span>, <span class="str">'Normal closure'</span>);</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HISTORY API ===== -->
+  <section class="topic-section" id="html-history">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · APIs</span>
+      <h2>History API</h2>
+      <p>The History API lets JavaScript manipulate the browser's session history (the pages visited in the current tab). It enables Single Page Applications (SPAs) to change the URL without triggering a full page reload, creating seamless navigation with shareable, bookmarkable URLs.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">JavaScript — History API</div></div>
+        <pre><code><span class="com">// ─── pushState: add new entry to history ───</span>
+<span class="com">// Does NOT trigger page reload!</span>
+history.<span class="fn">pushState</span>(
+  { page: <span class="num">2</span>, item: <span class="str">'shoes'</span> },  <span class="com">// state object</span>
+  <span class="str">''</span>,                          <span class="com">// title (ignored by browsers)</span>
+  <span class="str">'/products/shoes'</span>            <span class="com">// new URL</span>
+);
+<span class="com">// URL bar now shows /products/shoes</span>
+
+<span class="com">// ─── replaceState: replace current entry ───</span>
+history.<span class="fn">replaceState</span>(
+  { page: <span class="num">1</span> },
+  <span class="str">''</span>,
+  <span class="str">'/products/shoes?color=red'</span>
+);
+
+<span class="com">// ─── Navigate programmatically ───</span>
+history.<span class="fn">back</span>();       <span class="com">// go back one page</span>
+history.<span class="fn">forward</span>();    <span class="com">// go forward one page</span>
+history.<span class="fn">go</span>(-<span class="num">2</span>);       <span class="com">// go back 2 pages</span>
+history.<span class="fn">go</span>(<span class="num">1</span>);        <span class="com">// go forward 1 page</span>
+
+<span class="com">// ─── History length ───</span>
+console.<span class="fn">log</span>(history.length);  <span class="com">// number of entries</span>
+
+<span class="com">// ─── popstate: fires on back/forward button ───</span>
+window.<span class="fn">addEventListener</span>(<span class="str">'popstate'</span>, (event) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">'Navigated to:'</span>, location.pathname);
+  console.<span class="fn">log</span>(<span class="str">'State:'</span>, event.state); <span class="com">// restored state obj</span>
+  <span class="com">// Re-render based on event.state or URL</span>
+});
+
+<span class="com">// ─── SPA Router pattern ───</span>
+<span class="kw">function</span> <span class="fn">navigate</span>(path, state = {}) {
+  history.<span class="fn">pushState</span>(state, <span class="str">''</span>, path);
+  <span class="fn">renderPage</span>(path);  <span class="com">// your render function</span>
+}
+<span class="fn">navigate</span>(<span class="str">'/about'</span>);</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DATA ATTRIBUTES ===== -->
+  <section class="topic-section" id="html-data-attrs">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Features</span>
+      <h2>Custom Data Attributes</h2>
+      <p>HTML5's <code>data-*</code> attributes allow you to store private custom data on any HTML element. They're perfect for embedding data in markup that JavaScript needs to read — without using hidden inputs, classes, or non-standard attributes.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML + JavaScript — Data Attributes</div></div>
+        <pre><code><span class="com">&lt;!-- HTML: data-[name]="value" ─── --&gt;</span>
+<span class="tag">&lt;div</span>
+  <span class="attr">id</span>=<span class="val">"product"</span>
+  <span class="attr">data-product-id</span>=<span class="val">"42"</span>
+  <span class="attr">data-category</span>=<span class="val">"electronics"</span>
+  <span class="attr">data-price</span>=<span class="val">"299.99"</span>
+  <span class="attr">data-in-stock</span>=<span class="val">"true"</span>
+<span class="tag">&gt;</span>MacBook Pro<span class="tag">&lt;/div&gt;</span>
+
+<span class="tag">&lt;button</span> <span class="attr">data-action</span>=<span class="val">"add-to-cart"</span>
+        <span class="attr">data-product-id</span>=<span class="val">"42"</span><span class="tag">&gt;</span>Add<span class="tag">&lt;/button&gt;</span>
+
+<span class="com">// JavaScript: read via .dataset ───</span>
+<span class="kw">const</span> el = document.<span class="fn">getElementById</span>(<span class="str">'product'</span>);
+
+<span class="com">// dataset converts kebab-case to camelCase</span>
+el.dataset.productId   <span class="com">// "42"  (note: always strings!)</span>
+el.dataset.category    <span class="com">// "electronics"</span>
+el.dataset.price       <span class="com">// "299.99"</span>
+el.dataset.inStock     <span class="com">// "true"</span>
+
+<span class="com">// Parse to appropriate types</span>
+<span class="kw">const</span> id = <span class="fn">parseInt</span>(el.dataset.productId, <span class="num">10</span>);
+<span class="kw">const</span> price = <span class="fn">parseFloat</span>(el.dataset.price);
+<span class="kw">const</span> inStock = el.dataset.inStock === <span class="str">'true'</span>;
+
+<span class="com">// Set/update</span>
+el.dataset.price = <span class="str">'249.99'</span>;
+
+<span class="com">// Delete</span>
+<span class="kw">delete</span> el.dataset.category;
+
+<span class="com">// CSS attribute selector (very useful!)</span>
+<span class="com">/* [data-category="electronics"] { background: blue; } */</span>
+<span class="com">/* [data-in-stock="false"] { opacity: 0.5; } */</span>
+
+<span class="com">// Event delegation with data attributes</span>
+document.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (e) =&gt; {
+  <span class="kw">const</span> action = e.target.dataset.action;
+  <span class="kw">if</span> (action === <span class="str">'add-to-cart'</span>) {
+    <span class="fn">addToCart</span>(e.target.dataset.productId);
+  }
+});</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ARIA ===== -->
+  <section class="topic-section" id="html-aria">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Accessibility</span>
+      <h2>ARIA &amp; Accessibility</h2>
+      <p>ARIA (Accessible Rich Internet Applications) is a set of attributes that extend HTML's semantics for assistive technologies. Combined with semantic HTML, ARIA makes interactive widgets accessible to users of screen readers, keyboard-only navigation, and other assistive tech.</p>
+    </div>
+    <div class="subsection">
+      <h3>ARIA Roles, States &amp; Properties <span class="tag-pill">WAI-ARIA</span></h3>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — ARIA Attributes</div></div>
+        <pre><code><span class="com">&lt;!-- ─── ROLES: what the element IS ─── --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">role</span>=<span class="val">"button"</span> <span class="attr">tabindex</span>=<span class="val">"0"</span><span class="tag">&gt;</span>Click me<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">role</span>=<span class="val">"navigation"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">role</span>=<span class="val">"dialog"</span> <span class="attr">aria-modal</span>=<span class="val">"true"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">role</span>=<span class="val">"alert"</span><span class="tag">&gt;</span>Error: Form invalid<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">role</span>=<span class="val">"progressbar"</span>
+     <span class="attr">aria-valuenow</span>=<span class="val">"65"</span>
+     <span class="attr">aria-valuemin</span>=<span class="val">"0"</span>
+     <span class="attr">aria-valuemax</span>=<span class="val">"100"</span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;ul</span> <span class="attr">role</span>=<span class="val">"listbox"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;li</span> <span class="attr">role</span>=<span class="val">"option"</span> <span class="attr">aria-selected</span>=<span class="val">"true"</span><span class="tag">&gt;</span>Item A<span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span>
+
+<span class="com">&lt;!-- ─── LABELS &amp; DESCRIPTIONS ─── --&gt;</span>
+<span class="com">&lt;!-- aria-label: direct string label --&gt;</span>
+<span class="tag">&lt;button</span> <span class="attr">aria-label</span>=<span class="val">"Close dialog"</span><span class="tag">&gt;</span>✕<span class="tag">&lt;/button&gt;</span>
+
+<span class="com">&lt;!-- aria-labelledby: reference another element --&gt;</span>
+<span class="tag">&lt;h2</span> <span class="attr">id</span>=<span class="val">"dialog-title"</span><span class="tag">&gt;</span>Settings<span class="tag">&lt;/h2&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">role</span>=<span class="val">"dialog"</span> <span class="attr">aria-labelledby</span>=<span class="val">"dialog-title"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+
+<span class="com">&lt;!-- aria-describedby: additional description --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"email"</span> <span class="attr">aria-describedby</span>=<span class="val">"email-hint"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;p</span> <span class="attr">id</span>=<span class="val">"email-hint"</span><span class="tag">&gt;</span>Format: you@example.com<span class="tag">&lt;/p&gt;</span>
+
+<span class="com">&lt;!-- ─── STATES ─── --&gt;</span>
+<span class="tag">&lt;button</span> <span class="attr">aria-pressed</span>=<span class="val">"true"</span><span class="tag">&gt;</span>Dark Mode<span class="tag">&lt;/button&gt;</span>
+<span class="tag">&lt;button</span> <span class="attr">aria-expanded</span>=<span class="val">"false"</span> <span class="attr">aria-controls</span>=<span class="val">"menu"</span><span class="tag">&gt;</span>Menu<span class="tag">&lt;/button&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">aria-hidden</span>=<span class="val">"true"</span><span class="tag">&gt;</span>Decorative (hidden from SR)<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">aria-live</span>=<span class="val">"polite"</span><span class="tag">&gt;</span>Loading results...<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">aria-live</span>=<span class="val">"assertive"</span><span class="tag">&gt;</span>ERROR: Payment failed<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">aria-required</span>=<span class="val">"true"</span> <span class="attr">aria-invalid</span>=<span class="val">"true"</span><span class="tag">&gt;</span>
+
+<span class="com">&lt;!-- ─── FOCUS MANAGEMENT ─── --&gt;</span>
+<span class="com">&lt;!-- tabindex: make non-focusable elements focusable --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">tabindex</span>=<span class="val">"0"</span><span class="tag">&gt;</span>Focusable div<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">tabindex</span>=<span class="val">"-1"</span><span class="tag">&gt;</span>Programmatically focusable only<span class="tag">&lt;/div&gt;</span>
+<span class="com">&lt;!-- Positive tabindex (avoid): creates tab order --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">tabindex</span>=<span class="val">"1"</span><span class="tag">&gt;</span> <span class="com">&lt;!-- First in tab order --&gt;</span>
+
+<span class="com">&lt;!-- Skip navigation link --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"#main-content"</span> <span class="attr">class</span>=<span class="val">"skip-link"</span><span class="tag">&gt;</span>Skip to main<span class="tag">&lt;/a&gt;</span></code></pre>
+      </div>
+      <h4>Common ARIA Roles</h4>
+      <div class="chip-grid">
+        <div class="chip"><strong>banner</strong>Site header landmark</div>
+        <div class="chip"><strong>navigation</strong>Nav landmark</div>
+        <div class="chip"><strong>main</strong>Main content</div>
+        <div class="chip"><strong>complementary</strong>Aside/sidebar</div>
+        <div class="chip"><strong>contentinfo</strong>Footer landmark</div>
+        <div class="chip"><strong>search</strong>Search landmark</div>
+        <div class="chip"><strong>form</strong>Form landmark</div>
+        <div class="chip"><strong>dialog</strong>Modal/dialog</div>
+        <div class="chip"><strong>alertdialog</strong>Alert that needs response</div>
+        <div class="chip"><strong>alert</strong>Live urgent message</div>
+        <div class="chip"><strong>status</strong>Live non-urgent message</div>
+        <div class="chip"><strong>tab</strong>Tab in tabpanel</div>
+        <div class="chip"><strong>tabpanel</strong>Tab content</div>
+        <div class="chip"><strong>tooltip</strong>Tooltip</div>
+        <div class="chip"><strong>menuitem</strong>Item in menu</div>
+        <div class="chip"><strong>grid</strong>Interactive table</div>
+      </div>
+      <div class="callout tip">
+        <div class="callout-title">✓ Golden Rule</div>
+        <p>Always prefer native semantic HTML over ARIA. Use <code>&lt;button&gt;</code> not <code>&lt;div role="button"&gt;</code>. ARIA should fill gaps where no semantic HTML element exists, not replace it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DIALOG ===== -->
+  <section class="topic-section" id="html-dialog">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Elements</span>
+      <h2>Dialog &amp; Popover</h2>
+      <p>HTML5's native <code>&lt;dialog&gt;</code> element creates accessible modal and non-modal dialogs with built-in backdrop, focus trapping, and Escape-key closing — no JavaScript libraries needed. The newer <code>popover</code> API provides lightweight, non-modal overlays.</p>
+    </div>
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML + JavaScript — Dialog</div></div>
+            <pre><code><span class="com">&lt;!-- Modal dialog --&gt;</span>
+<span class="tag">&lt;dialog</span> <span class="attr">id</span>=<span class="val">"myDialog"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;h3&gt;</span>Confirm Action<span class="tag">&lt;/h3&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Are you sure?<span class="tag">&lt;/p&gt;</span>
+  <span class="com">&lt;!-- method="dialog" closes dialog on submit --&gt;</span>
+  <span class="tag">&lt;form</span> <span class="attr">method</span>=<span class="val">"dialog"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">value</span>=<span class="val">"cancel"</span><span class="tag">&gt;</span>Cancel<span class="tag">&lt;/button&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">value</span>=<span class="val">"confirm"</span><span class="tag">&gt;</span>Confirm<span class="tag">&lt;/button&gt;</span>
+  <span class="tag">&lt;/form&gt;</span>
+<span class="tag">&lt;/dialog&gt;</span>
+
+<span class="com">// JavaScript control</span>
+<span class="kw">const</span> dialog = document.<span class="fn">getElementById</span>(<span class="str">'myDialog'</span>);
+
+<span class="com">// .show() = non-modal (no backdrop)</span>
+dialog.<span class="fn">show</span>();
+
+<span class="com">// .showModal() = modal (with backdrop)</span>
+dialog.<span class="fn">showModal</span>();
+
+<span class="com">// Close programmatically</span>
+dialog.<span class="fn">close</span>();
+dialog.<span class="fn">close</span>(<span class="str">'my-return-value'</span>);
+
+<span class="com">// Get return value</span>
+dialog.<span class="fn">addEventListener</span>(<span class="str">'close'</span>, () =&gt; {
+  console.<span class="fn">log</span>(dialog.returnValue); <span class="com">// "confirm" or "cancel"</span>
+});
+
+<span class="com">&lt;!-- Popover API (no JS needed for basic use!) --&gt;</span>
+<span class="tag">&lt;button</span> <span class="attr">popovertarget</span>=<span class="val">"tip"</span><span class="tag">&gt;</span>Show tooltip<span class="tag">&lt;/button&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"tip"</span> <span class="attr">popover</span><span class="tag">&gt;</span>
+  I'm a popover! Press Esc or click outside to close.
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="com">&lt;!-- popover types --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">popover</span>=<span class="val">"auto"</span><span class="tag">&gt;</span>Light dismiss<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">popover</span>=<span class="val">"manual"</span><span class="tag">&gt;</span>Manual only<span class="tag">&lt;/div&gt;</span></code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Live Dialog Demo</div>
+            <div class="demo-content">
+              <dialog id="demoDialog">
+                <h3>🎯 Native Dialog</h3>
+                <p>This is a native HTML5 &lt;dialog&gt; element. It has a built-in backdrop, traps focus, and closes on Escape.</p>
+                <button onclick="document.getElementById('demoDialog').close()">Close Dialog</button>
+              </dialog>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="demo-btn" onclick="document.getElementById('demoDialog').showModal()">Open Modal Dialog</button>
+                <button class="demo-btn" onclick="document.getElementById('demoDialog').show()" style="background:var(--surface2);color:var(--text)">Open Non-Modal</button>
+              </div>
+              <div style="margin-top:16px;padding:12px;background:var(--surface);border-radius:4px;font-family:var(--font-mono);font-size:12px;color:var(--text2)">
+                <div style="color:var(--text3);margin-bottom:6px;font-size:10px;letter-spacing:1px;text-transform:uppercase">CSS: Dialog Backdrop</div>
+                <span style="color:var(--green)">dialog</span><span style="color:var(--text2)">::backdrop</span> {<br>
+                &nbsp;&nbsp;<span style="color:var(--blue)">background</span>: <span style="color:var(--yellow)">rgba(0,0,0,0.6)</span>;<br>
+                &nbsp;&nbsp;<span style="color:var(--blue)">backdrop-filter</span>: <span style="color:var(--yellow)">blur(4px)</span>;<br>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TEMPLATE & SLOTS ===== -->
+  <section class="topic-section" id="html-template">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Elements</span>
+      <h2>Template &amp; Slot Elements</h2>
+      <p>The <code>&lt;template&gt;</code> element holds HTML that is not rendered on page load but can be cloned and inserted via JavaScript. <code>&lt;slot&gt;</code> elements are used inside Web Components to define insertion points for content provided by the component's user.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML + JavaScript — Template</div></div>
+        <pre><code><span class="com">&lt;!-- template: not rendered until cloned ─── --&gt;</span>
+<span class="tag">&lt;template</span> <span class="attr">id</span>=<span class="val">"card-template"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"card"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h3</span> <span class="attr">class</span>=<span class="val">"card-title"</span><span class="tag">&gt;</span>Title<span class="tag">&lt;/h3&gt;</span>
+    <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="val">"card-body"</span><span class="tag">&gt;</span>Body text<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class</span>=<span class="val">"card-btn"</span><span class="tag">&gt;</span>Learn More<span class="tag">&lt;/button&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/template&gt;</span>
+
+<span class="com">// Clone and populate ─── </span>
+<span class="kw">const</span> tmpl = document.<span class="fn">getElementById</span>(<span class="str">'card-template'</span>);
+
+<span class="kw">function</span> <span class="fn">createCard</span>(title, body) {
+  <span class="com">// Clone the template content (deep clone)</span>
+  <span class="kw">const</span> clone = tmpl.content.<span class="fn">cloneNode</span>(<span class="kw">true</span>);
+
+  <span class="com">// Populate content</span>
+  clone.<span class="fn">querySelector</span>(<span class="str">'.card-title'</span>).textContent = title;
+  clone.<span class="fn">querySelector</span>(<span class="str">'.card-body'</span>).textContent = body;
+
+  <span class="com">// Insert into the DOM</span>
+  document.body.<span class="fn">appendChild</span>(clone);
+}
+
+<span class="fn">createCard</span>(<span class="str">'HTML5 Guide'</span>, <span class="str">'Learn modern HTML5 APIs.'</span>);
+
+<span class="com">&lt;!-- slot: placeholder in a web component ─── --&gt;</span>
+<span class="tag">&lt;template</span> <span class="attr">id</span>=<span class="val">"user-card-tmpl"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;style&gt;</span>
+    .wrapper { border: 1px solid #ccc; padding: 16px; }
+  <span class="tag">&lt;/style&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"wrapper"</span><span class="tag">&gt;</span>
+    <span class="com">&lt;!-- Default slot --&gt;</span>
+    <span class="tag">&lt;slot</span><span class="tag">&gt;</span>Default content if nothing provided<span class="tag">&lt;/slot&gt;</span>
+    <span class="com">&lt;!-- Named slot --&gt;</span>
+    <span class="tag">&lt;slot</span> <span class="attr">name</span>=<span class="val">"avatar"</span><span class="tag">&gt;</span>🧑 Default Avatar<span class="tag">&lt;/slot&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/template&gt;</span>
+
+<span class="com">&lt;!-- Consumer uses slot --&gt;</span>
+<span class="tag">&lt;user-card&gt;</span>
+  <span class="tag">&lt;img</span> <span class="attr">slot</span>=<span class="val">"avatar"</span> <span class="attr">src</span>=<span class="val">"avatar.jpg"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Alice — Developer<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/user-card&gt;</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WEB COMPONENTS ===== -->
+  <section class="topic-section" id="html-webcomponents">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Web Components</span>
+      <h2>Web Components</h2>
+      <p>Web Components are a suite of browser APIs that let you create reusable, encapsulated custom HTML elements with their own styles and behavior. They consist of three technologies: <strong>Custom Elements</strong>, <strong>Shadow DOM</strong>, and <strong>HTML Templates</strong>.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">JavaScript — Custom Elements &amp; Shadow DOM</div></div>
+        <pre><code><span class="com">// ─── Define a custom element ───</span>
+<span class="kw">class</span> MyToast <span class="kw">extends</span> HTMLElement {
+  <span class="com">// Which attributes to observe</span>
+  <span class="kw">static</span> observedAttributes = [<span class="str">'message'</span>, <span class="str">'type'</span>];
+
+  <span class="fn">constructor</span>() {
+    <span class="kw">super</span>();
+    <span class="com">// Create shadow DOM: 'open' = accessible externally</span>
+    <span class="kw">this</span>.shadow = <span class="kw">this</span>.<span class="fn">attachShadow</span>({ mode: <span class="str">'open'</span> });
+  }
+
+  <span class="com">// ─── Lifecycle callbacks ───</span>
+  <span class="fn">connectedCallback</span>() {
+    <span class="com">// Called when element is added to DOM</span>
+    <span class="kw">this</span>.<span class="fn">render</span>();
+  }
+
+  <span class="fn">disconnectedCallback</span>() {
+    <span class="com">// Called when element is removed</span>
+    <span class="kw">this</span>.<span class="fn">cleanup</span>();
+  }
+
+  <span class="fn">attributeChangedCallback</span>(name, oldValue, newValue) {
+    <span class="com">// Called when observed attribute changes</span>
+    <span class="kw">this</span>.<span class="fn">render</span>();
+  }
+
+  <span class="fn">render</span>() {
+    <span class="kw">const</span> msg = <span class="kw">this</span>.<span class="fn">getAttribute</span>(<span class="str">'message'</span>) || <span class="str">'Hello!'</span>;
+    <span class="kw">const</span> type = <span class="kw">this</span>.<span class="fn">getAttribute</span>(<span class="str">'type'</span>) || <span class="str">'info'</span>;
+
+    <span class="com">// Styles are SCOPED to shadow DOM</span>
+    <span class="kw">this</span>.shadow.innerHTML = <span class="str">`
+      &lt;style&gt;
+        :host { display: block; padding: 12px; }
+        .toast { border-radius: 6px; padding: 12px 16px; }
+        .toast.info { background: #e3f2fd; color: #1565c0; }
+        .toast.error { background: #ffebee; color: #c62828; }
+      &lt;/style&gt;
+      &lt;div class="toast ${type}"&gt;${msg}&lt;/div&gt;
+    `</span>;
+  }
+}
+
+<span class="com">// Register the custom element (must contain a hyphen!)</span>
+customElements.<span class="fn">define</span>(<span class="str">'my-toast'</span>, MyToast);
+
+<span class="com">// ─── Usage in HTML ───</span>
+<span class="com">// &lt;my-toast message="Saved!" type="info"&gt;&lt;/my-toast&gt;</span>
+
+<span class="com">// ─── Creating programmatically ───</span>
+<span class="kw">const</span> toast = document.<span class="fn">createElement</span>(<span class="str">'my-toast'</span>);
+toast.<span class="fn">setAttribute</span>(<span class="str">'message'</span>, <span class="str">'Upload complete!'</span>);
+document.body.<span class="fn">appendChild</span>(toast);
+
+<span class="com">// ─── Extending built-in elements ───</span>
+<span class="kw">class</span> FancyButton <span class="kw">extends</span> HTMLButtonElement {
+  <span class="fn">connectedCallback</span>() {
+    <span class="kw">this</span>.style.borderRadius = <span class="str">'999px'</span>;
+  }
+}
+customElements.<span class="fn">define</span>(<span class="str">'fancy-button'</span>, FancyButton, { <span class="kw">extends</span>: <span class="str">'button'</span> });</code></pre>
+          </div>
+    </div>
+  </section>
+
+  <!-- ===== INTERSECTION OBSERVER ===== -->
+  <section class="topic-section" id="html-intersection">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · APIs</span>
+      <h2>Intersection Observer</h2>
+      <p>The Intersection Observer API asynchronously watches whether elements enter or leave the viewport (or another element). It replaces scroll-event hacks with a performant, declarative approach — ideal for lazy loading images, triggering animations on scroll, and infinite scroll.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">JavaScript — Intersection Observer</div></div>
+        <pre><code><span class="com">// ─── Basic usage ───</span>
+<span class="kw">const</span> observer = <span class="kw">new</span> <span class="fn">IntersectionObserver</span>(
+  <span class="com">// Callback: array of observed entries</span>
+  (entries) =&gt; {
+    entries.<span class="fn">forEach</span>((entry) =&gt; {
+      <span class="kw">if</span> (entry.isIntersecting) {
+        <span class="com">// Element entered the viewport</span>
+        entry.target.classList.<span class="fn">add</span>(<span class="str">'visible'</span>);
+        observer.<span class="fn">unobserve</span>(entry.target); <span class="com">// stop watching</span>
+      }
+    });
+  },
+  <span class="com">// Options</span>
+  {
+    root: <span class="kw">null</span>,          <span class="com">// null = viewport</span>
+    rootMargin: <span class="str">'0px'</span>,   <span class="com">// expand/shrink root box</span>
+    threshold: <span class="num">0.1</span>,       <span class="com">// 0–1: % of element visible</span>
+    <span class="com">// threshold: [0, 0.5, 1] = fire at 0%, 50%, 100%</span>
+  }
+);
+
+<span class="com">// Observe elements</span>
+document.<span class="fn">querySelectorAll</span>(<span class="str">'.animate-on-scroll'</span>)
+  .<span class="fn">forEach</span>((el) =&gt; observer.<span class="fn">observe</span>(el));
+
+<span class="com">// Stop observing</span>
+observer.<span class="fn">unobserve</span>(el);
+observer.<span class="fn">disconnect</span>(); <span class="com">// stop all</span>
+
+<span class="com">// ─── Lazy load images ───</span>
+<span class="kw">const</span> lazyObserver = <span class="kw">new</span> <span class="fn">IntersectionObserver</span>((entries) =&gt; {
+  entries.<span class="fn">forEach</span>((entry) =&gt; {
+    <span class="kw">if</span> (entry.isIntersecting) {
+      <span class="kw">const</span> img = entry.target;
+      img.src = img.dataset.src;  <span class="com">// set real src</span>
+      lazyObserver.<span class="fn">unobserve</span>(img);
+    }
+  });
+}, { rootMargin: <span class="str">'200px'</span> }); <span class="com">// preload 200px early</span>
+
+document.<span class="fn">querySelectorAll</span>(<span class="str">'img[data-src]'</span>)
+  .<span class="fn">forEach</span>((img) =&gt; lazyObserver.<span class="fn">observe</span>(img));
+
+<span class="com">// ─── CSS: animate elements on scroll ───</span>
+<span class="com">/* .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: 0.6s ease; }
+   .animate-on-scroll.visible { opacity: 1; transform: translateY(0); } */</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MUTATION OBSERVER ===== -->
+  <section class="topic-section" id="html-mutation">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · APIs</span>
+      <h2>Mutation Observer &amp; Resize Observer</h2>
+      <p>The <strong>Mutation Observer</strong> watches for changes to the DOM tree — added/removed nodes, attribute changes, text changes. The <strong>Resize Observer</strong> watches when an element's size changes, which is more reliable than window resize events for responsive components.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">JavaScript — Mutation & Resize Observers</div></div>
+        <pre><code><span class="com">// ─── MutationObserver ───</span>
+<span class="kw">const</span> mutObs = <span class="kw">new</span> <span class="fn">MutationObserver</span>((mutations) =&gt; {
+  mutations.<span class="fn">forEach</span>((mutation) =&gt; {
+    console.<span class="fn">log</span>(<span class="str">'Type:'</span>, mutation.type);
+    <span class="com">// 'childList' | 'attributes' | 'characterData'</span>
+
+    <span class="kw">if</span> (mutation.type === <span class="str">'childList'</span>) {
+      mutation.addedNodes.<span class="fn">forEach</span>((node) =&gt; {
+        console.<span class="fn">log</span>(<span class="str">'Added:'</span>, node);
+      });
+      mutation.removedNodes.<span class="fn">forEach</span>((node) =&gt; {
+        console.<span class="fn">log</span>(<span class="str">'Removed:'</span>, node);
+      });
+    }
+
+    <span class="kw">if</span> (mutation.type === <span class="str">'attributes'</span>) {
+      console.<span class="fn">log</span>(<span class="str">'Changed attr:'</span>, mutation.attributeName);
+      console.<span class="fn">log</span>(<span class="str">'Old value:'</span>, mutation.oldValue);
+    }
+  });
+});
+
+mutObs.<span class="fn">observe</span>(document.body, {
+  childList: <span class="kw">true</span>,   <span class="com">// watch added/removed children</span>
+  subtree: <span class="kw">true</span>,     <span class="com">// watch all descendants too</span>
+  attributes: <span class="kw">true</span>,  <span class="com">// watch attribute changes</span>
+  attributeOldValue: <span class="kw">true</span>,
+  characterData: <span class="kw">true</span>,  <span class="com">// watch text changes</span>
+});
+
+mutObs.<span class="fn">disconnect</span>(); <span class="com">// stop watching</span>
+
+<span class="com">// ─── ResizeObserver ───</span>
+<span class="kw">const</span> resObs = <span class="kw">new</span> <span class="fn">ResizeObserver</span>((entries) =&gt; {
+  entries.<span class="fn">forEach</span>((entry) =&gt; {
+    <span class="kw">const</span> { width, height } = entry.contentRect;
+    console.<span class="fn">log</span>(<span class="str">`Element: ${width}×${height}px`</span>);
+
+    <span class="com">// Conditional rendering based on component width</span>
+    <span class="kw">if</span> (width &lt; <span class="num">400</span>) {
+      entry.target.classList.<span class="fn">add</span>(<span class="str">'compact'</span>);
+    } <span class="kw">else</span> {
+      entry.target.classList.<span class="fn">remove</span>(<span class="str">'compact'</span>);
+    }
+  });
+});
+
+resObs.<span class="fn">observe</span>(document.<span class="fn">querySelector</span>(<span class="str">'.chart-container'</span>));
+resObs.<span class="fn">unobserve</span>(el);
+resObs.<span class="fn">disconnect</span>();</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FETCH ===== -->
+  <section class="topic-section" id="html-fetch">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · APIs</span>
+      <h2>Fetch API &amp; XMLHttpRequest</h2>
+      <p>The <strong>Fetch API</strong> is the modern way to make HTTP requests from the browser using Promises. It replaced the older <code>XMLHttpRequest</code> (XHR) with a cleaner, more powerful interface.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">JavaScript — Fetch API</div></div>
+        <pre><code><span class="com">// ─── Basic GET request ───</span>
+<span class="kw">const</span> response = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'https://api.example.com/users'</span>);
+<span class="kw">const</span> data = <span class="kw">await</span> response.<span class="fn">json</span>();
+console.<span class="fn">log</span>(data);
+
+<span class="com">// ─── POST with JSON body ───</span>
+<span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/api/users'</span>, {
+  method: <span class="str">'POST'</span>,
+  headers: {
+    <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span>,
+    <span class="str">'Authorization'</span>: <span class="str">'Bearer token123'</span>,
+  },
+  body: JSON.<span class="fn">stringify</span>({ name: <span class="str">'Alice'</span>, age: <span class="num">28</span> }),
+});
+
+<span class="com">// ─── Check status ───</span>
+<span class="kw">if</span> (!res.ok) {  <span class="com">// ok = true if status 200-299</span>
+  <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">`HTTP error: ${res.status}`</span>);
+}
+<span class="kw">const</span> created = <span class="kw">await</span> res.<span class="fn">json</span>();
+
+<span class="com">// ─── Response methods ───</span>
+response.<span class="fn">json</span>();       <span class="com">// Parse as JSON</span>
+response.<span class="fn">text</span>();       <span class="com">// Parse as text</span>
+response.<span class="fn">blob</span>();       <span class="com">// Parse as Blob (file)</span>
+response.<span class="fn">arrayBuffer</span>();<span class="com">// Parse as ArrayBuffer</span>
+response.<span class="fn">formData</span>();   <span class="com">// Parse as FormData</span>
+response.headers.<span class="fn">get</span>(<span class="str">'Content-Type'</span>);
+
+<span class="com">// ─── Abort / timeout ───</span>
+<span class="kw">const</span> controller = <span class="kw">new</span> <span class="fn">AbortController</span>();
+setTimeout(() =&gt; controller.<span class="fn">abort</span>(), <span class="num">5000</span>);
+<span class="kw">const</span> r = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/api'</span>, { signal: controller.signal });
+
+<span class="com">// ─── Upload file ───</span>
+<span class="kw">const</span> form = <span class="kw">new</span> <span class="fn">FormData</span>();
+form.<span class="fn">append</span>(<span class="str">'file'</span>, fileInput.files[<span class="num">0</span>]);
+<span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/upload'</span>, { method: <span class="str">'POST'</span>, body: form });
+
+<span class="com">// ─── Parallel requests ───</span>
+<span class="kw">const</span> [users, posts] = <span class="kw">await</span> Promise.<span class="fn">all</span>([
+  <span class="fn">fetch</span>(<span class="str">'/api/users'</span>).<span class="fn">then</span>(r =&gt; r.<span class="fn">json</span>()),
+  <span class="fn">fetch</span>(<span class="str">'/api/posts'</span>).<span class="fn">then</span>(r =&gt; r.<span class="fn">json</span>()),
+]);</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 4: CSS ADVANCED ==================== -->
+  <div class="chapter-divider-inner css-chapter">
+    <div class="chapter-title css-title"><span>Chapter 4</span> — CSS3 Advanced</div>
+    <div class="chapter-subtitle">Advanced Layout · Visual Effects · Performance · Modern CSS</div>
+  </div>
+
+  <!-- ===== POSITIONING ===== -->
+  <section class="topic-section" id="css-positioning">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Layout</span>
+      <h2>CSS Positioning</h2>
+      <p>The <code>position</code> property controls how an element is placed in the document flow and how it responds to top/right/bottom/left offsets. Understanding positioning is fundamental to creating overlays, fixed headers, tooltips, and complex layouts.</p>
+    </div>
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Position Values</div></div>
+            <pre><code><span class="com">/* ─── static (default) ─── */</span>
+<span class="sel">.normal</span> {
+  <span class="prop">position</span>: <span class="val">static</span>;
+  <span class="com">/* top/right/bottom/left have NO effect */</span>
+}
+
+<span class="com">/* ─── relative ─── */</span>
+<span class="sel">.relative</span> {
+  <span class="prop">position</span>: <span class="val">relative</span>;
+  <span class="com">/* Offsets from its NORMAL position */</span>
+  <span class="prop">top</span>: <span class="num">20px</span>;   <span class="com">/* moves DOWN 20px */</span>
+  <span class="prop">left</span>: <span class="num">10px</span>;  <span class="com">/* moves RIGHT 10px */</span>
+  <span class="com">/* Still occupies original space in flow */</span>
+  <span class="com">/* Creates new stacking context */</span>
+  <span class="com">/* Acts as reference for absolute children */</span>
+}
+
+<span class="com">/* ─── absolute ─── */</span>
+<span class="sel">.absolute</span> {
+  <span class="prop">position</span>: <span class="val">absolute</span>;
+  <span class="com">/* Removed from document flow */</span>
+  <span class="com">/* Positioned relative to nearest POSITIONED ancestor */</span>
+  <span class="com">/* (relative/absolute/fixed/sticky) */</span>
+  <span class="com">/* Falls back to &lt;html&gt; if none found */</span>
+  <span class="prop">top</span>: <span class="num">0</span>; <span class="prop">right</span>: <span class="num">0</span>;      <span class="com">/* top-right corner */</span>
+  <span class="prop">top</span>: <span class="num">50%</span>; <span class="prop">left</span>: <span class="num">50%</span>;
+  <span class="prop">transform</span>: <span class="tag">translate</span>(<span class="num">-50%</span>, <span class="num">-50%</span>); <span class="com">/* perfect center */</span>
+}
+
+<span class="com">/* ─── fixed ─── */</span>
+<span class="sel">.fixed</span> {
+  <span class="prop">position</span>: <span class="val">fixed</span>;
+  <span class="com">/* Positioned relative to the VIEWPORT */</span>
+  <span class="com">/* Stays in place during scroll */</span>
+  <span class="prop">top</span>: <span class="num">0</span>; <span class="prop">left</span>: <span class="num">0</span>; <span class="prop">right</span>: <span class="num">0</span>;  <span class="com">/* sticky header */</span>
+  <span class="prop">width</span>: <span class="num">100%</span>;
+}
+
+<span class="com">/* ─── sticky ─── */</span>
+<span class="sel">.sticky</span> {
+  <span class="prop">position</span>: <span class="val">sticky</span>;
+  <span class="com">/* Hybrid: relative until scroll threshold */</span>
+  <span class="com">/* Then acts like fixed within its parent */</span>
+  <span class="prop">top</span>: <span class="num">0</span>;  <span class="com">/* sticks when within 0px of top */</span>
+  <span class="com">/* PARENT must have scrollable overflow */</span>
+  <span class="com">/* Parent must not have overflow:hidden */</span>
+}</code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Positioning Demo</div>
+            <div class="demo-content">
+              <div class="pos-container">
+                <div class="pos-sticky-demo">position: sticky — scrolls with parent, then sticks</div>
+                <div style="padding:8px">
+                  <div class="pos-static">static (normal flow)</div>
+                  <div class="pos-relative">relative (offset 20px down, 20px right)</div>
+                </div>
+                <div class="pos-absolute">absolute (top-right)</div>
+              </div>
+              <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--text3)">
+                Tip: position:fixed is relative to viewport — ideal for nav bars &amp; toasts. position:sticky is relative to scroll parent.
+              </div>
+            </div>
+          </div>
+          <table class="attr-table" style="margin-top:12px;font-size:12px">
+            <tr><th>Value</th><th>In Flow?</th><th>Positioned Relative To</th></tr>
+            <tr><td><code>static</code></td><td>Yes</td><td>n/a (offsets ignored)</td></tr>
+            <tr><td><code>relative</code></td><td>Yes</td><td>Its own normal position</td></tr>
+            <tr><td><code>absolute</code></td><td>No</td><td>Nearest positioned ancestor</td></tr>
+            <tr><td><code>fixed</code></td><td>No</td><td>Viewport</td></tr>
+            <tr><td><code>sticky</code></td><td>Yes</td><td>Normal flow + scroll parent</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Z-INDEX ===== -->
+  <section class="topic-section" id="css-zindex">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Layout</span>
+      <h2>Z-Index &amp; Stacking Contexts</h2>
+      <p>The <code>z-index</code> property controls the stack order (depth) of positioned elements. A <strong>stacking context</strong> is a group of elements that share the same z-index space. Understanding when new stacking contexts are created is key to debugging z-index issues.</p>
+    </div>
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Z-Index</div></div>
+            <pre><code><span class="com">/* z-index only works on POSITIONED elements */</span>
+<span class="com">/* (relative, absolute, fixed, sticky) */</span>
+
+<span class="sel">.backdrop</span> { <span class="prop">position</span>: <span class="val">fixed</span>; <span class="prop">z-index</span>: <span class="num">100</span>; }
+<span class="sel">.modal</span>    { <span class="prop">position</span>: <span class="val">fixed</span>; <span class="prop">z-index</span>: <span class="num">200</span>; }
+<span class="sel">.tooltip</span>  { <span class="prop">position</span>: <span class="val">absolute</span>; <span class="prop">z-index</span>: <span class="num">300</span>; }
+
+<span class="com">/* Stacking context is created by: */</span>
+<span class="sel">.creates-context</span> {
+  <span class="com">/* 1. position + z-index ≠ auto */</span>
+  <span class="prop">position</span>: <span class="val">relative</span>; <span class="prop">z-index</span>: <span class="num">1</span>;
+
+  <span class="com">/* 2. opacity &lt; 1 */</span>
+  <span class="prop">opacity</span>: <span class="num">0.99</span>;
+
+  <span class="com">/* 3. transform */</span>
+  <span class="prop">transform</span>: <span class="tag">translateZ</span>(<span class="num">0</span>);
+
+  <span class="com">/* 4. filter */</span>
+  <span class="prop">filter</span>: <span class="tag">blur</span>(<span class="num">0px</span>);
+
+  <span class="com">/* 5. will-change: transform/opacity */</span>
+  <span class="prop">will-change</span>: <span class="val">transform</span>;
+
+  <span class="com">/* 6. isolation: isolate */</span>
+  <span class="prop">isolation</span>: <span class="val">isolate</span>; <span class="com">/* EXPLICIT isolation */</span>
+}
+
+<span class="com">/* Recommended z-index scale */</span>
+<span class="com">/* --z-base:    0    */</span>
+<span class="com">/* --z-dropdown: 100 */</span>
+<span class="com">/* --z-sticky:   200 */</span>
+<span class="com">/* --z-overlay:  300 */</span>
+<span class="com">/* --z-modal:    400 */</span>
+<span class="com">/* --z-toast:    500 */</span></code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Z-Index Demo</div>
+            <div class="demo-content">
+              <div class="z-demo">
+                <div class="z-box" style="background:rgba(240,165,0,0.2);border:2px solid var(--accent);top:0;left:0;z-index:1;color:var(--accent)">z:1</div>
+                <div class="z-box" style="background:rgba(120,169,255,0.25);border:2px solid var(--blue);top:20px;left:20px;z-index:3;color:var(--blue)">z:3</div>
+                <div class="z-box" style="background:rgba(190,149,255,0.25);border:2px solid var(--purple);top:40px;left:40px;z-index:2;color:var(--purple)">z:2</div>
+                <div class="z-box" style="background:rgba(111,220,140,0.25);border:2px solid var(--green);top:10px;left:110px;z-index:4;color:var(--green)">z:4 (top)</div>
+              </div>
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-top:8px">
+                ⚠️ A child's z-index can NEVER exceed its stacking context parent's z-index in the parent's sibling context.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DISPLAY & VISIBILITY ===== -->
+  <section class="topic-section" id="css-display">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Layout</span>
+      <h2>Display &amp; Visibility</h2>
+      <p>The <code>display</code> property is the most fundamental CSS layout property — it defines the display type of an element, controlling how it and its children participate in layout. <code>visibility</code> and <code>opacity</code> control whether an element is seen without removing it from layout.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Display &amp; Visibility</div></div>
+        <pre><code><span class="com">/* ─── DISPLAY VALUES ─── */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">block</span>; }       <span class="com">/* full width, new line */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">inline</span>; }      <span class="com">/* inline, no width/height */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">inline-block</span>; }<span class="com">/* inline + box model */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">flex</span>; }        <span class="com">/* flex container */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">inline-flex</span>; } <span class="com">/* inline flex container */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">grid</span>; }        <span class="com">/* grid container */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">inline-grid</span>; } <span class="com">/* inline grid container */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">table</span>; }       <span class="com">/* like &lt;table&gt; */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">table-cell</span>; }  <span class="com">/* like &lt;td&gt; */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">list-item</span>; }   <span class="com">/* like &lt;li&gt; */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">contents</span>; }    <span class="com">/* element disappears; children remain */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">none</span>; }        <span class="com">/* removes from flow entirely */</span>
+<span class="sel">.el</span> { <span class="prop">display</span>: <span class="val">flow-root</span>; }   <span class="com">/* creates BFC (block formatting context) */</span>
+
+<span class="com">/* ─── VISIBILITY ─── */</span>
+<span class="sel">.el</span> { <span class="prop">visibility</span>: <span class="val">visible</span>; }  <span class="com">/* default */</span>
+<span class="sel">.el</span> { <span class="prop">visibility</span>: <span class="val">hidden</span>; }   <span class="com">/* invisible but STILL takes up space */</span>
+<span class="sel">.el</span> { <span class="prop">visibility</span>: <span class="val">collapse</span>; } <span class="com">/* for tables: like hidden but collapses */</span>
+
+<span class="com">/* ─── OPACITY ─── */</span>
+<span class="sel">.el</span> { <span class="prop">opacity</span>: <span class="num">0</span>; }   <span class="com">/* invisible, still in flow, still interactive! */</span>
+<span class="sel">.el</span> { <span class="prop">opacity</span>: <span class="num">0.5</span>; } <span class="com">/* 50% transparent */</span>
+<span class="sel">.el</span> { <span class="prop">opacity</span>: <span class="num">1</span>; }   <span class="com">/* fully visible (default) */</span>
+
+<span class="com">/* ─── Comparison ─── */</span>
+<span class="com">/* display:none   — hidden, no space, no interaction */</span>
+<span class="com">/* visibility:hidden — hidden, KEEPS space, no interaction */</span>
+<span class="com">/* opacity:0      — hidden, KEEPS space, STILL interactive */</span>
+<span class="com">/* pointer-events:none — not interactive but visible */</span>
+<span class="sel">.el</span> { <span class="prop">pointer-events</span>: <span class="val">none</span>; }  <span class="com">/* click-through */</span></code></pre>
+          </div>
+    </div>
+  </section>
+
+  <!-- ===== OVERFLOW ===== -->
+  <section class="topic-section" id="css-overflow">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Layout</span>
+      <h2>Overflow</h2>
+      <p>The <code>overflow</code> property controls what happens when content exceeds its container's dimensions. It also creates a new block formatting context (BFC) and establishes a scrolling context.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Overflow</div></div>
+        <pre><code><span class="sel">.box</span> {
+  <span class="prop">overflow</span>: <span class="val">visible</span>;  <span class="com">/* default: content overflows box */</span>
+  <span class="prop">overflow</span>: <span class="val">hidden</span>;   <span class="com">/* clip overflow — no scroll */</span>
+  <span class="prop">overflow</span>: <span class="val">scroll</span>;   <span class="com">/* always show scrollbars */</span>
+  <span class="prop">overflow</span>: <span class="val">auto</span>;     <span class="com">/* scrollbars only when needed ✓ */</span>
+  <span class="prop">overflow</span>: <span class="val">clip</span>;     <span class="com">/* like hidden but no scroll formatting context */</span>
+
+  <span class="com">/* Axis-specific overflow */</span>
+  <span class="prop">overflow-x</span>: <span class="val">auto</span>;   <span class="com">/* horizontal scrolling */</span>
+  <span class="prop">overflow-y</span>: <span class="val">hidden</span>; <span class="com">/* hide vertical overflow */</span>
+
+  <span class="com">/* Text overflow */</span>
+  <span class="prop">white-space</span>: <span class="val">nowrap</span>;
+  <span class="prop">overflow</span>: <span class="val">hidden</span>;
+  <span class="prop">text-overflow</span>: <span class="val">ellipsis</span>;    <span class="com">/* "..." truncation */</span>
+  <span class="prop">text-overflow</span>: <span class="val">clip</span>;        <span class="com">/* hard cut */</span>
+  <span class="prop">text-overflow</span>: <span class="str">"— more"</span>;   <span class="com">/* custom string (Firefox) */</span>
+}
+
+<span class="com">/* Multi-line ellipsis (CSS3) */</span>
+<span class="sel">.clamp</span> {
+  <span class="prop">display</span>: <span class="val">-webkit-box</span>;
+  <span class="prop">-webkit-line-clamp</span>: <span class="num">3</span>;
+  <span class="prop">-webkit-box-orient</span>: <span class="val">vertical</span>;
+  <span class="prop">overflow</span>: <span class="val">hidden</span>;
+  <span class="com">/* → shows 3 lines then "..." */</span>
+}
+
+<span class="com">/* overflow:hidden = new BFC (useful patterns) */</span>
+<span class="sel">.clearfix</span> { <span class="prop">overflow</span>: <span class="val">hidden</span>; }    <span class="com">/* clear floats */</span>
+<span class="sel">.no-margin-collapse</span> { <span class="prop">overflow</span>: <span class="val">auto</span>; } <span class="com">/* prevent margin collapse */</span></code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">Overflow Demo</div>
+        <div class="demo-content">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-bottom:6px;letter-spacing:1px">overflow: visible</div>
+              <div class="overflow-box" style="overflow:visible;position:relative;z-index:1">This text will overflow and be visible outside the box boundaries if it is too long for the container</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-bottom:6px;letter-spacing:1px">overflow: hidden</div>
+              <div class="overflow-box" style="overflow:hidden">This text will be clipped and hidden if it overflows the box. No scrollbar, just a clean cut.</div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-bottom:6px;letter-spacing:1px">overflow: auto</div>
+              <div class="overflow-box" style="overflow:auto">This text creates a scrollable area when it overflows. Scrollbars appear only as needed. This is generally the best choice for most use cases in layouts.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OBJECT-FIT ===== -->
+  <section class="topic-section" id="css-objectfit">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Visual</span>
+      <h2>Object-Fit &amp; Aspect-Ratio</h2>
+      <p><code>object-fit</code> controls how replaced elements (<code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>) scale within their container box — similar to <code>background-size</code> for backgrounds. <code>aspect-ratio</code> maintains a proportional box without JavaScript.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Object-Fit &amp; Aspect Ratio</div></div>
+        <pre><code><span class="com">/* ─── object-fit ─── */</span>
+<span class="sel">img, video</span> {
+  <span class="prop">width</span>: <span class="num">100%</span>;
+  <span class="prop">height</span>: <span class="num">200px</span>;
+
+  <span class="prop">object-fit</span>: <span class="val">fill</span>;     <span class="com">/* default: stretch (distorts) */</span>
+  <span class="prop">object-fit</span>: <span class="val">contain</span>; <span class="com">/* scale to fit, letterboxed */</span>
+  <span class="prop">object-fit</span>: <span class="val">cover</span>;   <span class="com">/* fill, crop edges ✓ most common */</span>
+  <span class="prop">object-fit</span>: <span class="val">none</span>;    <span class="com">/* original size, may overflow */</span>
+  <span class="prop">object-fit</span>: <span class="val">scale-down</span>; <span class="com">/* smaller of none/contain */</span>
+
+  <span class="com">/* Position the focal point */</span>
+  <span class="prop">object-position</span>: <span class="val">center center</span>; <span class="com">/* default */</span>
+  <span class="prop">object-position</span>: <span class="val">top left</span>;
+  <span class="prop">object-position</span>: <span class="num">20% 80%</span>;      <span class="com">/* focus on bottom */</span>
+}
+
+<span class="com">/* ─── aspect-ratio ─── */</span>
+<span class="sel">.video-wrapper</span> {
+  <span class="prop">aspect-ratio</span>: <span class="num">16</span> / <span class="num">9</span>;   <span class="com">/* 16:9 video */</span>
+  <span class="prop">width</span>: <span class="num">100%</span>;
+}
+
+<span class="sel">.square</span> { <span class="prop">aspect-ratio</span>: <span class="num">1</span> / <span class="num">1</span>; }     <span class="com">/* always square */</span>
+<span class="sel">.golden</span> { <span class="prop">aspect-ratio</span>: <span class="num">1.618</span>; }    <span class="com">/* golden ratio */</span>
+
+<span class="com">/* aspect-ratio + min-height for responsive cards */</span>
+<span class="sel">.hero-img</span> {
+  <span class="prop">aspect-ratio</span>: <span class="num">21</span> / <span class="num">9</span>;
+  <span class="prop">min-height</span>: <span class="num">200px</span>;
+  <span class="prop">object-fit</span>: <span class="val">cover</span>;
+}</code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">object-fit Demo</div>
+        <div class="demo-content">
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end">
+            <div style="text-align:center">
+              <div class="obj-demo"><div class="obj-demo-inner" style="object-fit:fill;transform:scaleX(1.5) scaleY(0.6)"></div></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:4px">fill (distorts)</div>
+            </div>
+            <div style="text-align:center">
+              <div class="obj-demo" style="background:#111420"><div style="width:60%;height:60%;margin:auto;margin-top:10%;background:linear-gradient(45deg,#f0a500,#ff6b35,#be95ff,#78a9ff)"></div></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:4px">contain</div>
+            </div>
+            <div style="text-align:center">
+              <div class="obj-demo"><div class="obj-demo-inner"></div></div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:4px">cover ✓</div>
+            </div>
+            <div style="text-align:center">
+              <div style="aspect-ratio:16/9;width:160px;background:linear-gradient(90deg,#78a9ff,#be95ff);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;color:white">16 / 9</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:4px">aspect-ratio: 16/9</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FILTERS ===== -->
+  <section class="topic-section" id="css-filters">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Visual Effects</span>
+      <h2>CSS Filters</h2>
+      <p>The <code>filter</code> property applies visual effects to an element (like Photoshop filters, but in CSS). <code>backdrop-filter</code> applies the same effects to everything <em>behind</em> the element — enabling the frosted glass (glassmorphism) effect.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — filter &amp; backdrop-filter</div></div>
+        <pre><code><span class="sel">.element</span> {
+  <span class="com">/* ─── filter functions ─── */</span>
+  <span class="prop">filter</span>: <span class="fn">blur</span>(<span class="num">4px</span>);
+  <span class="prop">filter</span>: <span class="fn">brightness</span>(<span class="num">1.5</span>);    <span class="com">/* &gt;1 brighter, &lt;1 darker */</span>
+  <span class="prop">filter</span>: <span class="fn">contrast</span>(<span class="num">200%</span>);
+  <span class="prop">filter</span>: <span class="fn">grayscale</span>(<span class="num">100%</span>);   <span class="com">/* 0-100% */</span>
+  <span class="prop">filter</span>: <span class="fn">hue-rotate</span>(<span class="num">180deg</span>); <span class="com">/* 0-360deg */</span>
+  <span class="prop">filter</span>: <span class="fn">invert</span>(<span class="num">100%</span>);
+  <span class="prop">filter</span>: <span class="fn">opacity</span>(<span class="num">0.5</span>);       <span class="com">/* 0-1 (same as opacity prop) */</span>
+  <span class="prop">filter</span>: <span class="fn">saturate</span>(<span class="num">200%</span>);     <span class="com">/* &gt;100% more vivid */</span>
+  <span class="prop">filter</span>: <span class="fn">sepia</span>(<span class="num">100%</span>);
+  <span class="prop">filter</span>: <span class="fn">drop-shadow</span>(<span class="num">4px 4px 8px</span> <span class="val">rgba(0,0,0,0.5)</span>);
+  <span class="com">/* Note: drop-shadow follows the element SHAPE (not box) */</span>
+
+  <span class="com">/* Chain multiple filters */</span>
+  <span class="prop">filter</span>:
+    <span class="fn">brightness</span>(<span class="num">0.8</span>)
+    <span class="fn">contrast</span>(<span class="num">1.2</span>)
+    <span class="fn">saturate</span>(<span class="num">1.4</span>);
+
+  <span class="com">/* SVG filter reference */</span>
+  <span class="prop">filter</span>: <span class="fn">url</span>(<span class="val">#svgFilter</span>);
+}
+
+<span class="com">/* ─── backdrop-filter ─── */</span>
+<span class="sel">.glass-card</span> {
+  <span class="prop">background</span>: <span class="fn">rgba</span>(<span class="num">255, 255, 255, 0.1</span>);
+  <span class="prop">backdrop-filter</span>: <span class="fn">blur</span>(<span class="num">12px</span>) <span class="fn">saturate</span>(<span class="num">180%</span>);
+  <span class="prop">-webkit-backdrop-filter</span>: <span class="fn">blur</span>(<span class="num">12px</span>); <span class="com">/* Safari */</span>
+  <span class="prop">border</span>: <span class="num">1px</span> <span class="val">solid</span> <span class="fn">rgba</span>(<span class="num">255, 255, 255, 0.2</span>);
+  <span class="prop">border-radius</span>: <span class="num">16px</span>;
+}
+
+<span class="com">/* ─── Hover effects ─── */</span>
+<span class="sel">img</span> {
+  <span class="prop">filter</span>: <span class="fn">grayscale</span>(<span class="num">100%</span>);
+  <span class="prop">transition</span>: <span class="val">filter</span> <span class="num">0.4s</span> <span class="val">ease</span>;
+}
+<span class="sel">img:hover</span> {
+  <span class="prop">filter</span>: <span class="fn">grayscale</span>(<span class="num">0%</span>);  <span class="com">/* reveal color on hover */</span>
+}</code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">Live Filter Demo</div>
+        <div class="demo-content">
+          <div class="filter-grid">
+            <div class="filter-swatch">no filter</div>
+            <div class="filter-swatch" style="filter:blur(3px)">blur(3px)</div>
+            <div class="filter-swatch" style="filter:grayscale(100%)">grayscale (100%)</div>
+            <div class="filter-swatch" style="filter:sepia(100%)">sepia(100%)</div>
+            <div class="filter-swatch" style="filter:invert(100%)">invert(100%)</div>
+            <div class="filter-swatch" style="filter:brightness(1.8)">brightness (1.8)</div>
+            <div class="filter-swatch" style="filter:contrast(200%)">contrast(200%)</div>
+            <div class="filter-swatch" style="filter:hue-rotate(120deg)">hue-rotate (120deg)</div>
+            <div class="filter-swatch" style="filter:saturate(300%)">saturate(300%)</div>
+            <div class="filter-swatch" style="background:rgba(120,169,255,0.15);backdrop-filter:blur(8px) saturate(200%);border:1px solid rgba(120,169,255,0.3);color:var(--blue)">backdrop-filter glass</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLEND MODES ===== -->
+  <section class="topic-section" id="css-blend">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Visual Effects</span>
+      <h2>Blend Modes</h2>
+      <p>CSS blend modes determine how an element's colors blend with the colors behind it. <code>mix-blend-mode</code> blends with the background. <code>background-blend-mode</code> blends an element's multiple background layers together — analogous to Photoshop layer blending.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Blend Modes</div></div>
+        <pre><code><span class="sel">.element</span> {
+  <span class="com">/* Blends element with what's behind it in the page */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">normal</span>;       <span class="com">/* default — no blending */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">multiply</span>;     <span class="com">/* darkens: multiply colors */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">screen</span>;       <span class="com">/* lightens: inverse multiply */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">overlay</span>;      <span class="com">/* contrast: multiply+screen */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">darken</span>;       <span class="com">/* keep darker of each channel */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">lighten</span>;      <span class="com">/* keep lighter of each channel */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">color-dodge</span>;  <span class="com">/* brightens the backdrop */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">color-burn</span>;   <span class="com">/* darkens the backdrop */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">hard-light</span>;
+  <span class="prop">mix-blend-mode</span>: <span class="val">soft-light</span>;
+  <span class="prop">mix-blend-mode</span>: <span class="val">difference</span>;   <span class="com">/* subtracts — inverts on white */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">exclusion</span>;    <span class="com">/* like difference, lower contrast */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">hue</span>;
+  <span class="prop">mix-blend-mode</span>: <span class="val">saturation</span>;
+  <span class="prop">mix-blend-mode</span>: <span class="val">color</span>;        <span class="com">/* hue + saturation of src */</span>
+  <span class="prop">mix-blend-mode</span>: <span class="val">luminosity</span>;
+}
+
+<span class="sel">.multi-bg</span> {
+  <span class="com">/* Blends multiple background-image layers */</span>
+  <span class="prop">background</span>:
+    <span class="val">url('texture.png')</span>,
+    <span class="fn">linear-gradient</span>(<span class="num">135deg</span>, <span class="val">#f0a500</span>, <span class="val">#be95ff</span>);
+  <span class="prop">background-blend-mode</span>: <span class="val">overlay</span>;
+}
+
+<span class="com">/* ─── Practical: duotone effect ─── */</span>
+<span class="sel">.duotone</span> {
+  <span class="prop">filter</span>: <span class="fn">grayscale</span>(<span class="num">1</span>);
+  <span class="prop">background</span>: <span class="fn">linear-gradient</span>(<span class="val">#f0a500</span>, <span class="val">#be95ff</span>);
+}
+<span class="sel">.duotone img</span> { <span class="prop">mix-blend-mode</span>: <span class="val">multiply</span>; }</code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">Blend Mode Demos</div>
+        <div class="demo-content">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px">
+            <div><div class="blend-demo"><div class="blend-text" style="mix-blend-mode:overlay">CSS</div></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:4px;text-align:center">overlay</div></div>
+            <div><div class="blend-demo"><div class="blend-text" style="mix-blend-mode:difference">CSS</div></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:4px;text-align:center">difference</div></div>
+            <div><div class="blend-demo"><div class="blend-text" style="mix-blend-mode:multiply;color:black">CSS</div></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:4px;text-align:center">multiply</div></div>
+            <div><div class="blend-demo"><div class="blend-text" style="mix-blend-mode:screen">CSS</div></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:4px;text-align:center">screen</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CLIP PATH ===== -->
+  <section class="topic-section" id="css-clippath">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Visual Effects</span>
+      <h2>Clip-Path &amp; Shapes</h2>
+      <p>The <code>clip-path</code> property clips an element to a defined shape — only the area inside the shape is visible. It can create polygons, circles, ellipses, and even follow SVG paths. <code>shape-outside</code> makes inline content flow around custom shapes.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — clip-path</div></div>
+        <pre><code><span class="sel">.element</span> {
+  <span class="com">/* ─── Basic shapes ─── */</span>
+  <span class="prop">clip-path</span>: <span class="fn">circle</span>(<span class="num">50%</span>);           <span class="com">/* perfect circle */</span>
+  <span class="prop">clip-path</span>: <span class="fn">circle</span>(<span class="num">50px at 50% 50%</span>); <span class="com">/* radius + center */</span>
+  <span class="prop">clip-path</span>: <span class="fn">ellipse</span>(<span class="num">50% 30%</span>);
+  <span class="prop">clip-path</span>: <span class="fn">inset</span>(<span class="num">10px 20px</span> <span class="val">round 8px</span>); <span class="com">/* rect with rounding */</span>
+
+  <span class="com">/* ─── Polygon ─── */</span>
+  <span class="com">/* Points: x% y% pairs */</span>
+  <span class="prop">clip-path</span>: <span class="fn">polygon</span>(<span class="num">50% 0%, 100% 100%, 0% 100%</span>); <span class="com">/* triangle ▲ */</span>
+  <span class="prop">clip-path</span>: <span class="fn">polygon</span>(<span class="num">0 0, 100% 0, 100% 80%, 50% 100%, 0 80%</span>); <span class="com">/* arrow */</span>
+  <span class="prop">clip-path</span>: <span class="fn">polygon</span>(
+    <span class="num">25% 0%, 75% 0%,     <span class="com">/* top */</span>
+    100% 25%, 100% 75%, <span class="com">/* right */</span>
+    75% 100%, 25% 100%, <span class="com">/* bottom */</span>
+    0% 75%, 0% 25%      <span class="com">/* left: octagon */</span></span>
+  );
+
+  <span class="com">/* ─── SVG path ─── */</span>
+  <span class="prop">clip-path</span>: <span class="fn">path</span>(<span class="val">'M 0 0 L 100 0 L 50 100 Z'</span>);
+
+  <span class="com">/* ─── Animate clip-path! ─── */</span>
+  <span class="prop">transition</span>: <span class="val">clip-path</span> <span class="num">0.4s</span> <span class="val">ease</span>;
+}
+<span class="sel">.element:hover</span> {
+  <span class="prop">clip-path</span>: <span class="fn">polygon</span>(<span class="num">0 0, 100% 0, 100% 100%, 0 100%</span>); <span class="com">/* reveal rect */</span>
+}
+
+<span class="com">/* ─── shape-outside (text wrap) ─── */</span>
+<span class="sel">.float-shape</span> {
+  <span class="prop">float</span>: <span class="val">left</span>;
+  <span class="prop">shape-outside</span>: <span class="fn">circle</span>(<span class="num">50%</span>);
+  <span class="prop">clip-path</span>: <span class="fn">circle</span>(<span class="num">50%</span>); <span class="com">/* clip to match */</span>
+  <span class="prop">shape-margin</span>: <span class="num">16px</span>;   <span class="com">/* space between shape and text */</span>
+}</code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">clip-path Shapes Demo</div>
+        <div class="demo-content">
+          <div class="clip-grid">
+            <div style="text-align:center"><div class="clip-shape" style="clip-path:circle(50%)"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:6px">circle</div></div>
+            <div style="text-align:center"><div class="clip-shape" style="clip-path:polygon(50% 0%,100% 100%,0% 100%)"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:6px">triangle</div></div>
+            <div style="text-align:center"><div class="clip-shape" style="clip-path:polygon(0 0,100% 0,100% 80%,50% 100%,0 80%)"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:6px">arrow</div></div>
+            <div style="text-align:center"><div class="clip-shape" style="clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%)"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:6px">hexagon</div></div>
+            <div style="text-align:center"><div class="clip-shape" style="clip-path:inset(10px 10px round 20px)"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:6px">inset</div></div>
+            <div style="text-align:center"><div class="clip-shape" style="clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);margin-top:6px">star</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MULTI-COLUMN ===== -->
+  <section class="topic-section" id="css-columns">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Layout</span>
+      <h2>Multi-Column Layout</h2>
+      <p>CSS Multi-Column Layout flows content automatically into multiple columns, like a newspaper. The browser calculates how content splits across columns, handles column gaps, and can span elements across all columns.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Multi-Column</div></div>
+        <pre><code><span class="sel">.article</span> {
+  <span class="com">/* Fixed column count */</span>
+  <span class="prop">column-count</span>: <span class="num">3</span>;
+
+  <span class="com">/* Fluid columns: browser fits as many as possible */</span>
+  <span class="prop">column-width</span>: <span class="num">200px</span>;  <span class="com">/* minimum column width */</span>
+
+  <span class="com">/* Shorthand: count width (use one or both) */</span>
+  <span class="prop">columns</span>: <span class="num">3</span> <span class="num">200px</span>;
+
+  <span class="com">/* Gap between columns */</span>
+  <span class="prop">column-gap</span>: <span class="num">2rem</span>;
+
+  <span class="com">/* Decorative rule between columns */</span>
+  <span class="prop">column-rule</span>: <span class="num">1px</span> <span class="val">solid</span> <span class="val">#ccc</span>;
+  <span class="prop">column-rule-color</span>: <span class="val">#ccc</span>;
+  <span class="prop">column-rule-style</span>: <span class="val">dashed</span>;
+  <span class="prop">column-rule-width</span>: <span class="num">2px</span>;
+
+  <span class="com">/* Fill: balance columns evenly (default) or fill first */</span>
+  <span class="prop">column-fill</span>: <span class="val">balance</span>;  <span class="com">/* equal height columns */</span>
+  <span class="prop">column-fill</span>: <span class="val">auto</span>;     <span class="com">/* fill first column first */</span>
+}
+
+<span class="com">/* Element spans ALL columns */</span>
+<span class="sel">.full-width-heading</span> {
+  <span class="prop">column-span</span>: <span class="val">all</span>;    <span class="com">/* breaks out to full width */</span>
+  <span class="prop">column-span</span>: <span class="val">none</span>;   <span class="com">/* stays in its column */</span>
+}
+
+<span class="com">/* Control page/column breaks */</span>
+<span class="sel">.no-break</span> {
+  <span class="prop">break-inside</span>: <span class="val">avoid</span>;   <span class="com">/* don't break this element */</span>
+  <span class="prop">break-before</span>: <span class="val">column</span>;  <span class="com">/* force column break before */</span>
+  <span class="prop">break-after</span>: <span class="val">column</span>;   <span class="com">/* force column break after */</span>
+}</code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">Live Multi-Column Demo</div>
+        <div class="demo-content">
+          <div class="columns-demo">
+            <h4 style="column-span:all;font-family:var(--font-display);font-size:16px;color:var(--accent);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)">This heading spans all columns</h4>
+            The CSS Multi-column Layout Module enables content to flow across multiple columns, just like in a newspaper or magazine. The browser automatically handles how content is distributed. You control the number of columns, their widths, the gaps between them, and even add a decorative rule. It is particularly useful for long-form reading content, improving readability by shortening line lengths. Elements can span all columns when needed, and you have fine-grained control over where column breaks occur using break-inside and break-before properties.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SCROLL ===== -->
+  <section class="topic-section" id="css-scroll">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Scroll</span>
+      <h2>Scroll Behavior &amp; Scroll Snap</h2>
+      <p>CSS Scroll Snap creates snap points along a scrollable container, so scrolling always lands on defined positions — enabling carousels, slideshows, and section-by-section scrolling without JavaScript. <code>scroll-behavior: smooth</code> makes anchor link jumps animate instead of teleport.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Scroll Behavior &amp; Snap</div></div>
+        <pre><code><span class="com">/* ─── Smooth scrolling ─── */</span>
+<span class="sel">html</span> {
+  <span class="prop">scroll-behavior</span>: <span class="val">smooth</span>; <span class="com">/* animate anchor jumps */</span>
+}
+
+<span class="com">/* Respect user preference for reduced motion */</span>
+<span class="kw">@media</span> (<span class="prop">prefers-reduced-motion</span>: <span class="val">reduce</span>) {
+  <span class="sel">html</span> { <span class="prop">scroll-behavior</span>: <span class="val">auto</span>; }
+}
+
+<span class="com">/* scroll-margin: offset for fixed header */</span>
+<span class="sel">.section</span> {
+  <span class="prop">scroll-margin-top</span>: <span class="num">80px</span>; <span class="com">/* don't hide under fixed nav */</span>
+}
+
+<span class="com">/* scroll-padding: same but on container */</span>
+<span class="sel">html</span> { <span class="prop">scroll-padding-top</span>: <span class="num">80px</span>; }
+
+<span class="com">/* ─── Scroll Snap ─── */</span>
+
+<span class="com">/* CONTAINER */</span>
+<span class="sel">.carousel</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">overflow-x</span>: <span class="val">scroll</span>;
+
+  <span class="com">/* Enable snap on x axis */</span>
+  <span class="prop">scroll-snap-type</span>: <span class="val">x mandatory</span>;
+  <span class="com">/* mandatory: always snaps to nearest point */</span>
+  <span class="com">/* proximity: snaps if close enough (more gentle) */</span>
+  <span class="com">/* x|y|both: axis to snap on */</span>
+
+  <span class="prop">overscroll-behavior-x</span>: <span class="val">contain</span>; <span class="com">/* don't trigger parent scroll */</span>
+}
+
+<span class="com">/* ITEMS */</span>
+<span class="sel">.slide</span> {
+  <span class="prop">min-width</span>: <span class="num">100%</span>;  <span class="com">/* full-width slides */</span>
+  <span class="prop">scroll-snap-align</span>: <span class="val">start</span>;  <span class="com">/* snap to start | center | end */</span>
+  <span class="prop">scroll-snap-stop</span>: <span class="val">always</span>;  <span class="com">/* don't skip slides */</span>
+}
+
+<span class="com">/* ─── Full-page vertical snap ─── */</span>
+<span class="sel">.page-container</span> {
+  <span class="prop">height</span>: <span class="num">100vh</span>;
+  <span class="prop">overflow-y</span>: <span class="val">scroll</span>;
+  <span class="prop">scroll-snap-type</span>: <span class="val">y mandatory</span>;
+}
+<span class="sel">.page-section</span> {
+  <span class="prop">height</span>: <span class="num">100vh</span>;
+  <span class="prop">scroll-snap-align</span>: <span class="val">start</span>;
+}</code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">Scroll Snap Demo — drag / scroll horizontally</div>
+        <div class="demo-content">
+          <div class="snap-container">
+            <div class="snap-item" style="background:rgba(240,165,0,0.1);color:var(--accent)">Slide 1</div>
+            <div class="snap-item" style="background:rgba(120,169,255,0.1);color:var(--blue)">Slide 2</div>
+            <div class="snap-item" style="background:rgba(190,149,255,0.1);color:var(--purple)">Slide 3</div>
+            <div class="snap-item" style="background:rgba(111,220,140,0.1);color:var(--green)">Slide 4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COUNTERS ===== -->
+  <section class="topic-section" id="css-counters">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Content</span>
+      <h2>CSS Counters &amp; Generated Content</h2>
+      <p>CSS Counters let you number elements automatically using CSS alone. The <code>content</code> property (used in <code>::before</code> and <code>::after</code>) inserts generated text, symbols, counters, or attributes into the page without modifying the HTML.</p>
+    </div>
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Counters &amp; content</div></div>
+            <pre><code><span class="com">/* ─── CSS Counters ─── */</span>
+<span class="sel">ol.custom</span> {
+  <span class="com">/* Initialize counter */</span>
+  <span class="prop">counter-reset</span>: <span class="val">my-counter</span>;     <span class="com">/* starts at 0 */</span>
+  <span class="prop">counter-reset</span>: <span class="val">my-counter</span> <span class="num">5</span>;   <span class="com">/* starts at 5 */</span>
+  <span class="prop">list-style</span>: <span class="val">none</span>;
+}
+
+<span class="sel">ol.custom li</span> {
+  <span class="com">/* Increment by 1 each element */</span>
+  <span class="prop">counter-increment</span>: <span class="val">my-counter</span>;
+  <span class="prop">counter-increment</span>: <span class="val">my-counter</span> <span class="num">2</span>; <span class="com">/* increment by 2 */</span>
+}
+
+<span class="sel">ol.custom li::before</span> {
+  <span class="com">/* Display the counter */</span>
+  <span class="prop">content</span>: <span class="fn">counter</span>(<span class="val">my-counter</span>);  <span class="com">/* "1", "2", "3"... */</span>
+
+  <span class="com">/* Counter styles */</span>
+  <span class="prop">content</span>: <span class="fn">counter</span>(<span class="val">my-counter, decimal</span>);
+  <span class="prop">content</span>: <span class="fn">counter</span>(<span class="val">my-counter, upper-roman</span>);
+  <span class="prop">content</span>: <span class="fn">counter</span>(<span class="val">my-counter, lower-alpha</span>);
+
+  <span class="com">/* With surrounding text */</span>
+  <span class="prop">content</span>: <span class="fn">counter</span>(<span class="val">my-counter</span>) <span class="str">". "</span>;
+
+  <span class="com">/* Nested counters */</span>
+  <span class="prop">content</span>: <span class="fn">counters</span>(<span class="val">my-counter, "."</span>) <span class="str">" "</span>;
+  <span class="com">/* → 1.1  1.2  2.1  2.2 etc. */</span>
+}
+
+<span class="com">/* ─── content property ─── */</span>
+<span class="sel">.note::before</span> {
+  <span class="prop">content</span>: <span class="str">"📝 Note: "</span>;
+}
+<span class="sel">.external::after</span> {
+  <span class="prop">content</span>: <span class="str">" ↗"</span>;
+}
+<span class="com">/* Insert element's attribute value */</span>
+<span class="sel">a::after</span> {
+  <span class="prop">content</span>: <span class="str">" ("</span> <span class="fn">attr</span>(<span class="val">href</span>) <span class="str">")"</span>;
+}
+<span class="sel">abbr::after</span> {
+  <span class="prop">content</span>: <span class="str">" ["</span> <span class="fn">attr</span>(<span class="val">title</span>) <span class="str">"]"</span>;
+}
+<span class="com">/* content: none; removes generated content */</span>
+<span class="sel">.no-decoration::before</span> { <span class="prop">content</span>: <span class="val">none</span>; }</code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Counter Demo — Roman Numerals</div>
+            <div class="demo-content">
+              <ul class="counter-list">
+                <li>HTML5 Document Structure</li>
+                <li>CSS3 Selectors &amp; Cascade</li>
+                <li>Flexbox &amp; Grid Layout</li>
+                <li>CSS Animations &amp; Transitions</li>
+                <li>Web APIs &amp; Browser Platform</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MATH FUNCTIONS ===== -->
+  <section class="topic-section" id="css-math">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Functions</span>
+      <h2>CSS Math Functions</h2>
+      <p>CSS math functions allow responsive, constraint-based sizing directly in CSS — no JavaScript or media queries needed for many common responsive patterns. <code>clamp()</code>, <code>calc()</code>, <code>min()</code>, and <code>max()</code> are powerful tools for fluid typography and adaptive layouts.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — calc, clamp, min, max</div></div>
+        <pre><code><span class="com">/* ─── calc() ─── */</span>
+<span class="com">/* Mix units! Evaluated at runtime. */</span>
+<span class="sel">.sidebar</span> {
+  <span class="prop">width</span>: <span class="fn">calc</span>(<span class="num">100%</span> - <span class="num">280px</span>);        <span class="com">/* fill remaining space */</span>
+  <span class="prop">height</span>: <span class="fn">calc</span>(<span class="num">100vh</span> - <span class="num">60px</span>);       <span class="com">/* below 60px header */</span>
+  <span class="prop">padding</span>: <span class="fn">calc</span>(<span class="num">2rem</span> + <span class="num">5px</span>);
+  <span class="prop">font-size</span>: <span class="fn">calc</span>(<span class="num">1rem</span> * <span class="num">1.25</span>);
+  <span class="prop">margin-left</span>: <span class="fn">calc</span>(-<span class="num">1</span> * <span class="val">var</span>(--spacing));
+}
+
+<span class="com">/* ─── clamp(MIN, IDEAL, MAX) ─── */</span>
+<span class="com">/* Most powerful for fluid typography! */</span>
+<span class="sel">h1</span> {
+  <span class="com">/* min 24px, ideal 5vw, max 60px */</span>
+  <span class="prop">font-size</span>: <span class="fn">clamp</span>(<span class="num">24px</span>, <span class="num">5vw</span>, <span class="num">60px</span>);
+}
+
+<span class="sel">.container</span> {
+  <span class="prop">width</span>: <span class="fn">clamp</span>(<span class="num">320px</span>, <span class="num">90%</span>, <span class="num">1200px</span>);
+  <span class="com">/* never narrower than 320px, never wider than 1200px */</span>
+}
+
+<span class="sel">p</span> {
+  <span class="com">/* Fluid line height based on font size */</span>
+  <span class="prop">line-height</span>: <span class="fn">clamp</span>(<span class="num">1.3</span>, <span class="fn">calc</span>(<span class="num">1.3</span> + <span class="num">0.5vw</span>), <span class="num">1.8</span>);
+}
+
+<span class="com">/* ─── min(A, B) ─── */</span>
+<span class="com">/* Returns the SMALLEST value */</span>
+<span class="sel">.responsive</span> {
+  <span class="prop">width</span>: <span class="fn">min</span>(<span class="num">500px</span>, <span class="num">100%</span>); <span class="com">/* = max-width: 500px */</span>
+  <span class="prop">font-size</span>: <span class="fn">min</span>(<span class="num">3vw</span>, <span class="num">18px</span>);
+}
+
+<span class="com">/* ─── max(A, B) ─── */</span>
+<span class="com">/* Returns the LARGEST value */</span>
+<span class="sel">.minimum</span> {
+  <span class="prop">width</span>: <span class="fn">max</span>(<span class="num">300px</span>, <span class="num">50%</span>); <span class="com">/* = min-width: 300px */</span>
+  <span class="prop">padding</span>: <span class="fn">max</span>(<span class="num">12px</span>, <span class="num">2vw</span>);
+}
+
+<span class="com">/* ─── Combining functions ─── */</span>
+<span class="sel">.advanced</span> {
+  <span class="prop">font-size</span>: <span class="fn">clamp</span>(
+    <span class="num">1rem</span>,
+    <span class="fn">calc</span>(<span class="num">1rem</span> + <span class="num">1vw</span>),  <span class="com">/* fluid ideal */</span>
+    <span class="num">2rem</span>
+  );
+  <span class="prop">gap</span>: <span class="fn">clamp</span>(<span class="num">1rem</span>, <span class="num">3%</span>, <span class="num">2rem</span>);
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CSS UNITS ===== -->
+  <section class="topic-section" id="css-units">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Values</span>
+      <h2>CSS Units &amp; Values</h2>
+      <p>CSS has a rich set of length units divided into absolute (fixed) and relative (context-dependent) categories. Choosing the right unit is crucial for accessible, responsive, and maintainable layouts.</p>
+    </div>
+    <div class="subsection">
+      <h4>All CSS Length Units</h4>
+      <table class="attr-table">
+        <tr><th>Unit</th><th>Type</th><th>Relative To</th><th>Best For</th></tr>
+        <tr><td><code>px</code></td><td>Absolute</td><td>1/96th of 1 inch (CSS pixel)</td><td>Borders, shadows, fine-grained layout</td></tr>
+        <tr><td><code>pt</code></td><td>Absolute</td><td>1/72nd of 1 inch</td><td>Print stylesheets</td></tr>
+        <tr><td><code>cm</code> / <code>mm</code></td><td>Absolute</td><td>Physical centimeter/millimeter</td><td>Print stylesheets</td></tr>
+        <tr><td><code>em</code></td><td>Relative</td><td>Parent element's font-size</td><td>Padding, margin relative to text size</td></tr>
+        <tr><td><code>rem</code></td><td>Relative</td><td>Root element (<code>html</code>) font-size (16px default)</td><td>Font sizes, spacing — most recommended</td></tr>
+        <tr><td><code>%</code></td><td>Relative</td><td>Parent element's same property</td><td>Fluid widths, responsive layout</td></tr>
+        <tr><td><code>vw</code></td><td>Relative</td><td>1% of viewport width</td><td>Fluid typography, full-width sections</td></tr>
+        <tr><td><code>vh</code></td><td>Relative</td><td>1% of viewport height</td><td>Full-screen sections, hero areas</td></tr>
+        <tr><td><code>vmin</code></td><td>Relative</td><td>Smaller of vw/vh</td><td>Elements that fit in both orientations</td></tr>
+        <tr><td><code>vmax</code></td><td>Relative</td><td>Larger of vw/vh</td><td>Decorative responsive elements</td></tr>
+        <tr><td><code>svh</code> / <code>dvh</code></td><td>Relative</td><td>Small/dynamic viewport height (mobile)</td><td>Mobile full-screen, avoids URL-bar jump</td></tr>
+        <tr><td><code>cqw</code> / <code>cqh</code></td><td>Relative</td><td>Container query width/height</td><td>Component-based responsive design</td></tr>
+        <tr><td><code>fr</code></td><td>Fractional</td><td>Remaining space in grid container</td><td>CSS Grid columns and rows</td></tr>
+        <tr><td><code>ch</code></td><td>Relative</td><td>Width of "0" character in current font</td><td>Measure-based text containers</td></tr>
+        <tr><td><code>ex</code></td><td>Relative</td><td>Height of "x" character in current font</td><td>Fine typographic adjustments</td></tr>
+        <tr><td><code>lh</code></td><td>Relative</td><td>Element's computed line-height</td><td>Spacing relative to text line height</td></tr>
+      </table>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Unit Best Practices</div></div>
+        <pre><code><span class="sel">html</span> { <span class="prop">font-size</span>: <span class="num">16px</span>; }  <span class="com">/* or 62.5% for 10px base */</span>
+
+<span class="sel">body</span> {
+  <span class="prop">font-size</span>: <span class="num">1rem</span>;        <span class="com">/* = 16px, respects user settings */</span>
+  <span class="prop">line-height</span>: <span class="num">1.6</span>;       <span class="com">/* unitless: relative to own font */</span>
+}
+
+<span class="sel">h1</span> {
+  <span class="prop">font-size</span>: <span class="fn">clamp</span>(<span class="num">1.75rem</span>, <span class="num">4vw</span>, <span class="num">3.5rem</span>); <span class="com">/* fluid */</span>
+  <span class="prop">margin-bottom</span>: <span class="num">0.5em</span>;   <span class="com">/* relative to h1's own font-size */</span>
+}
+
+<span class="sel">.container</span> {
+  <span class="prop">max-width</span>: <span class="num">1200px</span>;
+  <span class="prop">padding</span>: <span class="num">0 1.5rem</span>;     <span class="com">/* rem: consistent across components */</span>
+  <span class="prop">margin</span>: <span class="num">0 auto</span>;
+}
+
+<span class="sel">.grid</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-template-columns</span>: <span class="num">1fr 2fr 1fr</span>; <span class="com">/* fr: grid fractions */</span>
+  <span class="prop">gap</span>: <span class="fn">clamp</span>(<span class="num">1rem</span>, <span class="num">3%</span>, <span class="num">2rem</span>);       <span class="com">/* fluid gap */</span>
+}
+
+<span class="sel">.hero</span> {
+  <span class="prop">min-height</span>: <span class="num">100svh</span>;   <span class="com">/* small viewport height = mobile safe */</span>
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== @supports @layer ===== -->
+  <section class="topic-section" id="css-at-rules">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · At-Rules</span>
+      <h2>@supports, @layer, @scope</h2>
+      <p>Modern CSS at-rules give you powerful tools for feature detection, managing style priority, and scoping styles to specific DOM subtrees — capabilities that previously required preprocessors or JavaScript.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — @supports, @layer, @scope</div></div>
+        <pre><code><span class="com">/* ─── @supports: feature detection ─── */</span>
+<span class="kw">@supports</span> (<span class="prop">display</span>: <span class="val">grid</span>) {
+  <span class="com">/* Only applies if grid is supported */</span>
+  <span class="sel">.layout</span> { <span class="prop">display</span>: <span class="val">grid</span>; }
+}
+
+<span class="kw">@supports not</span> (<span class="prop">display</span>: <span class="val">grid</span>) {
+  <span class="com">/* Fallback for older browsers */</span>
+  <span class="sel">.layout</span> { <span class="prop">display</span>: <span class="val">flex</span>; }
+}
+
+<span class="kw">@supports</span> (<span class="prop">backdrop-filter</span>: <span class="fn">blur</span>(<span class="num">1px</span>)) {
+  <span class="sel">.glass</span> { <span class="prop">backdrop-filter</span>: <span class="fn">blur</span>(<span class="num">10px</span>); }
+}
+
+<span class="kw">@supports</span> (<span class="prop">selector</span>(<span class="val">:has(a)</span>)) {
+  <span class="com">/* :has() pseudo-class is supported */</span>
+  <span class="sel">div:has(> img)</span> { <span class="prop">border</span>: <span class="num">2px</span> <span class="val">solid blue</span>; }
+}
+
+<span class="kw">@supports</span> (<span class="prop">color</span>: <span class="fn">oklch</span>(<span class="num">0 0 0</span>)) {
+  <span class="sel">:root</span> { <span class="prop">--primary</span>: <span class="fn">oklch</span>(<span class="num">0.7 0.2 60</span>); }
+}
+
+<span class="com">/* ─── @layer: cascade layers ─── */</span>
+<span class="com">/* Declare layer order (earlier = lower priority) */</span>
+<span class="kw">@layer</span> <span class="val">reset, base, components, utilities</span>;
+
+<span class="com">/* Styles in 'reset' layer — lowest priority */</span>
+<span class="kw">@layer</span> <span class="val">reset</span> {
+  <span class="sel">*</span> { <span class="prop">margin</span>: <span class="num">0</span>; <span class="prop">padding</span>: <span class="num">0</span>; }
+}
+
+<span class="com">/* Styles in 'base' layer */</span>
+<span class="kw">@layer</span> <span class="val">base</span> {
+  <span class="sel">body</span> { <span class="prop">font-family</span>: <span class="val">Georgia, serif</span>; }
+}
+
+<span class="com">/* 'utilities' layer overrides 'components' REGARDLESS of specificity */</span>
+<span class="kw">@layer</span> <span class="val">utilities</span> {
+  <span class="sel">.mt-4</span> { <span class="prop">margin-top</span>: <span class="num">1rem</span> <span class="val">!important</span>; }
+}
+
+<span class="com">/* Unlayered styles have highest priority */</span>
+<span class="sel">.override</span> { <span class="prop">color</span>: <span class="val">red</span>; } <span class="com">/* beats all layers */</span>
+
+<span class="com">/* ─── @scope (CSS 2023+) ─── */</span>
+<span class="kw">@scope</span> (<span class="sel">.card</span>) {
+  <span class="com">/* Styles only apply inside .card */</span>
+  <span class="sel">h2</span> { <span class="prop">color</span>: <span class="val">navy</span>; }   <span class="com">/* won't affect other h2s */</span>
+  <span class="sel">p</span>  { <span class="prop">color</span>: <span class="val">gray</span>; }
+}
+
+<span class="com">/* @scope with lower boundary */</span>
+<span class="kw">@scope</span> (<span class="sel">.card</span>) to (<span class="sel">.card-footer</span>) {
+  <span class="com">/* Only elements between .card and .card-footer */</span>
+  <span class="sel">a</span> { <span class="prop">color</span>: <span class="val">blue</span>; }
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOGICAL PROPERTIES ===== -->
+  <section class="topic-section" id="css-logical">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Logical</span>
+      <h2>CSS Logical Properties</h2>
+      <p>Logical properties replace physical directional properties (left/right/top/bottom) with writing-mode-relative equivalents (inline/block, start/end). They automatically adapt to RTL (right-to-left) languages and vertical writing modes — essential for truly international, multilingual layouts.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Logical Properties</div></div>
+        <pre><code><span class="com">/* Physical → Logical equivalents */</span>
+
+<span class="com">/* ─── Margin ─── */</span>
+<span class="com">/* margin-top     → */</span>  <span class="prop">margin-block-start</span>: <span class="num">1rem</span>;
+<span class="com">/* margin-bottom  → */</span>  <span class="prop">margin-block-end</span>: <span class="num">1rem</span>;
+<span class="com">/* margin-left    → */</span>  <span class="prop">margin-inline-start</span>: <span class="val">auto</span>;
+<span class="com">/* margin-right   → */</span>  <span class="prop">margin-inline-end</span>: <span class="val">auto</span>;
+<span class="com">/* margin: 0 auto → */</span>  <span class="prop">margin-inline</span>: <span class="val">auto</span>;
+                         <span class="prop">margin-block</span>: <span class="num">0</span>;
+
+<span class="com">/* ─── Padding ─── */</span>
+<span class="prop">padding-block</span>: <span class="num">16px</span>;          <span class="com">/* top + bottom */</span>
+<span class="prop">padding-inline</span>: <span class="num">24px</span>;         <span class="com">/* left + right (or right + left in RTL) */</span>
+<span class="prop">padding-block-start</span>: <span class="num">8px</span>;
+<span class="prop">padding-inline-end</span>: <span class="num">16px</span>;
+
+<span class="com">/* ─── Border ─── */</span>
+<span class="prop">border-block</span>: <span class="num">1px</span> <span class="val">solid</span> <span class="val">gray</span>;
+<span class="prop">border-inline-start</span>: <span class="num">3px</span> <span class="val">solid</span> <span class="val">blue</span>; <span class="com">/* left border in LTR, right in RTL */</span>
+
+<span class="com">/* ─── Size ─── */</span>
+<span class="com">/* width  → */</span>  <span class="prop">inline-size</span>: <span class="num">300px</span>;
+<span class="com">/* height → */</span>  <span class="prop">block-size</span>: <span class="num">200px</span>;
+                 <span class="prop">min-inline-size</span>: <span class="num">100px</span>;
+                 <span class="prop">max-block-size</span>: <span class="num">600px</span>;
+
+<span class="com">/* ─── Position ─── */</span>
+<span class="com">/* top    → */</span>  <span class="prop">inset-block-start</span>: <span class="num">0</span>;
+<span class="com">/* bottom → */</span>  <span class="prop">inset-block-end</span>: <span class="num">0</span>;
+<span class="com">/* left   → */</span>  <span class="prop">inset-inline-start</span>: <span class="num">0</span>;
+<span class="com">/* right  → */</span>  <span class="prop">inset-inline-end</span>: <span class="num">0</span>;
+<span class="com">/* inset shorthand: top right bottom left */</span>
+                 <span class="prop">inset</span>: <span class="num">0</span>;                <span class="com">/* all four sides */</span>
+
+<span class="com">/* ─── Text alignment ─── */</span>
+<span class="sel">[dir="rtl"]</span> <span class="sel">.card</span> {
+  <span class="prop">text-align</span>: <span class="val">start</span>;  <span class="com">/* = left in LTR, right in RTL */</span>
+  <span class="prop">text-align</span>: <span class="val">end</span>;    <span class="com">/* = right in LTR, left in RTL */</span>
+}</code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">Logical Properties Demo</div>
+        <div class="demo-content">
+          <div class="logical-demo">
+            This element uses <code style="color:var(--blue)">border-inline-start: 4px solid purple</code> instead of <code style="color:var(--text3)">border-left</code>. In a RTL layout (like Arabic), this border automatically moves to the right side. Logical properties make your CSS internationally aware.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SUBGRID ===== -->
+  <section class="topic-section" id="css-subgrid">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Grid</span>
+      <h2>CSS Subgrid</h2>
+      <p>Subgrid allows nested grid items to participate in their parent grid's track definition. Before subgrid, nested grids created independent track systems — items couldn't align across nested levels. Subgrid solves this for card-based layouts, forms, and complex multi-level designs.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Subgrid</div></div>
+        <pre><code><span class="com">/* ─── Parent grid ─── */</span>
+<span class="sel">.card-grid</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-template-columns</span>: <span class="tag">repeat</span>(<span class="num">3</span>, <span class="num">1fr</span>);
+  <span class="prop">grid-template-rows</span>: <span class="val">auto 1fr auto</span>;  <span class="com">/* header content footer */</span>
+  <span class="prop">gap</span>: <span class="num">20px</span>;
+}
+
+<span class="com">/* ─── Card uses subgrid ─── */</span>
+<span class="sel">.card</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="com">/* Inherit parent's ROW tracks — key! */</span>
+  <span class="prop">grid-row</span>: <span class="val">span 3</span>;       <span class="com">/* span 3 rows */</span>
+  <span class="prop">grid-template-rows</span>: <span class="val">subgrid</span>; <span class="com">/* use parent's rows! */</span>
+  <span class="com">/* Can subgrid columns too: */</span>
+  <span class="com">/* grid-template-columns: subgrid; */</span>
+}
+
+<span class="sel">.card-header</span> { } <span class="com">/* aligns with all other card headers */</span>
+<span class="sel">.card-body</span>   { } <span class="com">/* aligns and stretches to same height */</span>
+<span class="sel">.card-footer</span> { } <span class="com">/* always pinned at same baseline */</span>
+
+<span class="com">/* ─── Before subgrid (the problem) ─── */</span>
+<span class="com">/* Cards had independent row heights — footers never aligned */</span>
+
+<span class="com">/* ─── With subgrid (the solution) ─── */</span>
+<span class="com">/* All card footers align perfectly regardless of content height */</span>
+
+<span class="com">/* ─── Subgrid for form alignment ─── */</span>
+<span class="sel">.form-grid</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-template-columns</span>: <span class="val">auto 1fr</span>; <span class="com">/* label | input */</span>
+}
+<span class="sel">.form-group</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-column</span>: <span class="num">1 / -1</span>;            <span class="com">/* span all columns */</span>
+  <span class="prop">grid-template-columns</span>: <span class="val">subgrid</span>; <span class="com">/* inherit label | input columns */</span>
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PERFORMANCE ===== -->
+  <section class="topic-section" id="css-performance">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Performance</span>
+      <h2>CSS Performance &amp; will-change</h2>
+      <p>CSS performance matters especially for animations. The browser's rendering pipeline has several stages — certain CSS properties are GPU-accelerated and cheap, while others trigger expensive layout recalculations. Understanding this lets you write silky-smooth 60fps animations.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Performance Optimization</div></div>
+        <pre><code><span class="com">/* ─── The rendering pipeline ─── */</span>
+<span class="com">/* JavaScript → Style → Layout → Paint → Composite */</span>
+
+<span class="com">/* ─── COMPOSITE ONLY (GPU, ~0ms) ─── */</span>
+<span class="com">/* Only animate these for 60fps! */</span>
+<span class="sel">.fast</span> {
+  <span class="prop">transform</span>: <span class="tag">translateX</span>(<span class="num">100px</span>);  <span class="com">/* GPU composite ✓ */</span>
+  <span class="prop">opacity</span>: <span class="num">0.5</span>;                   <span class="com">/* GPU composite ✓ */</span>
+}
+
+<span class="com">/* ─── SKIP LAYOUT (Paint + Composite) ─── */</span>
+<span class="sel">.medium</span> {
+  <span class="prop">color</span>: <span class="val">red</span>;          <span class="com">/* triggers repaint, not layout */</span>
+  <span class="prop">background</span>: <span class="val">blue</span>;    <span class="com">/* triggers repaint, not layout */</span>
+  <span class="prop">box-shadow</span>: ...;
+  <span class="prop">border-radius</span>: ...;
+}
+
+<span class="com">/* ─── TRIGGERS LAYOUT (avoid animating!) ─── */</span>
+<span class="sel">.slow</span> {
+  <span class="com">/* These force full layout recalc = JANKY */</span>
+  <span class="prop">width</span>: <span class="val">auto</span>;
+  <span class="prop">height</span>: <span class="num">100px</span>;
+  <span class="prop">top</span>: <span class="num">0</span>;
+  <span class="prop">left</span>: <span class="num">0</span>;
+  <span class="prop">margin</span>: <span class="num">10px</span>;
+  <span class="prop">padding</span>: <span class="num">20px</span>;
+}
+
+<span class="com">/* ─── will-change ─── */</span>
+<span class="com">/* Promotes element to its own layer BEFORE animation */</span>
+<span class="sel">.animated-element</span> {
+  <span class="prop">will-change</span>: <span class="val">transform</span>;     <span class="com">/* hint to browser */</span>
+  <span class="prop">will-change</span>: <span class="val">opacity</span>;
+  <span class="prop">will-change</span>: <span class="val">transform, opacity</span>;
+
+  <span class="com">/* Remove after animation for memory! */</span>
+  <span class="prop">will-change</span>: <span class="val">auto</span>;  <span class="com">/* reset */</span>
+}
+
+<span class="com">/* ─── content-visibility (CSS 2020+) ─── */</span>
+<span class="sel">.lazy-section</span> {
+  <span class="com">/* Skip rendering off-screen sections */</span>
+  <span class="prop">content-visibility</span>: <span class="val">auto</span>;
+  <span class="prop">contain-intrinsic-size</span>: <span class="num">0 800px</span>; <span class="com">/* estimated height */</span>
+}
+
+<span class="com">/* ─── contain ─── */</span>
+<span class="sel">.card</span> {
+  <span class="prop">contain</span>: <span class="val">layout paint</span>;  <span class="com">/* isolate rendering effects */</span>
+  <span class="prop">contain</span>: <span class="val">strict</span>;        <span class="com">/* most isolation */</span>
+  <span class="prop">contain</span>: <span class="val">content</span>;       <span class="com">/* layout+paint+style */</span>
+}
+
+<span class="com">/* ─── GPU animation pattern ─── */</span>
+<span class="sel">.card:hover</span> {
+  <span class="com">/* ✗ Avoid: triggers layout */</span>
+  <span class="com">/* top: -5px; */</span>
+
+  <span class="com">/* ✓ Use transform instead */</span>
+  <span class="prop">transform</span>: <span class="tag">translateY</span>(-<span class="num">5px</span>) <span class="tag">scale</span>(<span class="num">1.02</span>);
+  <span class="prop">transition</span>: <span class="val">transform</span> <span class="num">0.2s</span> <span class="val">ease-out</span>;
+}</code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">Performance Demo — hover these cards</div>
+        <div class="demo-content">
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <div class="perf-box" style="background:rgba(240,165,0,0.08);border-color:var(--accent);color:var(--accent)">will-change: transform<br><span style="opacity:0.6;font-size:11px">GPU composite ✓</span></div>
+            <div class="perf-box" style="background:rgba(120,169,255,0.08);border-color:var(--blue);color:var(--blue)">transform + opacity<br><span style="opacity:0.6;font-size:11px">60fps smooth ✓</span></div>
+            <div class="perf-box" style="background:rgba(190,149,255,0.08);border-color:var(--purple);color:var(--purple)">contain: layout paint<br><span style="opacity:0.6;font-size:11px">isolated rendering ✓</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CUSTOM SCROLLBARS ===== -->
+  <section class="topic-section" id="css-custom-scrollbar">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Visual</span>
+      <h2>Custom Scrollbars</h2>
+      <p>CSS provides two approaches to custom scrollbars: the WebKit pseudo-elements (<code>::-webkit-scrollbar</code>) which work in Chrome, Safari, and Edge; and the standards-track <code>scrollbar-width</code> / <code>scrollbar-color</code> from the Scrollbars specification, supported by Firefox and modern browsers.</p>
+    </div>
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Custom Scrollbars</div></div>
+            <pre><code><span class="com">/* ─── Standards (Firefox + modern) ─── */</span>
+<span class="sel">.element</span> {
+  <span class="prop">scrollbar-width</span>: <span class="val">thin</span>;   <span class="com">/* auto | thin | none */</span>
+  <span class="prop">scrollbar-color</span>: <span class="val">#f0a500 #1a1e2a</span>; <span class="com">/* thumb track */</span>
+}
+
+<span class="com">/* ─── WebKit (Chrome, Safari, Edge) ─── */</span>
+<span class="sel">.element::-webkit-scrollbar</span> {
+  <span class="prop">width</span>: <span class="num">8px</span>;   <span class="com">/* vertical bar width */</span>
+  <span class="prop">height</span>: <span class="num">8px</span>; <span class="com">/* horizontal bar height */</span>
+}
+
+<span class="sel">.element::-webkit-scrollbar-track</span> {
+  <span class="prop">background</span>: <span class="val">#1a1e2a</span>;
+  <span class="prop">border-radius</span>: <span class="num">4px</span>;
+}
+
+<span class="sel">.element::-webkit-scrollbar-thumb</span> {
+  <span class="prop">background</span>: <span class="val">#f0a500</span>;
+  <span class="prop">border-radius</span>: <span class="num">4px</span>;
+  <span class="prop">border</span>: <span class="num">2px</span> <span class="val">solid</span> <span class="val">#1a1e2a</span>;  <span class="com">/* gap effect */</span>
+}
+
+<span class="sel">.element::-webkit-scrollbar-thumb:hover</span> {
+  <span class="prop">background</span>: <span class="val">#ffc107</span>;
+}
+
+<span class="sel">.element::-webkit-scrollbar-corner</span> {
+  <span class="prop">background</span>: <span class="val">transparent</span>;
+}
+
+<span class="com">/* ─── Overlay scrollbars (modern) ─── */</span>
+<span class="sel">.overlay</span> {
+  <span class="prop">overflow</span>: <span class="val">overlay</span>;  <span class="com">/* scroll overlaps content */</span>
+}
+
+<span class="com">/* ─── Hide scrollbar but keep scroll ─── */</span>
+<span class="sel">.hidden-scroll</span> {
+  <span class="prop">overflow-y</span>: <span class="val">scroll</span>;
+  <span class="prop">scrollbar-width</span>: <span class="val">none</span>; <span class="com">/* Firefox */</span>
+}
+<span class="sel">.hidden-scroll::-webkit-scrollbar</span> {
+  <span class="prop">display</span>: <span class="val">none</span>;  <span class="com">/* Chrome/Safari */</span>
+}</code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Scrollbar Demo</div>
+            <div class="demo-content">
+              <div style="height:120px;overflow-y:scroll;background:var(--surface);border-radius:4px;padding:12px;scrollbar-width:thin;scrollbar-color:#f0a500 #1a1e2a">
+                <style>.custom-scroll::-webkit-scrollbar{width:8px}.custom-scroll::-webkit-scrollbar-track{background:#1a1e2a;border-radius:4px}.custom-scroll::-webkit-scrollbar-thumb{background:#f0a500;border-radius:4px;border:2px solid #1a1e2a}.custom-scroll::-webkit-scrollbar-thumb:hover{background:#ffc107}</style>
+                <div class="custom-scroll" style="height:120px;overflow-y:scroll;background:var(--surface);border-radius:4px;padding:12px;scrollbar-width:thin;scrollbar-color:#f0a500 #1a1e2a">
+                  <p style="color:var(--text2);font-size:13px;font-family:var(--font-mono);line-height:1.8">Line 1: Custom gold scrollbar<br>Line 2: thin track + styled thumb<br>Line 3: Scroll me to see it<br>Line 4: Works in all major browsers<br>Line 5: WebKit + scrollbar-color API<br>Line 6: Hover to see color change<br>Line 7: More content below...<br>Line 8: Even more content...<br>Line 9: Keep scrolling!<br>Line 10: The end!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CSS NESTING ===== -->
+  <section class="topic-section" id="css-nesting">
+    <div class="section-header">
+      <span class="section-tag css">CSS · Modern</span>
+      <h2>Native CSS Nesting</h2>
+      <p>CSS now supports native nesting (previously only possible with Sass/Less). You can nest selectors directly inside their parent rules, reducing repetition and keeping related styles co-located. Supported in all modern browsers since 2023.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Native Nesting</div></div>
+        <pre><code><span class="com">/* ─── Basic nesting ─── */</span>
+<span class="sel">.card</span> {
+  <span class="prop">background</span>: <span class="val">white</span>;
+  <span class="prop">border-radius</span>: <span class="num">8px</span>;
+  <span class="prop">padding</span>: <span class="num">20px</span>;
+
+  <span class="com">/* Nested: .card h2 */</span>
+  <span class="sel">&amp; h2</span> {
+    <span class="prop">font-size</span>: <span class="num">1.5rem</span>;
+    <span class="prop">color</span>: <span class="val">navy</span>;
+  }
+
+  <span class="com">/* Nested: .card p */</span>
+  <span class="sel">&amp; p</span> { <span class="prop">color</span>: <span class="val">#666</span>; }
+
+  <span class="com">/* State: .card:hover */</span>
+  <span class="sel">&amp;:hover</span> {
+    <span class="prop">box-shadow</span>: <span class="num">0 4px 20px</span> <span class="val">rgba(0,0,0,0.1)</span>;
+    <span class="prop">transform</span>: <span class="tag">translateY</span>(-<span class="num">2px</span>);
+  }
+
+  <span class="com">/* Modifier: .card.featured */</span>
+  <span class="sel">&amp;.featured</span> {
+    <span class="prop">border-left</span>: <span class="num">4px</span> <span class="val">solid gold</span>;
+  }
+
+  <span class="com">/* Child combinator: .card &gt; .badge */</span>
+  <span class="sel">&amp; &gt; .badge</span> {
+    <span class="prop">position</span>: <span class="val">absolute</span>;
+    <span class="prop">top</span>: <span class="num">-8px</span>;
+  }
+
+  <span class="com">/* Adjacent: .card + .card */</span>
+  <span class="sel">&amp; + &amp;</span> {
+    <span class="prop">margin-top</span>: <span class="num">12px</span>;
+  }
+
+  <span class="com">/* Media query inside rule! */</span>
+  <span class="kw">@media</span> (<span class="prop">width</span> &gt;= <span class="num">768px</span>) {
+    <span class="prop">padding</span>: <span class="num">28px</span>;
+  }
+
+  <span class="com">/* Deeply nested */</span>
+  <span class="sel">&amp; .card-footer</span> {
+    <span class="prop">border-top</span>: <span class="num">1px</span> <span class="val">solid #eee</span>;
+
+    <span class="sel">&amp; button</span> {
+      <span class="prop">background</span>: <span class="val">gold</span>;
+    }
+  }
+}
+
+<span class="com">/* &amp; = the parent selector (not optional in some cases) */</span>
+<span class="com">/* Without &amp;, nested selectors must be compound/complex */</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SHADOW DOM STYLING ===== -->
+  <section class="topic-section" id="css-shadow">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Web Components</span>
+      <h2>Shadow DOM Styling</h2>
+      <p>Shadow DOM creates a scoped DOM tree with encapsulated styles. CSS inside a shadow root doesn't leak out, and external CSS can't easily style shadow elements. Special selectors and CSS custom properties (variables) provide controlled piercing and theming for web components.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Shadow DOM Selectors</div></div>
+        <pre><code><span class="com">/* ─── Inside shadow root ─── */</span>
+
+<span class="com">/* :host — styles the host element itself */</span>
+<span class="sel">:host</span> {
+  <span class="prop">display</span>: <span class="val">block</span>;
+  <span class="prop">font-family</span>: <span class="val">Georgia, serif</span>;
+}
+
+<span class="com">/* :host with condition */</span>
+<span class="sel">:host(.featured)</span> {
+  <span class="prop">border</span>: <span class="num">2px</span> <span class="val">solid gold</span>;
+}
+
+<span class="com">/* :host-context — based on ancestor outside shadow */</span>
+<span class="sel">:host-context([data-theme="dark"])</span> {
+  <span class="prop">background</span>: <span class="val">#111</span>;
+  <span class="prop">color</span>: <span class="val">#fff</span>;
+}
+
+<span class="com">/* ::slotted — style slotted (light DOM) content */</span>
+<span class="sel">::slotted(p)</span> {
+  <span class="prop">color</span>: <span class="val">blue</span>;
+  <span class="prop">font-style</span>: <span class="val">italic</span>;
+}
+<span class="sel">::slotted(*)</span> { <span class="prop">outline</span>: <span class="num">2px</span> <span class="val">solid red</span>; }
+
+<span class="com">/* ─── Outside shadow root ─── */</span>
+
+<span class="com">/* CSS variables CROSS the shadow boundary! */</span>
+<span class="sel">my-component</span> {
+  <span class="prop">--primary-color</span>: <span class="val">#ff6b35</span>;  <span class="com">/* flows into shadow */</span>
+  <span class="prop">--font-size</span>: <span class="num">1.2rem</span>;
+}
+
+<span class="com">/* Inside shadow: consume custom properties */</span>
+<span class="com">/* :host { color: var(--primary-color, defaultValue); } */</span>
+
+<span class="com">/* CSS Parts API — explicit style hooks */</span>
+<span class="com">/* Shadow DOM exposes: */</span>
+<span class="com">/* &lt;div part="button"&gt; ... */</span>
+
+<span class="com">/* External can target part: */</span>
+<span class="sel">my-component::part(button)</span> {
+  <span class="prop">background</span>: <span class="val">gold</span>;
+  <span class="prop">padding</span>: <span class="num">8px 16px</span>;
+}
+<span class="sel">my-component::part(button):hover</span> {
+  <span class="prop">background</span>: <span class="val">orange</span>;
+}
+
+<span class="com">/* @property — typed custom properties */</span>
+<span class="kw">@property</span> <span class="val">--rotation</span> {
+  <span class="prop">syntax</span>: <span class="str">'&lt;angle&gt;'</span>;
+  <span class="prop">inherits</span>: <span class="kw">false</span>;
+  <span class="prop">initial-value</span>: <span class="num">0deg</span>;
+}
+<span class="com">/* Enables animating custom properties! */</span>
+<span class="kw">@keyframes</span> <span class="val">spin</span> {
+  <span class="val">to</span> { <span class="prop">--rotation</span>: <span class="num">360deg</span>; }
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL BONUS: THE COMPLETE RESET ===== -->
+  <section class="topic-section" id="css-reset">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Best Practices</span>
+      <h2>The Modern CSS Reset</h2>
+      <p>A CSS reset removes inconsistent browser default styles. The modern approach is minimal and opinionated — not a destructive nuclear reset, but a carefully considered baseline that preserves useful defaults while eliminating the problematic ones.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Modern Reset (2024)</div></div>
+        <pre><code><span class="com">/* Modern CSS Reset — safe and minimal */</span>
+
+<span class="com">/* ─── Box model ─── */</span>
+<span class="sel">*, *::before, *::after</span> {
+  <span class="prop">box-sizing</span>: <span class="val">border-box</span>;
+}
+
+<span class="com">/* ─── Reset default margins ─── */</span>
+<span class="sel">*</span> { <span class="prop">margin</span>: <span class="num">0</span>; }
+
+<span class="com">/* ─── Smooth text rendering ─── */</span>
+<span class="sel">body</span> {
+  <span class="prop">-webkit-font-smoothing</span>: <span class="val">antialiased</span>;
+  <span class="prop">line-height</span>: <span class="num">1.5</span>;
+}
+
+<span class="com">/* ─── Images, video, canvas ─── */</span>
+<span class="sel">img, picture, video, canvas, svg</span> {
+  <span class="prop">display</span>: <span class="val">block</span>;
+  <span class="prop">max-width</span>: <span class="num">100%</span>;
+}
+
+<span class="com">/* ─── Input typography ─── */</span>
+<span class="sel">input, button, textarea, select</span> {
+  <span class="prop">font</span>: <span class="val">inherit</span>;
+}
+
+<span class="com">/* ─── Text overflow ─── */</span>
+<span class="sel">p, h1, h2, h3, h4, h5, h6</span> {
+  <span class="prop">overflow-wrap</span>: <span class="val">break-word</span>;
+}
+
+<span class="com">/* ─── Heading font-size reset ─── */</span>
+<span class="sel">h1, h2, h3, h4, h5, h6</span> {
+  <span class="prop">font-size</span>: <span class="val">inherit</span>;
+  <span class="prop">font-weight</span>: <span class="val">inherit</span>;
+}
+
+<span class="com">/* ─── List style ─── */</span>
+<span class="sel">ul[class], ol[class]</span> {
+  <span class="prop">list-style</span>: <span class="val">none</span>;
+  <span class="prop">padding</span>: <span class="num">0</span>;
+}
+
+<span class="com">/* ─── Stacking context ─── */</span>
+<span class="sel">#root, #__next</span> {
+  <span class="prop">isolation</span>: <span class="val">isolate</span>;
+}
+
+<span class="com">/* ─── Improve focus visibility ─── */</span>
+<span class="sel">:focus-visible</span> {
+  <span class="prop">outline</span>: <span class="num">3px</span> <span class="val">solid</span> <span class="val">currentColor</span>;
+  <span class="prop">outline-offset</span>: <span class="num">3px</span>;
+}
+<span class="sel">:focus:not(:focus-visible)</span> {
+  <span class="prop">outline</span>: <span class="val">none</span>;
+}
+
+<span class="com">/* ─── Reduce motion ─── */</span>
+<span class="kw">@media</span> (<span class="prop">prefers-reduced-motion</span>: <span class="val">reduce</span>) {
+  <span class="sel">*, *::before, *::after</span> {
+    <span class="prop">animation-duration</span>: <span class="num">0.01ms</span> <span class="val">!important</span>;
+    <span class="prop">animation-iteration-count</span>: <span class="num">1</span> <span class="val">!important</span>;
+    <span class="prop">transition-duration</span>: <span class="num">0.01ms</span> <span class="val">!important</span>;
+    <span class="prop">scroll-behavior</span>: <span class="val">auto</span> <span class="val">!important</span>;
+  }
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <strong>HTML &amp; CSS Mastery — Part II</strong><br>
+    All major HTML5 APIs + advanced CSS3 modules · Up to date for 2026<br>
+    <span style="margin-top:8px;display:block">Chapter 3: Web Storage · Geolocation · Workers · WebSockets · History · Data Attributes · ARIA · Dialog · Template · Web Components · Observers · Fetch</span>
+    <span style="display:block;margin-top:4px">Chapter 4: Positioning · Z-Index · Display · Overflow · object-fit · Filters · Blend Modes · Clip-Path · Columns · Scroll Snap · Counters · Math Functions · Units · @layer · Logical Properties · Subgrid · Performance · Scrollbars · Nesting · Shadow DOM</span>
+  </footer>
+
+</div><!-- /#main -->
+
+<!-- Back to top -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<script>
+  // ─── Back to top ───
+  window.addEventListener('scroll', () => {
+    document.getElementById('btt').classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // ─── Web Storage Demo ───
+  function storageSet() {
+    const k = document.getElementById('s-key').value.trim();
+    const v = document.getElementById('s-val').value.trim();
+    if (!k) return;
+    localStorage.setItem(k, v);
+    document.getElementById('storage-output').textContent = `✓ SET "${k}" = "${v}"`;
+    document.getElementById('storage-output').style.color = 'var(--green)';
+  }
+  function storageGet() {
+    const k = document.getElementById('s-key').value.trim();
+    const v = localStorage.getItem(k);
+    const out = document.getElementById('storage-output');
+    if (v === null) {
+      out.textContent = `✗ Key "${k}" not found`;
+      out.style.color = 'var(--red)';
+    } else {
+      out.textContent = `→ "${k}" = "${v}"`;
+      out.style.color = 'var(--blue)';
+    }
+  }
+  function storageDel() {
+    const k = document.getElementById('s-key').value.trim();
+    localStorage.removeItem(k);
+    document.getElementById('storage-output').textContent = `✓ Deleted "${k}"`;
+    document.getElementById('storage-output').style.color = 'var(--accent2)';
+  }
+  function storageClear() {
+    localStorage.clear();
+    document.getElementById('storage-output').textContent = '✓ localStorage cleared';
+    document.getElementById('storage-output').style.color = 'var(--text3)';
+  }
+  function storageList() {
+    const items = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      items.push(`"${k}": "${localStorage.getItem(k)}"`);
+    }
+    const out = document.getElementById('storage-output');
+    if (items.length === 0) {
+      out.textContent = '(localStorage is empty)';
+      out.style.color = 'var(--text3)';
+    } else {
+      out.textContent = items.join(' | ');
+      out.style.color = 'var(--green)';
+    }
+  }
+
+  // ─── Active nav scrollspy ───
+  const sections = document.querySelectorAll('.topic-section[id]');
+  const navLinks = document.querySelectorAll('#sidebar a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`#sidebar a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,3332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML & CSS Mastery — Complete Reference Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ===== CSS VARIABLES ===== */
+  :root {
+    --bg: #0d0f14;
+    --bg2: #13161e;
+    --bg3: #1a1e2a;
+    --surface: #1e2330;
+    --surface2: #252a38;
+    --border: #2e3447;
+    --accent: #f0a500;
+    --accent2: #ff6b35;
+    --accent3: #4ecdc4;
+    --text: #e8eaf0;
+    --text2: #9aa0b8;
+    --text3: #6b7290;
+    --code-bg: #111420;
+    --green: #6fdc8c;
+    --blue: #78a9ff;
+    --purple: #be95ff;
+    --red: #ff8389;
+    --yellow: #f1c21b;
+    --sidebar-w: 280px;
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Lora', serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.8;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  /* ===== SIDEBAR ===== */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+  }
+
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-logo h1 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .sidebar-logo span {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .nav-section {
+    padding: 16px 0 8px;
+  }
+
+  .nav-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    padding: 0 24px 8px;
+    display: block;
+  }
+
+  .nav-section a {
+    display: block;
+    padding: 8px 24px;
+    color: var(--text2);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+    line-height: 1.4;
+  }
+
+  .nav-section a:hover {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: rgba(240,165,0,0.04);
+    padding-left: 28px;
+  }
+
+  .nav-section a.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: rgba(240,165,0,0.06);
+  }
+
+  .nav-html .nav-label { color: #78a9ff; }
+  .nav-css .nav-label { color: #be95ff; }
+
+  .nav-html a:hover, .nav-html a.active {
+    color: var(--blue);
+    border-left-color: var(--blue);
+    background: rgba(120,169,255,0.04);
+  }
+
+  .nav-css a:hover, .nav-css a.active {
+    color: var(--purple);
+    border-left-color: var(--purple);
+    background: rgba(190,149,255,0.04);
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  #main {
+    flex: 1;
+    max-width: calc(100vw - var(--sidebar-w));
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 80px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(240,165,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  #hero::after {
+    content: '</html>';
+    position: absolute;
+    bottom: 20px; right: 40px;
+    font-family: var(--font-mono);
+    font-size: 80px;
+    color: rgba(255,255,255,0.02);
+    font-weight: 500;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(240,165,0,0.12);
+    border: 1px solid rgba(240,165,0,0.3);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  #hero h1 {
+    font-family: var(--font-display);
+    font-size: 58px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  #hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  #hero p {
+    font-size: 17px;
+    color: var(--text2);
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  .stat {
+    text-align: left;
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* ===== SECTION WRAPPER ===== */
+  .topic-section {
+    padding: 60px 80px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .topic-section:last-child { border-bottom: none; }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .section-tag.html { color: var(--blue); }
+  .section-tag.css { color: var(--purple); }
+
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  .section-header p {
+    color: var(--text2);
+    font-size: 15.5px;
+    max-width: 700px;
+    line-height: 1.75;
+  }
+
+  /* ===== SUBSECTIONS ===== */
+  .subsection {
+    margin-bottom: 48px;
+  }
+
+  .subsection h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .subsection h3 .tag-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: var(--surface);
+    color: var(--blue);
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-weight: 400;
+  }
+
+  .subsection h4 {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--accent);
+    margin: 20px 0 8px;
+    font-weight: 500;
+  }
+
+  .subsection p {
+    color: var(--text2);
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  .subsection ul, .subsection ol {
+    color: var(--text2);
+    font-size: 15px;
+    padding-left: 20px;
+    margin-bottom: 14px;
+    line-height: 1.8;
+  }
+
+  .subsection ul li::marker { color: var(--accent); }
+
+  /* ===== CODE BLOCKS ===== */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin: 16px 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .code-header {
+    background: var(--surface);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-lang {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .code-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .code-dots span {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .code-dots span:nth-child(1) { background: #ff5f57; }
+  .code-dots span:nth-child(2) { background: #febc2e; }
+  .code-dots span:nth-child(3) { background: #28c840; }
+
+  .code-block pre {
+    padding: 20px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .code-block pre code { font-family: inherit; }
+
+  /* Syntax colors */
+  .t { color: var(--text2); }
+  .tag { color: var(--blue); }
+  .attr { color: var(--green); }
+  .val { color: var(--yellow); }
+  .com { color: var(--text3); font-style: italic; }
+  .kw { color: var(--purple); }
+  .prop { color: var(--blue); }
+  .num { color: var(--accent2); }
+  .str { color: var(--yellow); }
+  .sel { color: var(--green); }
+
+  /* ===== DEMO BOXES ===== */
+  .demo-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+
+  .demo-header {
+    background: var(--surface);
+    padding: 8px 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .demo-header::before {
+    content: '▶';
+    color: var(--green);
+    font-size: 9px;
+  }
+
+  .demo-content {
+    padding: 24px;
+  }
+
+  /* ===== INFO CALLOUTS ===== */
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: rgba(240,165,0,0.05);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .callout.info { border-color: var(--blue); background: rgba(120,169,255,0.05); }
+  .callout.tip { border-color: var(--green); background: rgba(111,220,140,0.05); }
+  .callout.warn { border-color: var(--accent2); background: rgba(255,107,53,0.05); }
+
+  .callout-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .callout.info .callout-title { color: var(--blue); }
+  .callout.tip .callout-title { color: var(--green); }
+  .callout.warn .callout-title { color: var(--accent2); }
+
+  .callout p {
+    font-size: 14px;
+    color: var(--text2);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  /* ===== ATTRIBUTE TABLES ===== */
+  .attr-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+
+  .attr-table th {
+    background: var(--surface);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 14px;
+    text-align: left;
+    border: 1px solid var(--border);
+  }
+
+  .attr-table td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .attr-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+  .attr-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+  .attr-table td code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--blue);
+    background: var(--surface);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  /* ===== INLINE CODE ===== */
+  code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--blue);
+    background: var(--surface);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  /* ===== GRID LAYOUTS ===== */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 16px 0;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  /* ===== LIVE DEMO STYLES ===== */
+
+  /* HTML Table Demo */
+  .demo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    font-family: var(--font-mono);
+  }
+
+  .demo-table th {
+    background: linear-gradient(135deg, #1e3a5f, #2d5282);
+    color: #90cdf4;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid #2b4c7e;
+  }
+
+  .demo-table td {
+    padding: 9px 14px;
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .demo-table tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+  .demo-table tr:hover td { background: rgba(255,255,255,0.06); transition: background 0.15s; }
+
+  .demo-table caption {
+    caption-side: top;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    padding: 0 0 8px;
+    text-align: left;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* List demos */
+  .demo-list-ol { list-style: decimal; padding-left: 24px; color: var(--text2); font-size: 15px; }
+  .demo-list-ul { list-style: disc; padding-left: 24px; color: var(--text2); font-size: 15px; }
+  .demo-list-dl dt { font-family: var(--font-mono); font-size: 13px; color: var(--blue); font-weight: 500; margin-top: 10px; }
+  .demo-list-dl dd { color: var(--text2); font-size: 14px; padding-left: 16px; border-left: 2px solid var(--border); margin: 4px 0 0 4px; }
+
+  /* Form controls */
+  .demo-form-group { margin-bottom: 14px; }
+  .demo-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text3);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .demo-input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .demo-input:focus { border-color: var(--blue); box-shadow: 0 0 0 2px rgba(120,169,255,0.15); }
+
+  .demo-btn {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .demo-btn:hover { background: #ffc107; }
+
+  /* Semantic layout demo */
+  .semantic-demo {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 13px;
+    font-family: var(--font-mono);
+  }
+
+  .sem-header { background: rgba(120,169,255,0.12); border-bottom: 1px solid var(--border); padding: 10px 14px; color: var(--blue); }
+  .sem-nav { background: rgba(111,220,140,0.08); border-bottom: 1px solid var(--border); padding: 8px 14px; color: var(--green); font-size: 12px; }
+  .sem-body { display: flex; min-height: 80px; }
+  .sem-main { background: rgba(190,149,255,0.06); flex: 1; padding: 10px 14px; color: var(--purple); border-right: 1px solid var(--border); }
+  .sem-aside { background: rgba(240,165,0,0.06); width: 120px; padding: 10px 14px; color: var(--accent); font-size: 11px; }
+  .sem-footer { background: rgba(255,131,137,0.08); border-top: 1px solid var(--border); padding: 8px 14px; color: var(--red); font-size: 12px; }
+
+  /* Drag and drop demo */
+  #drag-container {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .drag-item {
+    background: linear-gradient(135deg, var(--surface), var(--surface2));
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 20px;
+    cursor: grab;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text);
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .drag-item:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(120,169,255,0.15); }
+  .drag-item:active { cursor: grabbing; }
+  .drag-item.dragging { opacity: 0.5; }
+
+  #drop-zone {
+    min-height: 80px;
+    min-width: 200px;
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text3);
+    transition: all 0.2s;
+    padding: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1;
+  }
+
+  #drop-zone.dragover {
+    border-color: var(--blue);
+    background: rgba(120,169,255,0.05);
+    color: var(--blue);
+  }
+
+  /* Canvas styles */
+  #myCanvas {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: block;
+  }
+
+  /* Progress bars */
+  .bg-demo-row { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
+  .bg-swatch { width: 48px; height: 48px; border-radius: 4px; border: 1px solid var(--border); flex-shrink: 0; }
+
+  /* CSS inheritance demo */
+  .inherit-parent {
+    border: 1px solid var(--blue);
+    padding: 16px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    color: var(--blue);
+    font-size: 14px;
+  }
+
+  .inherit-child {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid var(--green);
+    border-radius: 4px;
+    color: var(--green);
+    font-size: 12px;
+  }
+
+  /* CSS cascade demo */
+  .cascade-el {
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    margin: 6px 0;
+    border: 1px solid var(--border);
+  }
+
+  /* border-image demo swatches */
+  .border-img-demo {
+    padding: 20px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text3);
+    margin: 8px 0;
+  }
+
+  /* SVG colors inside demo */
+  .demo-content svg text { font-family: var(--font-mono); }
+
+  /* ===== CHAPTER DIVIDERS ===== */
+  .chapter-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 80px;
+    margin: 0;
+    background: var(--bg);
+  }
+
+  .chapter-divider-inner {
+    background: var(--bg2);
+    border-top: 3px solid var(--blue);
+    padding: 24px 80px;
+  }
+
+  .chapter-divider-inner.css-chapter { border-top-color: var(--purple); }
+
+  .chapter-title {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    color: var(--text);
+  }
+
+  .chapter-title span { color: var(--blue); }
+  .chapter-title.css-title span { color: var(--purple); }
+  .chapter-subtitle {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text3);
+    margin-top: 6px;
+  }
+
+  /* ===== FOOTER ===== */
+  #footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 40px 80px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text3);
+    text-align: center;
+  }
+
+  #footer strong { color: var(--accent); }
+
+  /* ===== SCROLLSPY ===== */
+  .topic-section { position: relative; }
+
+  /* Responsive tweaks */
+  @media (max-width: 1100px) {
+    #sidebar { display: none; }
+    #main { max-width: 100vw; }
+    .topic-section { padding: 40px 32px; }
+    #hero { padding: 50px 32px; }
+    #hero h1 { font-size: 40px; }
+    .two-col { grid-template-columns: 1fr; }
+    .three-col { grid-template-columns: 1fr 1fr; }
+    .chapter-divider-inner { padding: 20px 32px; }
+  }
+
+  /* ===== BACK TO TOP ===== */
+  #btt {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 999;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+
+  #btt.visible { opacity: 1; }
+  #btt:hover { background: #ffc107; transform: translateY(-2px); }
+
+  /* ===== INPUT TYPES GRID ===== */
+  .input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 12px 0;
+  }
+
+  .input-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text2);
+  }
+
+  .input-chip strong { color: var(--blue); display: block; margin-bottom: 3px; font-size: 13px; }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+
+  .tab-btn {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 8px 18px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text3);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+
+  .tab-btn.active, .tab-btn:hover {
+    color: var(--blue);
+    border-bottom-color: var(--blue);
+  }
+
+  .tab-panel { display: none; padding: 16px 0 0; }
+  .tab-panel.active { display: block; }
+</style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <h1>HTML &amp; CSS<br>Mastery</h1>
+    <span>Complete Reference Guide</span>
+  </div>
+
+  <div class="nav-section nav-html">
+    <span class="nav-label">HTML 5</span>
+    <a href="#html-foundations">Foundations &amp; Structure</a>
+    <a href="#html-headings">Headings &amp; Text</a>
+    <a href="#html-links">Hyperlinks &amp; Anchors</a>
+    <a href="#html-tables">Tables</a>
+    <a href="#html-lists">Lists</a>
+    <a href="#html-images">Images</a>
+    <a href="#html-iframes">Iframes</a>
+    <a href="#html-forms">Forms &amp; Controls</a>
+    <a href="#html-semantic">Semantic Elements</a>
+    <a href="#html-dragdrop">Drag &amp; Drop API</a>
+    <a href="#html-canvas">Canvas</a>
+    <a href="#html-svg">SVG</a>
+    <a href="#html-audio">Audio Controls</a>
+    <a href="#html-video">Video Controls</a>
+    <a href="#html-meta">Meta &amp; Head Elements</a>
+    <a href="#html-entities">Entities &amp; Symbols</a>
+  </div>
+
+  <div class="nav-section nav-css">
+    <span class="nav-label">CSS 3</span>
+    <a href="#css-intro">CSS Fundamentals</a>
+    <a href="#css-stylesheets">Inline, Embedded &amp; External</a>
+    <a href="#css-selectors">Selectors</a>
+    <a href="#css-cascade">Rule Cascading</a>
+    <a href="#css-specificity">Specificity</a>
+    <a href="#css-inheritance">Inheritance</a>
+    <a href="#css-boxmodel">Box Model</a>
+    <a href="#css-backgrounds">Backgrounds</a>
+    <a href="#css-border-images">Border Images</a>
+    <a href="#css-typography">Typography</a>
+    <a href="#css-colors">Colors &amp; Gradients</a>
+    <a href="#css-flexbox">Flexbox</a>
+    <a href="#css-grid">Grid Layout</a>
+    <a href="#css-transitions">Transitions</a>
+    <a href="#css-animations">Animations</a>
+    <a href="#css-transforms">Transforms</a>
+    <a href="#css-pseudos">Pseudo-classes &amp; Elements</a>
+    <a href="#css-variables">CSS Variables</a>
+    <a href="#css-media">Media Queries</a>
+  </div>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div id="main">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-badge">Complete Reference · HTML5 + CSS3</div>
+    <h1>Learn <em>HTML</em> &amp;<br><em>CSS</em> Deeply.</h1>
+    <p>Every tag, every property, every concept — with live examples, detailed explanations, and interactive demos. By the end, you'll understand how the web is built from the ground up.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">100+</div><div class="stat-label">HTML Tags</div></div>
+      <div class="stat"><div class="stat-num">200+</div><div class="stat-label">CSS Properties</div></div>
+      <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Live Demos</div></div>
+      <div class="stat"><div class="stat-num">2</div><div class="stat-label">Chapters</div></div>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 1: HTML ==================== -->
+  <div class="chapter-divider-inner">
+    <div class="chapter-title"><span>Chapter 1</span> — HTML5</div>
+    <div class="chapter-subtitle">HyperText Markup Language · The Structure of the Web</div>
+  </div>
+
+  <!-- ===== HTML FOUNDATIONS ===== -->
+  <section class="topic-section" id="html-foundations">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Foundation</span>
+      <h2>HTML Foundations &amp; Document Structure</h2>
+      <p>HTML (HyperText Markup Language) is the standard language used to create and structure content on the web. Every web page you see begins with an HTML document — a plain text file that the browser reads and renders into the visual page you interact with.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>What is HTML? <span class="tag-pill">concept</span></h3>
+      <p>HTML uses <strong>elements</strong> — defined by <strong>tags</strong> — to wrap content and give it meaning. Tags come in pairs: an opening tag <code>&lt;tagname&gt;</code> and a closing tag <code>&lt;/tagname&gt;</code>. Some tags are <em>self-closing</em> (void elements) and don't need a closing tag, like <code>&lt;br&gt;</code>, <code>&lt;img&gt;</code>, and <code>&lt;input&gt;</code>.</p>
+
+      <div class="callout info">
+        <div class="callout-title">💡 HTML5 Note</div>
+        <p>HTML5 is the current and living standard of HTML, introduced in 2014. It added semantic elements, multimedia support (audio/video), Canvas, SVG, drag-and-drop, local storage, and much more. Modern browsers fully support HTML5.</p>
+      </div>
+
+      <h4>The Basic HTML5 Document Template</h4>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML</div></div>
+        <pre><code><span class="com">&lt;!-- 1. DOCTYPE declaration — tells browser this is HTML5 --&gt;</span>
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+
+<span class="com">&lt;!-- 2. Root element — wraps everything --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- 3. Head: metadata, not shown on page --&gt;</span>
+  <span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"viewport"</span> <span class="attr">content</span>=<span class="val">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>My Web Page<span class="tag">&lt;/title&gt;</span>
+    <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="val">"stylesheet"</span> <span class="attr">href</span>=<span class="val">"styles.css"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/head&gt;</span>
+
+  <span class="com">&lt;!-- 4. Body: visible page content --&gt;</span>
+  <span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;h1&gt;</span>Hello, World!<span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;p&gt;</span>This is a paragraph.<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;/body&gt;</span>
+
+<span class="tag">&lt;/html&gt;</span></code></pre>
+      </div>
+
+      <h4>Essential Elements Explained</h4>
+      <table class="attr-table">
+        <tr><th>Element</th><th>Purpose</th><th>Key Notes</th></tr>
+        <tr><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Declares HTML5 document type</td><td>Must be the very first line; not an HTML tag, it's an instruction</td></tr>
+        <tr><td><code>&lt;html&gt;</code></td><td>Root element of the document</td><td>Use <code>lang</code> attribute for accessibility and SEO</td></tr>
+        <tr><td><code>&lt;head&gt;</code></td><td>Contains metadata</td><td>Content is not visible; holds title, links, scripts, meta tags</td></tr>
+        <tr><td><code>&lt;meta charset="UTF-8"&gt;</code></td><td>Character encoding</td><td>UTF-8 supports virtually all characters from all languages</td></tr>
+        <tr><td><code>&lt;meta name="viewport"&gt;</code></td><td>Responsive design</td><td>Critical for mobile-friendly pages</td></tr>
+        <tr><td><code>&lt;title&gt;</code></td><td>Browser tab title</td><td>Also used by search engines</td></tr>
+        <tr><td><code>&lt;body&gt;</code></td><td>All visible content</td><td>Everything rendered on screen goes here</td></tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <h3>HTML Attributes <span class="tag-pill">attributes</span></h3>
+      <p>Attributes provide additional information about HTML elements. They are always placed inside the opening tag and follow a <code>name="value"</code> pattern.</p>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Attribute Examples</div></div>
+        <pre><code><span class="com">&lt;!-- id: unique identifier for an element --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"main-content"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+
+<span class="com">&lt;!-- class: reusable identifier for CSS/JS --&gt;</span>
+<span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="val">"highlight large"</span><span class="tag">&gt;</span>Text<span class="tag">&lt;/p&gt;</span>
+
+<span class="com">&lt;!-- style: inline CSS --&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">style</span>=<span class="val">"color: red; font-weight: bold;"</span><span class="tag">&gt;</span>Red text<span class="tag">&lt;/span&gt;</span>
+
+<span class="com">&lt;!-- title: tooltip text on hover --&gt;</span>
+<span class="tag">&lt;abbr</span> <span class="attr">title</span>=<span class="val">"HyperText Markup Language"</span><span class="tag">&gt;</span>HTML<span class="tag">&lt;/abbr&gt;</span>
+
+<span class="com">&lt;!-- data-*: custom data attributes --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">data-user-id</span>=<span class="val">"42"</span> <span class="attr">data-role</span>=<span class="val">"admin"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+
+<span class="com">&lt;!-- Boolean attributes (no value needed) --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"checkbox"</span> <span class="attr">checked</span> <span class="attr">disabled</span><span class="tag">&gt;</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HEADINGS & TEXT ===== -->
+  <section class="topic-section" id="html-headings">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Text Content</span>
+      <h2>Headings, Text &amp; Formatting</h2>
+      <p>HTML provides a rich set of tags for marking up text — from headings that define hierarchy to inline elements that add meaning and formatting to content.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>Heading Tags <span class="tag-pill">h1–h6</span></h3>
+      <p>There are six levels of headings in HTML. <code>&lt;h1&gt;</code> is the most important (only one per page for SEO) and <code>&lt;h6&gt;</code> is the least. Headings define the document outline.</p>
+
+      <div class="demo-box">
+        <div class="demo-header">Live Demo — Heading Hierarchy</div>
+        <div class="demo-content">
+          <h1 style="font-family:'Playfair Display',serif;font-size:28px;color:#f0a500;margin:2px 0">h1 — Main Page Title</h1>
+          <h2 style="font-family:'Playfair Display',serif;font-size:22px;color:#78a9ff;margin:2px 0">h2 — Major Section</h2>
+          <h3 style="font-family:'Playfair Display',serif;font-size:18px;color:#be95ff;margin:2px 0">h3 — Subsection</h3>
+          <h4 style="font-family:'DM Mono',monospace;font-size:15px;color:#6fdc8c;margin:2px 0">h4 — Sub-subsection</h4>
+          <h5 style="font-family:'DM Mono',monospace;font-size:13px;color:#4ecdc4;margin:2px 0">h5 — Minor heading</h5>
+          <h6 style="font-family:'DM Mono',monospace;font-size:12px;color:#9aa0b8;margin:2px 0">h6 — Smallest heading</h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3>Text Formatting Tags <span class="tag-pill">inline</span></h3>
+      <table class="attr-table">
+        <tr><th>Tag</th><th>Renders As</th><th>Meaning / Use Case</th></tr>
+        <tr><td><code>&lt;strong&gt;</code></td><td><strong>Bold, important</strong></td><td>Semantic importance — also bold visually</td></tr>
+        <tr><td><code>&lt;b&gt;</code></td><td><b>Bold</b></td><td>Visual bold only, no semantic meaning</td></tr>
+        <tr><td><code>&lt;em&gt;</code></td><td><em>Italic emphasis</em></td><td>Semantic stress emphasis</td></tr>
+        <tr><td><code>&lt;i&gt;</code></td><td><i>Italic</i></td><td>Visual italic, technical terms, foreign words</td></tr>
+        <tr><td><code>&lt;mark&gt;</code></td><td><mark style="background:#f0a500;color:#000;padding:1px 4px">Highlighted</mark></td><td>Highlight / search result match</td></tr>
+        <tr><td><code>&lt;del&gt;</code></td><td><del>Deleted text</del></td><td>Removed content (strikethrough)</td></tr>
+        <tr><td><code>&lt;ins&gt;</code></td><td><ins style="text-decoration:underline">Inserted text</ins></td><td>Added content</td></tr>
+        <tr><td><code>&lt;sub&gt;</code></td><td>H<sub>2</sub>O</td><td>Subscript text</td></tr>
+        <tr><td><code>&lt;sup&gt;</code></td><td>x<sup>2</sup></td><td>Superscript text</td></tr>
+        <tr><td><code>&lt;code&gt;</code></td><td><code>inline code</code></td><td>Code snippets</td></tr>
+        <tr><td><code>&lt;pre&gt;</code></td><td>Preformatted text</td><td>Preserves whitespace and line breaks</td></tr>
+        <tr><td><code>&lt;blockquote&gt;</code></td><td>Block quote</td><td>Long quotations, cite attribute for source</td></tr>
+        <tr><td><code>&lt;q&gt;</code></td><td>Inline quote</td><td>Short inline quotation</td></tr>
+        <tr><td><code>&lt;abbr&gt;</code></td><td>Abbreviation with tooltip</td><td>Use title attribute for expansion</td></tr>
+        <tr><td><code>&lt;br&gt;</code></td><td>Line break</td><td>Self-closing, forces new line</td></tr>
+        <tr><td><code>&lt;hr&gt;</code></td><td>Horizontal rule</td><td>Thematic break between content</td></tr>
+        <tr><td><code>&lt;span&gt;</code></td><td>Generic inline</td><td>No semantic meaning; for CSS/JS targeting</td></tr>
+        <tr><td><code>&lt;div&gt;</code></td><td>Generic block</td><td>Block container; no semantic meaning</td></tr>
+        <tr><td><code>&lt;p&gt;</code></td><td>Paragraph block</td><td>Block-level paragraph of text</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== LINKS ===== -->
+  <section class="topic-section" id="html-links">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Navigation</span>
+      <h2>Hyperlinks &amp; Anchors</h2>
+      <p>The anchor tag <code>&lt;a&gt;</code> is what makes the web a "web" — it connects pages together through hyperlinks. Links can point to other pages, file downloads, email addresses, phone numbers, or specific parts of the current page.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>The Anchor Tag <span class="tag-pill">&lt;a&gt;</span></h3>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Links</div></div>
+        <pre><code><span class="com">&lt;!-- Basic external link --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://www.example.com"</span><span class="tag">&gt;</span>Visit Example.com<span class="tag">&lt;/a&gt;</span>
+
+<span class="com">&lt;!-- Opens in new tab --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://google.com"</span> <span class="attr">target</span>=<span class="val">"_blank"</span> <span class="attr">rel</span>=<span class="val">"noopener noreferrer"</span><span class="tag">&gt;</span>
+  Google (New Tab)
+<span class="tag">&lt;/a&gt;</span>
+
+<span class="com">&lt;!-- Internal page link (relative URL) --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"about.html"</span><span class="tag">&gt;</span>About Page<span class="tag">&lt;/a&gt;</span>
+
+<span class="com">&lt;!-- Anchor link (jump to section on same page) --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"#contact"</span><span class="tag">&gt;</span>Go to Contact Section<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;section</span> <span class="attr">id</span>=<span class="val">"contact"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/section&gt;</span>
+
+<span class="com">&lt;!-- Email link --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"mailto:hello@example.com?subject=Hi"</span><span class="tag">&gt;</span>Email Us<span class="tag">&lt;/a&gt;</span>
+
+<span class="com">&lt;!-- Phone link (mobile-friendly) --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"tel:+1234567890"</span><span class="tag">&gt;</span>Call Us<span class="tag">&lt;/a&gt;</span>
+
+<span class="com">&lt;!-- Download link --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"file.pdf"</span> <span class="attr">download</span>=<span class="val">"MyFile.pdf"</span><span class="tag">&gt;</span>Download PDF<span class="tag">&lt;/a&gt;</span></code></pre>
+      </div>
+      <h4>Key <code>&lt;a&gt;</code> Attributes</h4>
+      <table class="attr-table">
+        <tr><th>Attribute</th><th>Values</th><th>Description</th></tr>
+        <tr><td><code>href</code></td><td>URL, #id, mailto:, tel:</td><td>Destination of the link</td></tr>
+        <tr><td><code>target</code></td><td>_blank, _self, _parent, _top</td><td>Where to open the linked document</td></tr>
+        <tr><td><code>rel</code></td><td>noopener, noreferrer, nofollow</td><td>Relationship between pages; security for _blank</td></tr>
+        <tr><td><code>download</code></td><td>filename</td><td>Download resource instead of navigating</td></tr>
+        <tr><td><code>title</code></td><td>text</td><td>Tooltip on hover</td></tr>
+        <tr><td><code>hreflang</code></td><td>language code</td><td>Language of the linked document</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== TABLES ===== -->
+  <section class="topic-section" id="html-tables">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Tables</span>
+      <h2>Tables</h2>
+      <p>HTML tables display tabular data — data that has a natural row-and-column structure, like a spreadsheet. Tables should <em>never</em> be used for page layout (use CSS Flexbox or Grid instead). They are ideal for data comparison, schedules, pricing tables, and structured datasets.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>Table Structure Tags <span class="tag-pill">&lt;table&gt;</span></h3>
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Full Table</div></div>
+            <pre><code><span class="tag">&lt;table&gt;</span>
+  <span class="tag">&lt;caption&gt;</span>Student Grades<span class="tag">&lt;/caption&gt;</span>
+
+  <span class="com">&lt;!-- Column groups for styling --&gt;</span>
+  <span class="tag">&lt;colgroup&gt;</span>
+    <span class="tag">&lt;col</span> <span class="attr">span</span>=<span class="val">"1"</span> <span class="attr">style</span>=<span class="val">"width:40%"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;col</span> <span class="attr">span</span>=<span class="val">"2"</span> <span class="attr">style</span>=<span class="val">"width:30%"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/colgroup&gt;</span>
+
+  <span class="com">&lt;!-- Table head --&gt;</span>
+  <span class="tag">&lt;thead&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+      <span class="tag">&lt;th</span> <span class="attr">scope</span>=<span class="val">"col"</span><span class="tag">&gt;</span>Name<span class="tag">&lt;/th&gt;</span>
+      <span class="tag">&lt;th</span> <span class="attr">scope</span>=<span class="val">"col"</span><span class="tag">&gt;</span>Subject<span class="tag">&lt;/th&gt;</span>
+      <span class="tag">&lt;th</span> <span class="attr">scope</span>=<span class="val">"col"</span><span class="tag">&gt;</span>Grade<span class="tag">&lt;/th&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+  <span class="tag">&lt;/thead&gt;</span>
+
+  <span class="com">&lt;!-- Table body --&gt;</span>
+  <span class="tag">&lt;tbody&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+      <span class="tag">&lt;td&gt;</span>Alice<span class="tag">&lt;/td&gt;</span>
+      <span class="tag">&lt;td&gt;</span>HTML<span class="tag">&lt;/td&gt;</span>
+      <span class="tag">&lt;td&gt;</span>A+<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+      <span class="com">&lt;!-- rowspan merges rows, colspan merges cols --&gt;</span>
+      <span class="tag">&lt;td</span> <span class="attr">rowspan</span>=<span class="val">"2"</span><span class="tag">&gt;</span>Bob<span class="tag">&lt;/td&gt;</span>
+      <span class="tag">&lt;td&gt;</span>CSS<span class="tag">&lt;/td&gt;</span>
+      <span class="tag">&lt;td&gt;</span>B<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+      <span class="tag">&lt;td&gt;</span>JavaScript<span class="tag">&lt;/td&gt;</span>
+      <span class="tag">&lt;td&gt;</span>A<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+  <span class="tag">&lt;/tbody&gt;</span>
+
+  <span class="com">&lt;!-- Table footer --&gt;</span>
+  <span class="tag">&lt;tfoot&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+      <span class="tag">&lt;td</span> <span class="attr">colspan</span>=<span class="val">"2"</span><span class="tag">&gt;</span>Average<span class="tag">&lt;/td&gt;</span>
+      <span class="tag">&lt;td&gt;</span>A<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+  <span class="tag">&lt;/tfoot&gt;</span>
+<span class="tag">&lt;/table&gt;</span></code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Live Demo — Student Grades Table</div>
+            <div class="demo-content">
+              <table class="demo-table">
+                <caption>Student Grades (2024)</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Grade</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Alice</td><td>HTML</td><td style="color:#6fdc8c">A+</td>
+                  </tr>
+                  <tr>
+                    <td rowspan="2" style="vertical-align:middle">Bob</td><td>CSS</td><td style="color:#78a9ff">B</td>
+                  </tr>
+                  <tr>
+                    <td>JavaScript</td><td style="color:#6fdc8c">A</td>
+                  </tr>
+                  <tr>
+                    <td>Carol</td><td>HTML/CSS</td><td style="color:#f0a500">A−</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr style="border-top:2px solid #2e3447">
+                    <td colspan="2" style="color:#9aa0b8">Class Average</td>
+                    <td style="color:#6fdc8c;font-weight:600">A</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          <table class="attr-table" style="margin-top:12px">
+            <tr><th>Tag</th><th>Role</th></tr>
+            <tr><td><code>&lt;table&gt;</code></td><td>Outer wrapper</td></tr>
+            <tr><td><code>&lt;caption&gt;</code></td><td>Table title/description</td></tr>
+            <tr><td><code>&lt;thead&gt;</code></td><td>Header row group</td></tr>
+            <tr><td><code>&lt;tbody&gt;</code></td><td>Data row group</td></tr>
+            <tr><td><code>&lt;tfoot&gt;</code></td><td>Footer row group</td></tr>
+            <tr><td><code>&lt;tr&gt;</code></td><td>Table row</td></tr>
+            <tr><td><code>&lt;th&gt;</code></td><td>Header cell</td></tr>
+            <tr><td><code>&lt;td&gt;</code></td><td>Data cell</td></tr>
+            <tr><td><code>colspan</code></td><td>Merge columns</td></tr>
+            <tr><td><code>rowspan</code></td><td>Merge rows</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LISTS ===== -->
+  <section class="topic-section" id="html-lists">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Lists</span>
+      <h2>Lists</h2>
+      <p>HTML offers three types of lists: <strong>ordered</strong> (numbered), <strong>unordered</strong> (bulleted), and <strong>description</strong> (key-value pairs). Lists can be nested inside each other to create hierarchical structures like navigation menus and outlines.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="three-col">
+        <div>
+          <h4>Ordered List <code>&lt;ol&gt;</code></h4>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML</div></div>
+            <pre><code><span class="com">&lt;!-- type: 1, A, a, I, i --&gt;</span>
+<span class="tag">&lt;ol</span> <span class="attr">type</span>=<span class="val">"1"</span> <span class="attr">start</span>=<span class="val">"1"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Learn HTML<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Learn CSS<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>
+    Learn JavaScript
+    <span class="com">&lt;!-- Nested list --&gt;</span>
+    <span class="tag">&lt;ol</span> <span class="attr">type</span>=<span class="val">"a"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;li&gt;</span>Variables<span class="tag">&lt;/li&gt;</span>
+      <span class="tag">&lt;li&gt;</span>Functions<span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;/ol&gt;</span>
+  <span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ol&gt;</span></code></pre>
+          </div>
+          <div class="demo-box">
+            <div class="demo-header">Demo</div>
+            <div class="demo-content">
+              <ol class="demo-list-ol">
+                <li>Learn HTML</li>
+                <li>Learn CSS</li>
+                <li>Learn JavaScript
+                  <ol style="list-style:lower-alpha;padding-left:20px;color:#9aa0b8">
+                    <li>Variables</li>
+                    <li>Functions</li>
+                  </ol>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4>Unordered List <code>&lt;ul&gt;</code></h4>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML</div></div>
+            <pre><code><span class="com">&lt;!-- list-style-type in CSS:
+  disc, circle, square, none --&gt;</span>
+<span class="tag">&lt;ul&gt;</span>
+  <span class="tag">&lt;li&gt;</span>HTML<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>CSS<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>JavaScript
+    <span class="tag">&lt;ul&gt;</span>
+      <span class="tag">&lt;li&gt;</span>React<span class="tag">&lt;/li&gt;</span>
+      <span class="tag">&lt;li&gt;</span>Vue<span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;/ul&gt;</span>
+  <span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span></code></pre>
+          </div>
+          <div class="demo-box">
+            <div class="demo-header">Demo</div>
+            <div class="demo-content">
+              <ul class="demo-list-ul">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript
+                  <ul style="list-style:circle;padding-left:20px;color:#9aa0b8">
+                    <li>React</li>
+                    <li>Vue</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4>Description List <code>&lt;dl&gt;</code></h4>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML</div></div>
+            <pre><code><span class="com">&lt;!-- dl: list, dt: term,
+     dd: definition --&gt;</span>
+<span class="tag">&lt;dl&gt;</span>
+  <span class="tag">&lt;dt&gt;</span>HTML<span class="tag">&lt;/dt&gt;</span>
+  <span class="tag">&lt;dd&gt;</span>HyperText Markup
+      Language<span class="tag">&lt;/dd&gt;</span>
+
+  <span class="tag">&lt;dt&gt;</span>CSS<span class="tag">&lt;/dt&gt;</span>
+  <span class="tag">&lt;dd&gt;</span>Cascading Style
+      Sheets<span class="tag">&lt;/dd&gt;</span>
+
+  <span class="tag">&lt;dt&gt;</span>JS<span class="tag">&lt;/dt&gt;</span>
+  <span class="tag">&lt;dd&gt;</span>JavaScript<span class="tag">&lt;/dd&gt;</span>
+<span class="tag">&lt;/dl&gt;</span></code></pre>
+          </div>
+          <div class="demo-box">
+            <div class="demo-header">Demo</div>
+            <div class="demo-content">
+              <dl class="demo-list-dl">
+                <dt>HTML</dt><dd>HyperText Markup Language — structure of the web</dd>
+                <dt>CSS</dt><dd>Cascading Style Sheets — styles and layout</dd>
+                <dt>JS</dt><dd>JavaScript — behaviour and interaction</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IMAGES ===== -->
+  <section class="topic-section" id="html-images">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Media</span>
+      <h2>Images</h2>
+      <p>The <code>&lt;img&gt;</code> tag embeds images into a page. It is a void (self-closing) element. HTML5 also introduced <code>&lt;picture&gt;</code> and <code>&lt;figure&gt;</code> for responsive and semantic image handling.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Images</div></div>
+        <pre><code><span class="com">&lt;!-- Basic image: src and alt are required --&gt;</span>
+<span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"photo.jpg"</span> <span class="attr">alt</span>=<span class="val">"A scenic mountain view"</span> <span class="attr">width</span>=<span class="val">"600"</span> <span class="attr">height</span>=<span class="val">"400"</span><span class="tag">&gt;</span>
+
+<span class="com">&lt;!-- figure + figcaption for semantic image --&gt;</span>
+<span class="tag">&lt;figure&gt;</span>
+  <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"chart.png"</span> <span class="attr">alt</span>=<span class="val">"Sales chart for Q4 2024"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;figcaption&gt;</span>Fig. 1 — Q4 2024 Sales Performance<span class="tag">&lt;/figcaption&gt;</span>
+<span class="tag">&lt;/figure&gt;</span>
+
+<span class="com">&lt;!-- picture: responsive images for different screens --&gt;</span>
+<span class="tag">&lt;picture&gt;</span>
+  <span class="com">&lt;!-- Use avif on supporting browsers --&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">srcset</span>=<span class="val">"image.avif"</span> <span class="attr">type</span>=<span class="val">"image/avif"</span><span class="tag">&gt;</span>
+  <span class="com">&lt;!-- Use webp on supporting browsers --&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">srcset</span>=<span class="val">"image.webp"</span> <span class="attr">type</span>=<span class="val">"image/webp"</span><span class="tag">&gt;</span>
+  <span class="com">&lt;!-- Mobile vs desktop variants --&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">media</span>=<span class="val">"(min-width:768px)"</span> <span class="attr">srcset</span>=<span class="val">"large.jpg"</span><span class="tag">&gt;</span>
+  <span class="com">&lt;!-- Fallback for older browsers --&gt;</span>
+  <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"image.jpg"</span> <span class="attr">alt</span>=<span class="val">"Description"</span> <span class="attr">loading</span>=<span class="val">"lazy"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/picture&gt;</span>
+
+<span class="com">&lt;!-- Image as a link --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"page.html"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"thumb.jpg"</span> <span class="attr">alt</span>=<span class="val">"Click to view page"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/a&gt;</span></code></pre>
+      </div>
+      <h4>Key Image Attributes</h4>
+      <table class="attr-table">
+        <tr><th>Attribute</th><th>Required?</th><th>Description</th></tr>
+        <tr><td><code>src</code></td><td>Yes</td><td>Path or URL to the image file</td></tr>
+        <tr><td><code>alt</code></td><td>Yes</td><td>Text description for screen readers and when image fails to load. Empty alt="" for decorative images</td></tr>
+        <tr><td><code>width</code> / <code>height</code></td><td>Recommended</td><td>Reserves layout space; prevents content shift (CLS)</td></tr>
+        <tr><td><code>loading</code></td><td>No</td><td>"lazy" defers loading off-screen images; "eager" (default) loads immediately</td></tr>
+        <tr><td><code>srcset</code></td><td>No</td><td>Multiple image sources for different resolutions</td></tr>
+        <tr><td><code>sizes</code></td><td>No</td><td>Media conditions telling browser how wide the image will be displayed</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== IFRAMES ===== -->
+  <section class="topic-section" id="html-iframes">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Embedding</span>
+      <h2>Iframes — Inline Frames</h2>
+      <p>An <code>&lt;iframe&gt;</code> (inline frame) embeds another HTML document, website, video, or map inside your current page. The embedded content runs in a completely separate browsing context (its own document environment).</p>
+    </div>
+
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Iframes</div></div>
+        <pre><code><span class="com">&lt;!-- Basic iframe --&gt;</span>
+<span class="tag">&lt;iframe</span>
+  <span class="attr">src</span>=<span class="val">"https://example.com"</span>
+  <span class="attr">width</span>=<span class="val">"800"</span>
+  <span class="attr">height</span>=<span class="val">"500"</span>
+  <span class="attr">title</span>=<span class="val">"Embedded page"</span>
+<span class="tag">&gt;</span>
+  <span class="com">&lt;!-- Fallback content for browsers that don't support iframes --&gt;</span>
+  Your browser does not support iframes.
+<span class="tag">&lt;/iframe&gt;</span>
+
+<span class="com">&lt;!-- Google Maps embed --&gt;</span>
+<span class="tag">&lt;iframe</span>
+  <span class="attr">src</span>=<span class="val">"https://maps.google.com/maps?q=Paris&amp;output=embed"</span>
+  <span class="attr">width</span>=<span class="val">"600"</span> <span class="attr">height</span>=<span class="val">"400"</span>
+  <span class="attr">loading</span>=<span class="val">"lazy"</span>
+  <span class="attr">title</span>=<span class="val">"Map of Paris"</span>
+<span class="tag">&gt;&lt;/iframe&gt;</span>
+
+<span class="com">&lt;!-- YouTube video embed --&gt;</span>
+<span class="tag">&lt;iframe</span>
+  <span class="attr">src</span>=<span class="val">"https://www.youtube.com/embed/VIDEO_ID"</span>
+  <span class="attr">width</span>=<span class="val">"560"</span> <span class="attr">height</span>=<span class="val">"315"</span>
+  <span class="attr">allowfullscreen</span>
+  <span class="attr">title</span>=<span class="val">"YouTube video player"</span>
+<span class="tag">&gt;&lt;/iframe&gt;</span>
+
+<span class="com">&lt;!-- Sandboxed iframe (security restriction) --&gt;</span>
+<span class="tag">&lt;iframe</span>
+  <span class="attr">src</span>=<span class="val">"external-content.html"</span>
+  <span class="attr">sandbox</span>=<span class="val">"allow-scripts allow-same-origin"</span>
+<span class="tag">&gt;&lt;/iframe&gt;</span></code></pre>
+      </div>
+      <h4>The <code>sandbox</code> Attribute — Security</h4>
+      <table class="attr-table">
+        <tr><th>Value</th><th>What it allows</th></tr>
+        <tr><td><code>sandbox</code> (empty)</td><td>Maximum restrictions — no scripts, no forms, no popups</td></tr>
+        <tr><td><code>allow-scripts</code></td><td>Allows JavaScript execution</td></tr>
+        <tr><td><code>allow-forms</code></td><td>Allows form submission</td></tr>
+        <tr><td><code>allow-same-origin</code></td><td>Allows reading cookies and local storage if same origin</td></tr>
+        <tr><td><code>allow-popups</code></td><td>Allows opening popup windows</td></tr>
+        <tr><td><code>allow-top-navigation</code></td><td>Allows navigation of parent frame</td></tr>
+      </table>
+      <div class="callout warn">
+        <div class="callout-title">⚠️ Security Note</div>
+        <p>Always use <code>sandbox</code> when embedding third-party content and never embed content from untrusted sources without it. Also use <code>title</code> for accessibility.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HTML5 CONTROLS / FORMS ===== -->
+  <section class="topic-section" id="html-forms">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Forms</span>
+      <h2>Forms &amp; HTML5 Control Elements</h2>
+      <p>Forms collect user input. HTML5 dramatically expanded the available input types and added built-in validation, making forms much more powerful without JavaScript. The <code>&lt;form&gt;</code> element wraps all form controls.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>The Form Element <span class="tag-pill">&lt;form&gt;</span></h3>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Form Structure</div></div>
+        <pre><code><span class="tag">&lt;form</span>
+  <span class="attr">action</span>=<span class="val">"/submit"</span>      <span class="com">&lt;!-- Where data is sent --&gt;</span>
+  <span class="attr">method</span>=<span class="val">"post"</span>        <span class="com">&lt;!-- GET or POST --&gt;</span>
+  <span class="attr">enctype</span>=<span class="val">"multipart/form-data"</span>  <span class="com">&lt;!-- For file uploads --&gt;</span>
+  <span class="attr">novalidate</span>           <span class="com">&lt;!-- Disable browser validation --&gt;</span>
+  <span class="attr">autocomplete</span>=<span class="val">"on"</span>   <span class="com">&lt;!-- Browser autofill --&gt;</span>
+<span class="tag">&gt;</span>
+  <span class="com">&lt;!-- fieldset groups related controls --&gt;</span>
+  <span class="tag">&lt;fieldset&gt;</span>
+    <span class="tag">&lt;legend&gt;</span>Personal Info<span class="tag">&lt;/legend&gt;</span>
+
+    <span class="com">&lt;!-- label links to input via for/id --&gt;</span>
+    <span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="val">"username"</span><span class="tag">&gt;</span>Username:<span class="tag">&lt;/label&gt;</span>
+    <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">id</span>=<span class="val">"username"</span> <span class="attr">name</span>=<span class="val">"username"</span>
+           <span class="attr">placeholder</span>=<span class="val">"Enter username"</span>
+           <span class="attr">required</span> <span class="attr">minlength</span>=<span class="val">"3"</span> <span class="attr">maxlength</span>=<span class="val">"20"</span><span class="tag">&gt;</span>
+
+    <span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="val">"age"</span><span class="tag">&gt;</span>Age:<span class="tag">&lt;/label&gt;</span>
+    <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"number"</span> <span class="attr">id</span>=<span class="val">"age"</span> <span class="attr">name</span>=<span class="val">"age"</span>
+           <span class="attr">min</span>=<span class="val">"1"</span> <span class="attr">max</span>=<span class="val">"120"</span> <span class="attr">step</span>=<span class="val">"1"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/fieldset&gt;</span>
+
+  <span class="tag">&lt;button</span> <span class="attr">type</span>=<span class="val">"submit"</span><span class="tag">&gt;</span>Submit<span class="tag">&lt;/button&gt;</span>
+  <span class="tag">&lt;button</span> <span class="attr">type</span>=<span class="val">"reset"</span><span class="tag">&gt;</span>Reset<span class="tag">&lt;/button&gt;</span>
+<span class="tag">&lt;/form&gt;</span></code></pre>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3>All HTML5 Input Types <span class="tag-pill">&lt;input type="..."&gt;</span></h3>
+      <div class="input-grid">
+        <div class="input-chip"><strong>text</strong>Single-line text input</div>
+        <div class="input-chip"><strong>password</strong>Masked input for passwords</div>
+        <div class="input-chip"><strong>email</strong>Validates email format</div>
+        <div class="input-chip"><strong>number</strong>Numeric with min/max/step</div>
+        <div class="input-chip"><strong>tel</strong>Telephone number input</div>
+        <div class="input-chip"><strong>url</strong>Validates URL format</div>
+        <div class="input-chip"><strong>search</strong>Search field with clear button</div>
+        <div class="input-chip"><strong>date</strong>Date picker (yyyy-mm-dd)</div>
+        <div class="input-chip"><strong>time</strong>Time picker (hh:mm)</div>
+        <div class="input-chip"><strong>datetime-local</strong>Date + time picker</div>
+        <div class="input-chip"><strong>month</strong>Month + year picker</div>
+        <div class="input-chip"><strong>week</strong>Week + year picker</div>
+        <div class="input-chip"><strong>range</strong>Slider for numeric range</div>
+        <div class="input-chip"><strong>color</strong>Color picker</div>
+        <div class="input-chip"><strong>checkbox</strong>Boolean toggle (checked)</div>
+        <div class="input-chip"><strong>radio</strong>Single select from group</div>
+        <div class="input-chip"><strong>file</strong>File upload, accept=".jpg"</div>
+        <div class="input-chip"><strong>hidden</strong>Not shown, still submitted</div>
+        <div class="input-chip"><strong>submit</strong>Form submission button</div>
+        <div class="input-chip"><strong>reset</strong>Clears all form fields</div>
+        <div class="input-chip"><strong>button</strong>Generic button (no action)</div>
+        <div class="input-chip"><strong>image</strong>Image as submit button</div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <h3>Other Form Controls</h3>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Select, Textarea, Progress, Meter, Output</div></div>
+        <pre><code><span class="com">&lt;!-- Dropdown select --&gt;</span>
+<span class="tag">&lt;select</span> <span class="attr">name</span>=<span class="val">"country"</span> <span class="attr">multiple</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;optgroup</span> <span class="attr">label</span>=<span class="val">"Asia"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"in"</span> <span class="attr">selected</span><span class="tag">&gt;</span>India<span class="tag">&lt;/option&gt;</span>
+    <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"jp"</span><span class="tag">&gt;</span>Japan<span class="tag">&lt;/option&gt;</span>
+  <span class="tag">&lt;/optgroup&gt;</span>
+<span class="tag">&lt;/select&gt;</span>
+
+<span class="com">&lt;!-- Multi-line text --&gt;</span>
+<span class="tag">&lt;textarea</span> <span class="attr">rows</span>=<span class="val">"4"</span> <span class="attr">cols</span>=<span class="val">"40"</span> <span class="attr">maxlength</span>=<span class="val">"500"</span>
+  <span class="attr">placeholder</span>=<span class="val">"Write your message..."</span><span class="tag">&gt;</span><span class="tag">&lt;/textarea&gt;</span>
+
+<span class="com">&lt;!-- Progress bar (0 to max) --&gt;</span>
+<span class="tag">&lt;progress</span> <span class="attr">value</span>=<span class="val">"70"</span> <span class="attr">max</span>=<span class="val">"100"</span><span class="tag">&gt;</span>70%<span class="tag">&lt;/progress&gt;</span>
+
+<span class="com">&lt;!-- Meter (gauge within known range) --&gt;</span>
+<span class="tag">&lt;meter</span> <span class="attr">value</span>=<span class="val">"0.6"</span> <span class="attr">min</span>=<span class="val">"0"</span> <span class="attr">max</span>=<span class="val">"1"</span>
+  <span class="attr">low</span>=<span class="val">"0.25"</span> <span class="attr">high</span>=<span class="val">"0.75"</span> <span class="attr">optimum</span>=<span class="val">"1"</span><span class="tag">&gt;</span>60%<span class="tag">&lt;/meter&gt;</span>
+
+<span class="com">&lt;!-- Datalist: autocomplete suggestions --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">list</span>=<span class="val">"browsers"</span> <span class="attr">name</span>=<span class="val">"browser"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;datalist</span> <span class="attr">id</span>=<span class="val">"browsers"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"Chrome"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"Firefox"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"Safari"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/datalist&gt;</span>
+
+<span class="com">&lt;!-- Output: calculated result --&gt;</span>
+<span class="tag">&lt;output</span> <span class="attr">name</span>=<span class="val">"result"</span> <span class="attr">for</span>=<span class="val">"a b"</span><span class="tag">&gt;</span>0<span class="tag">&lt;/output&gt;</span></code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">Live Demo — Form Controls</div>
+        <div class="demo-content">
+          <div class="two-col">
+            <div>
+              <div class="demo-form-group">
+                <label class="demo-label">text input</label>
+                <input class="demo-input" type="text" placeholder="Enter your name">
+              </div>
+              <div class="demo-form-group">
+                <label class="demo-label">email input</label>
+                <input class="demo-input" type="email" placeholder="you@example.com">
+              </div>
+              <div class="demo-form-group">
+                <label class="demo-label">range input</label>
+                <input type="range" min="0" max="100" value="40" style="width:100%;accent-color:#f0a500">
+              </div>
+              <div class="demo-form-group">
+                <label class="demo-label">color input</label>
+                <input type="color" value="#f0a500" style="height:36px;background:transparent;border:1px solid #2e3447;border-radius:4px;cursor:pointer">
+              </div>
+            </div>
+            <div>
+              <div class="demo-form-group">
+                <label class="demo-label">select dropdown</label>
+                <select class="demo-input">
+                  <option>India</option><option>Japan</option><option>USA</option>
+                </select>
+              </div>
+              <div class="demo-form-group">
+                <label class="demo-label">textarea</label>
+                <textarea class="demo-input" rows="3" placeholder="Your message here..."></textarea>
+              </div>
+              <div class="demo-form-group">
+                <label class="demo-label">progress (70%)</label>
+                <progress value="70" max="100" style="width:100%;height:8px;accent-color:#f0a500"></progress>
+              </div>
+              <button class="demo-btn">Submit Form</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SEMANTIC ELEMENTS ===== -->
+  <section class="topic-section" id="html-semantic">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Semantics</span>
+      <h2>Semantic Elements</h2>
+      <p>Semantic elements give meaning to the structure of a page — they clearly describe the role of their content to both the browser and the developer. Before HTML5, everything was <code>&lt;div&gt;</code>. Semantics improved accessibility, SEO, and code readability.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>Page Layout Semantics</h3>
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Semantic Layout</div></div>
+            <pre><code><span class="tag">&lt;header&gt;</span>
+  <span class="com">&lt;!-- Site header or section header --&gt;</span>
+  <span class="tag">&lt;nav&gt;</span>
+    <span class="tag">&lt;ul&gt;</span>
+      <span class="tag">&lt;li&gt;&lt;a</span> <span class="attr">href</span>=<span class="val">"/"</span><span class="tag">&gt;</span>Home<span class="tag">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="tag">&lt;li&gt;&lt;a</span> <span class="attr">href</span>=<span class="val">"/about"</span><span class="tag">&gt;</span>About<span class="tag">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="tag">&lt;/ul&gt;</span>
+  <span class="tag">&lt;/nav&gt;</span>
+<span class="tag">&lt;/header&gt;</span>
+
+<span class="tag">&lt;main&gt;</span>  <span class="com">&lt;!-- One &lt;main&gt; per page --&gt;</span>
+
+  <span class="tag">&lt;article&gt;</span>
+    <span class="com">&lt;!-- Self-contained, shareable content
+         (blog post, news story, forum post) --&gt;</span>
+    <span class="tag">&lt;h2&gt;</span>Article Title<span class="tag">&lt;/h2&gt;</span>
+    <span class="tag">&lt;section&gt;</span>
+      <span class="com">&lt;!-- Thematic grouping within article --&gt;</span>
+      <span class="tag">&lt;h3&gt;</span>Section Heading<span class="tag">&lt;/h3&gt;</span>
+      <span class="tag">&lt;p&gt;</span>Content...<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;/section&gt;</span>
+  <span class="tag">&lt;/article&gt;</span>
+
+  <span class="tag">&lt;aside&gt;</span>
+    <span class="com">&lt;!-- Tangentially related content
+         (sidebar, pull quotes, ads) --&gt;</span>
+  <span class="tag">&lt;/aside&gt;</span>
+
+<span class="tag">&lt;/main&gt;</span>
+
+<span class="tag">&lt;footer&gt;</span>
+  <span class="com">&lt;!-- Footer info, copyright, links --&gt;</span>
+  <span class="tag">&lt;address&gt;</span>
+    Contact: <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"mailto:a@b.com"</span><span class="tag">&gt;</span>a@b.com<span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;/address&gt;</span>
+<span class="tag">&lt;/footer&gt;</span></code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Visual Layout</div>
+            <div class="demo-content">
+              <div class="semantic-demo">
+                <div class="sem-header">〈header〉 — Site branding, logo</div>
+                <div class="sem-nav">〈nav〉 — Home · About · Portfolio · Contact</div>
+                <div class="sem-body">
+                  <div class="sem-main">〈main〉<br><span style="opacity:0.6;font-size:11px">&nbsp;〈article〉 Self-contained post<br>&nbsp;&nbsp;〈section〉 Chapter / part</span></div>
+                  <div class="sem-aside">〈aside〉<br><span style="opacity:0.6;font-size:10px">Sidebar<br>Widget<br>Related</span></div>
+                </div>
+                <div class="sem-footer">〈footer〉 — Copyright · Links · Contact 〈address〉</div>
+              </div>
+            </div>
+          </div>
+          <table class="attr-table" style="margin-top:12px;font-size:13px">
+            <tr><th>Tag</th><th>Semantic Meaning</th></tr>
+            <tr><td><code>&lt;header&gt;</code></td><td>Introductory content / heading group</td></tr>
+            <tr><td><code>&lt;nav&gt;</code></td><td>Navigation links section</td></tr>
+            <tr><td><code>&lt;main&gt;</code></td><td>Primary unique content of the page</td></tr>
+            <tr><td><code>&lt;article&gt;</code></td><td>Independently distributable content</td></tr>
+            <tr><td><code>&lt;section&gt;</code></td><td>Thematic content grouping</td></tr>
+            <tr><td><code>&lt;aside&gt;</code></td><td>Tangentially related content</td></tr>
+            <tr><td><code>&lt;footer&gt;</code></td><td>Footer for its nearest ancestor</td></tr>
+            <tr><td><code>&lt;time&gt;</code></td><td>Machine-readable date/time</td></tr>
+            <tr><td><code>&lt;mark&gt;</code></td><td>Highlighted relevant text</td></tr>
+            <tr><td><code>&lt;details&gt;</code></td><td>Disclosure widget (toggle)</td></tr>
+            <tr><td><code>&lt;summary&gt;</code></td><td>Visible heading of &lt;details&gt;</td></tr>
+            <tr><td><code>&lt;figure&gt;</code></td><td>Self-contained figure (image, code)</td></tr>
+            <tr><td><code>&lt;figcaption&gt;</code></td><td>Caption for &lt;figure&gt;</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DRAG AND DROP ===== -->
+  <section class="topic-section" id="html-dragdrop">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · API</span>
+      <h2>Drag and Drop API</h2>
+      <p>HTML5's native Drag and Drop API lets users click and drag elements to new positions or into drop zones. It uses the <code>draggable</code> attribute and a series of events to handle the interaction — no libraries needed.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML + JavaScript</div></div>
+            <pre><code><span class="com">&lt;!-- HTML --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"item"</span>
+     <span class="attr">draggable</span>=<span class="val">"true"</span>
+     <span class="attr">ondragstart</span>=<span class="val">"dragStart(event)"</span><span class="tag">&gt;</span>
+  Drag me!
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"dropzone"</span>
+     <span class="attr">ondragover</span>=<span class="val">"dragOver(event)"</span>
+     <span class="attr">ondrop</span>=<span class="val">"drop(event)"</span><span class="tag">&gt;</span>
+  Drop here
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="com">&lt;!-- JavaScript --&gt;</span>
+<span class="kw">function</span> dragStart(e) {
+  e.dataTransfer.<span class="tag">setData</span>(<span class="val">'text'</span>, e.target.id);
+}
+
+<span class="kw">function</span> dragOver(e) {
+  e.preventDefault(); <span class="com">// Allow drop</span>
+}
+
+<span class="kw">function</span> drop(e) {
+  e.preventDefault();
+  <span class="kw">const</span> id = e.dataTransfer.<span class="tag">getData</span>(<span class="val">'text'</span>);
+  e.target.<span class="tag">appendChild</span>(
+    document.<span class="tag">getElementById</span>(id)
+  );
+}</code></pre>
+          </div>
+          <h4>Drag Events</h4>
+          <table class="attr-table">
+            <tr><th>Event</th><th>Fires On</th><th>When</th></tr>
+            <tr><td><code>dragstart</code></td><td>Dragged element</td><td>Drag begins</td></tr>
+            <tr><td><code>drag</code></td><td>Dragged element</td><td>During drag</td></tr>
+            <tr><td><code>dragend</code></td><td>Dragged element</td><td>Drag ends</td></tr>
+            <tr><td><code>dragenter</code></td><td>Drop target</td><td>Element enters target</td></tr>
+            <tr><td><code>dragover</code></td><td>Drop target</td><td>Element over target (prevent default!)</td></tr>
+            <tr><td><code>dragleave</code></td><td>Drop target</td><td>Element leaves target</td></tr>
+            <tr><td><code>drop</code></td><td>Drop target</td><td>Element dropped</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Interactive Demo — Drag &amp; Drop</div>
+            <div class="demo-content">
+              <p style="font-family:var(--font-mono);font-size:12px;color:var(--text3);margin-bottom:12px">Drag items into the drop zone ↓</p>
+              <div id="drag-container">
+                <div class="drag-item" draggable="true" id="drag1" ondragstart="demoDS(event)">🟦 HTML</div>
+                <div class="drag-item" draggable="true" id="drag2" ondragstart="demoDS(event)">🟪 CSS</div>
+                <div class="drag-item" draggable="true" id="drag3" ondragstart="demoDS(event)">🟨 JS</div>
+              </div>
+              <div id="drop-zone" ondragover="demoDO(event)" ondrop="demoD(event)" ondragleave="demoLeave(event)" style="margin-top:12px">
+                Drop zone — drop items here
+              </div>
+              <button class="demo-btn" onclick="resetDrag()" style="margin-top:12px">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CANVAS ===== -->
+  <section class="topic-section" id="html-canvas">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Graphics</span>
+      <h2>Canvas API</h2>
+      <p>The <code>&lt;canvas&gt;</code> element provides a bitmap drawing surface that you control entirely with JavaScript. Unlike SVG, Canvas is <em>raster-based</em> — you draw pixels. It's ideal for games, data visualizations, image manipulation, and animations.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML + JavaScript — Canvas Drawing</div></div>
+            <pre><code><span class="tag">&lt;canvas</span> <span class="attr">id</span>=<span class="val">"myCanvas"</span>
+  <span class="attr">width</span>=<span class="val">"400"</span> <span class="attr">height</span>=<span class="val">"200"</span><span class="tag">&gt;</span>
+  Canvas not supported.
+<span class="tag">&lt;/canvas&gt;</span>
+
+<span class="tag">&lt;script&gt;</span>
+<span class="kw">const</span> canvas = document.<span class="tag">getElementById</span>(<span class="val">'myCanvas'</span>);
+<span class="kw">const</span> ctx = canvas.<span class="tag">getContext</span>(<span class="val">'2d'</span>);
+
+<span class="com">// Rectangle</span>
+ctx.fillStyle = <span class="val">'#f0a500'</span>;
+ctx.<span class="tag">fillRect</span>(<span class="num">10</span>, <span class="num">10</span>, <span class="num">100</span>, <span class="num">60</span>);
+
+<span class="com">// Stroke (outline only)</span>
+ctx.strokeStyle = <span class="val">'#78a9ff'</span>;
+ctx.lineWidth = <span class="num">2</span>;
+ctx.<span class="tag">strokeRect</span>(<span class="num">130</span>, <span class="num">10</span>, <span class="num">80</span>, <span class="num">60</span>);
+
+<span class="com">// Circle (arc)</span>
+ctx.<span class="tag">beginPath</span>();
+ctx.<span class="tag">arc</span>(<span class="num">300</span>, <span class="num">40</span>, <span class="num">30</span>, <span class="num">0</span>, Math.PI * <span class="num">2</span>);
+ctx.fillStyle = <span class="val">'#6fdc8c'</span>;
+ctx.<span class="tag">fill</span>();
+
+<span class="com">// Line</span>
+ctx.<span class="tag">beginPath</span>();
+ctx.<span class="tag">moveTo</span>(<span class="num">10</span>, <span class="num">100</span>);
+ctx.<span class="tag">lineTo</span>(<span class="num">390</span>, <span class="num">100</span>);
+ctx.strokeStyle = <span class="val">'#be95ff'</span>;
+ctx.<span class="tag">stroke</span>();
+
+<span class="com">// Text</span>
+ctx.font = <span class="val">'bold 18px monospace'</span>;
+ctx.fillStyle = <span class="val">'#e8eaf0'</span>;
+ctx.<span class="tag">fillText</span>(<span class="val">'Canvas!'</span>, <span class="num">160</span>, <span class="num">150</span>);
+
+<span class="com">// Gradient</span>
+<span class="kw">const</span> grad = ctx.<span class="tag">createLinearGradient</span>(<span class="num">0</span>,<span class="num">160</span>,<span class="num">400</span>,<span class="num">200</span>);
+grad.<span class="tag">addColorStop</span>(<span class="num">0</span>, <span class="val">'#ff6b35'</span>);
+grad.<span class="tag">addColorStop</span>(<span class="num">1</span>, <span class="val">'#f0a500'</span>);
+ctx.fillStyle = grad;
+ctx.<span class="tag">fillRect</span>(<span class="num">0</span>, <span class="num">170</span>, <span class="num">400</span>, <span class="num">30</span>);
+<span class="tag">&lt;/script&gt;</span></code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Live Canvas Demo</div>
+            <div class="demo-content" style="text-align:center">
+              <canvas id="myCanvas" width="340" height="190" style="background:#111420;border:1px solid #2e3447;border-radius:4px;max-width:100%"></canvas>
+              <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+                <button class="demo-btn" onclick="canvasDraw()">▶ Draw</button>
+                <button class="demo-btn" onclick="canvasClear()" style="background:var(--surface);color:var(--text)">✕ Clear</button>
+                <button class="demo-btn" onclick="canvasAnimate()" style="background:var(--surface2);color:var(--text)">⟳ Animate</button>
+              </div>
+            </div>
+          </div>
+          <h4>Key Canvas Methods</h4>
+          <table class="attr-table" style="font-size:12px">
+            <tr><th>Method</th><th>Purpose</th></tr>
+            <tr><td><code>fillRect(x,y,w,h)</code></td><td>Filled rectangle</td></tr>
+            <tr><td><code>strokeRect(x,y,w,h)</code></td><td>Outline rectangle</td></tr>
+            <tr><td><code>clearRect(x,y,w,h)</code></td><td>Erase area</td></tr>
+            <tr><td><code>arc(x,y,r,start,end)</code></td><td>Circle / arc path</td></tr>
+            <tr><td><code>moveTo / lineTo</code></td><td>Draw lines</td></tr>
+            <tr><td><code>fillText(str,x,y)</code></td><td>Write text</td></tr>
+            <tr><td><code>drawImage(img,x,y)</code></td><td>Draw image/video frame</td></tr>
+            <tr><td><code>createLinearGradient</code></td><td>Linear gradient fill</td></tr>
+            <tr><td><code>createRadialGradient</code></td><td>Radial gradient fill</td></tr>
+            <tr><td><code>save() / restore()</code></td><td>Context state stack</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SVG ===== -->
+  <section class="topic-section" id="html-svg">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Graphics</span>
+      <h2>SVG — Scalable Vector Graphics</h2>
+      <p>SVG is an XML-based vector image format. Unlike Canvas (pixels), SVG uses geometric shapes described in code — so they scale infinitely without losing quality. SVG is perfect for icons, logos, charts, illustrations, and UI decorations.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">SVG — Shapes, Text, Path</div></div>
+            <pre><code><span class="tag">&lt;svg</span> <span class="attr">width</span>=<span class="val">"300"</span> <span class="attr">height</span>=<span class="val">"200"</span>
+     <span class="attr">viewBox</span>=<span class="val">"0 0 300 200"</span>
+     <span class="attr">xmlns</span>=<span class="val">"http://www.w3.org/2000/svg"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- Rectangle --&gt;</span>
+  <span class="tag">&lt;rect</span> <span class="attr">x</span>=<span class="val">"10"</span> <span class="attr">y</span>=<span class="val">"10"</span> <span class="attr">width</span>=<span class="val">"80"</span> <span class="attr">height</span>=<span class="val">"50"</span>
+        <span class="attr">fill</span>=<span class="val">"#f0a500"</span> <span class="attr">rx</span>=<span class="val">"8"</span><span class="tag">/&gt;</span>
+
+  <span class="com">&lt;!-- Circle --&gt;</span>
+  <span class="tag">&lt;circle</span> <span class="attr">cx</span>=<span class="val">"150"</span> <span class="attr">cy</span>=<span class="val">"35"</span> <span class="attr">r</span>=<span class="val">"25"</span>
+          <span class="attr">fill</span>=<span class="val">"#78a9ff"</span><span class="tag">/&gt;</span>
+
+  <span class="com">&lt;!-- Ellipse --&gt;</span>
+  <span class="tag">&lt;ellipse</span> <span class="attr">cx</span>=<span class="val">"240"</span> <span class="attr">cy</span>=<span class="val">"35"</span> <span class="attr">rx</span>=<span class="val">"40"</span> <span class="attr">ry</span>=<span class="val">"20"</span>
+           <span class="attr">fill</span>=<span class="val">"#6fdc8c"</span><span class="tag">/&gt;</span>
+
+  <span class="com">&lt;!-- Line --&gt;</span>
+  <span class="tag">&lt;line</span> <span class="attr">x1</span>=<span class="val">"10"</span> <span class="attr">y1</span>=<span class="val">"80"</span> <span class="attr">x2</span>=<span class="val">"290"</span> <span class="attr">y2</span>=<span class="val">"80"</span>
+        <span class="attr">stroke</span>=<span class="val">"#be95ff"</span> <span class="attr">stroke-width</span>=<span class="val">"2"</span><span class="tag">/&gt;</span>
+
+  <span class="com">&lt;!-- Polygon (star/shape) --&gt;</span>
+  <span class="tag">&lt;polygon</span>
+    <span class="attr">points</span>=<span class="val">"150,90 160,120 190,120
+            165,138 175,168 150,150
+            125,168 135,138 110,120
+            140,120"</span>
+    <span class="attr">fill</span>=<span class="val">"#ff6b35"</span><span class="tag">/&gt;</span>
+
+  <span class="com">&lt;!-- Path (arbitrary shape) --&gt;</span>
+  <span class="tag">&lt;path</span>
+    <span class="attr">d</span>=<span class="val">"M10,180 Q150,130 290,180"</span>
+    <span class="attr">stroke</span>=<span class="val">"#4ecdc4"</span> <span class="attr">fill</span>=<span class="val">"none"</span>
+    <span class="attr">stroke-width</span>=<span class="val">"3"</span><span class="tag">/&gt;</span>
+
+  <span class="com">&lt;!-- Text --&gt;</span>
+  <span class="tag">&lt;text</span> <span class="attr">x</span>=<span class="val">"150"</span> <span class="attr">y</span>=<span class="val">"198"</span>
+        <span class="attr">text-anchor</span>=<span class="val">"middle"</span>
+        <span class="attr">fill</span>=<span class="val">"#e8eaf0"</span> <span class="attr">font-size</span>=<span class="val">"12"</span><span class="tag">&gt;</span>
+    SVG Shapes
+  <span class="tag">&lt;/text&gt;</span>
+
+<span class="tag">&lt;/svg&gt;</span></code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Live SVG Demo</div>
+            <div class="demo-content" style="text-align:center">
+              <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;background:#111420;border:1px solid #2e3447;border-radius:4px">
+                <rect x="10" y="10" width="80" height="50" fill="#f0a500" rx="8"/>
+                <circle cx="150" cy="35" r="25" fill="#78a9ff"/>
+                <ellipse cx="250" cy="35" rx="40" ry="20" fill="#6fdc8c"/>
+                <line x1="10" y1="80" x2="290" y2="80" stroke="#be95ff" stroke-width="2"/>
+                <polygon points="50,180 20,120 80,120" fill="#ff6b35"/>
+                <rect x="110" y="120" width="60" height="60" fill="#4ecdc4" rx="4"/>
+                <circle cx="230" cy="150" r="30" fill="none" stroke="#f0a500" stroke-width="3"/>
+                <path d="M10,195 Q150,140 290,195" stroke="#78a9ff" fill="none" stroke-width="2" stroke-dasharray="6,3"/>
+                <text x="150" y="100" text-anchor="middle" fill="#e8eaf0" font-size="13" font-family="monospace" font-weight="500">SVG Shapes Demo</text>
+              </svg>
+            </div>
+          </div>
+          <h4>SVG vs Canvas</h4>
+          <table class="attr-table" style="font-size:12px;margin-top:12px">
+            <tr><th>Feature</th><th>SVG</th><th>Canvas</th></tr>
+            <tr><td>Type</td><td>Vector</td><td>Raster (pixels)</td></tr>
+            <tr><td>Scaling</td><td>Crisp at any size</td><td>Blurs when scaled</td></tr>
+            <tr><td>DOM accessible?</td><td>Yes (can select/style)</td><td>No</td></tr>
+            <tr><td>Best for</td><td>Icons, charts, UI</td><td>Games, image editing</td></tr>
+            <tr><td>Performance (many elements)</td><td>Slower</td><td>Faster</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AUDIO ===== -->
+  <section class="topic-section" id="html-audio">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Media</span>
+      <h2>Audio Controls</h2>
+      <p>The <code>&lt;audio&gt;</code> element embeds sound content directly in HTML without any plugins. HTML5 supports MP3, OGG, and WAV formats. Multiple <code>&lt;source&gt;</code> tags let you provide fallbacks for different browser support levels.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Audio Element</div></div>
+        <pre><code><span class="com">&lt;!-- Basic audio with controls --&gt;</span>
+<span class="tag">&lt;audio</span> <span class="attr">controls</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">src</span>=<span class="val">"music.mp3"</span> <span class="attr">type</span>=<span class="val">"audio/mpeg"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">src</span>=<span class="val">"music.ogg"</span> <span class="attr">type</span>=<span class="val">"audio/ogg"</span><span class="tag">&gt;</span>
+  Your browser does not support audio.
+<span class="tag">&lt;/audio&gt;</span>
+
+<span class="com">&lt;!-- Audio with all attributes --&gt;</span>
+<span class="tag">&lt;audio</span>
+  <span class="attr">src</span>=<span class="val">"podcast.mp3"</span>
+  <span class="attr">controls</span>              <span class="com">&lt;!-- Show play/pause/volume UI --&gt;</span>
+  <span class="attr">autoplay</span>             <span class="com">&lt;!-- Start playing immediately (muted needed) --&gt;</span>
+  <span class="attr">loop</span>                 <span class="com">&lt;!-- Repeat forever --&gt;</span>
+  <span class="attr">muted</span>                <span class="com">&lt;!-- Start muted --&gt;</span>
+  <span class="attr">preload</span>=<span class="val">"auto"</span>       <span class="com">&lt;!-- none | metadata | auto --&gt;</span>
+<span class="tag">&gt;&lt;/audio&gt;</span>
+
+<span class="com">&lt;!-- JavaScript Audio Control --&gt;</span>
+<span class="tag">&lt;script&gt;</span>
+<span class="kw">const</span> audio = document.<span class="tag">getElementById</span>(<span class="val">'myAudio'</span>);
+audio.<span class="tag">play</span>();          <span class="com">// Play</span>
+audio.<span class="tag">pause</span>();         <span class="com">// Pause</span>
+audio.volume = <span class="num">0.5</span>;    <span class="com">// 0.0 to 1.0</span>
+audio.currentTime = <span class="num">30</span>; <span class="com">// Seek to 30s</span>
+audio.playbackRate = <span class="num">1.5</span>; <span class="com">// Speed</span>
+<span class="tag">&lt;/script&gt;</span></code></pre>
+      </div>
+      <table class="attr-table">
+        <tr><th>Attribute</th><th>Type</th><th>Description</th></tr>
+        <tr><td><code>controls</code></td><td>Boolean</td><td>Show browser's built-in audio player UI</td></tr>
+        <tr><td><code>autoplay</code></td><td>Boolean</td><td>Auto-play (requires muted in most browsers)</td></tr>
+        <tr><td><code>loop</code></td><td>Boolean</td><td>Repeat playback endlessly</td></tr>
+        <tr><td><code>muted</code></td><td>Boolean</td><td>Start with audio muted</td></tr>
+        <tr><td><code>preload</code></td><td>none/metadata/auto</td><td>How much to preload before play</td></tr>
+        <tr><td><code>src</code></td><td>URL</td><td>Audio file path (or use child &lt;source&gt; tags)</td></tr>
+      </table>
+      <h4>Supported Formats</h4>
+      <table class="attr-table">
+        <tr><th>Format</th><th>MIME Type</th><th>Browser Support</th></tr>
+        <tr><td>MP3</td><td><code>audio/mpeg</code></td><td>All modern browsers ✓</td></tr>
+        <tr><td>OGG Vorbis</td><td><code>audio/ogg</code></td><td>Firefox, Chrome ✓</td></tr>
+        <tr><td>WAV</td><td><code>audio/wav</code></td><td>All modern browsers ✓</td></tr>
+        <tr><td>AAC</td><td><code>audio/aac</code></td><td>Safari, Chrome ✓</td></tr>
+        <tr><td>WebM</td><td><code>audio/webm</code></td><td>Chrome, Firefox ✓</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== VIDEO ===== -->
+  <section class="topic-section" id="html-video">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Media</span>
+      <h2>Video Controls</h2>
+      <p>The <code>&lt;video&gt;</code> element embeds video directly in HTML, replacing Flash entirely. It supports multiple formats, captions/subtitles via <code>&lt;track&gt;</code>, and full JavaScript control through the HTMLMediaElement API.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Video Element</div></div>
+        <pre><code><span class="com">&lt;!-- Full-featured video element --&gt;</span>
+<span class="tag">&lt;video</span>
+  <span class="attr">width</span>=<span class="val">"720"</span>
+  <span class="attr">height</span>=<span class="val">"405"</span>
+  <span class="attr">poster</span>=<span class="val">"thumbnail.jpg"</span>   <span class="com">&lt;!-- Preview image --&gt;</span>
+  <span class="attr">controls</span>                  <span class="com">&lt;!-- Show player UI --&gt;</span>
+  <span class="attr">preload</span>=<span class="val">"metadata"</span>
+  <span class="attr">playsinline</span>               <span class="com">&lt;!-- iOS inline play --&gt;</span>
+<span class="tag">&gt;</span>
+  <span class="com">&lt;!-- Multiple formats for compatibility --&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">src</span>=<span class="val">"video.webm"</span> <span class="attr">type</span>=<span class="val">"video/webm"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">src</span>=<span class="val">"video.mp4"</span> <span class="attr">type</span>=<span class="val">"video/mp4"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">src</span>=<span class="val">"video.ogv"</span> <span class="attr">type</span>=<span class="val">"video/ogg"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- Subtitles / captions --&gt;</span>
+  <span class="tag">&lt;track</span>
+    <span class="attr">kind</span>=<span class="val">"subtitles"</span>
+    <span class="attr">src</span>=<span class="val">"subs-en.vtt"</span>
+    <span class="attr">srclang</span>=<span class="val">"en"</span>
+    <span class="attr">label</span>=<span class="val">"English"</span>
+    <span class="attr">default</span>
+  <span class="tag">&gt;</span>
+
+  Fallback text if video unsupported.
+<span class="tag">&lt;/video&gt;</span>
+
+<span class="com">&lt;!-- Responsive video (CSS) --&gt;</span>
+<span class="tag">&lt;style&gt;</span>
+  <span class="sel">.video-container</span> {
+    <span class="prop">position</span>: <span class="val">relative</span>;
+    <span class="prop">padding-bottom</span>: <span class="num">56.25%</span>; <span class="com">/* 16:9 ratio */</span>
+    <span class="prop">height</span>: <span class="num">0</span>;
+  }
+  <span class="sel">.video-container video</span> {
+    <span class="prop">position</span>: <span class="val">absolute</span>;
+    <span class="prop">width</span>: <span class="num">100%</span>;
+    <span class="prop">height</span>: <span class="num">100%</span>;
+  }
+<span class="tag">&lt;/style&gt;</span></code></pre>
+      </div>
+      <h4>&lt;track&gt; kinds for Accessibility</h4>
+      <table class="attr-table">
+        <tr><th>kind value</th><th>Purpose</th></tr>
+        <tr><td><code>subtitles</code></td><td>Translation of dialogue for foreign language viewers</td></tr>
+        <tr><td><code>captions</code></td><td>Transcription including sound effects (for deaf users)</td></tr>
+        <tr><td><code>descriptions</code></td><td>Text description of video content (for blind users)</td></tr>
+        <tr><td><code>chapters</code></td><td>Chapter titles for navigation</td></tr>
+        <tr><td><code>metadata</code></td><td>Data used by scripts, not shown to user</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== META & HEAD ===== -->
+  <section class="topic-section" id="html-meta">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Head</span>
+      <h2>Meta Tags &amp; Head Elements</h2>
+      <p>The <code>&lt;head&gt;</code> contains metadata — information <em>about</em> the document that is not displayed to the user but is critical for browsers, search engines, and social media platforms.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML — Complete Head Section</div></div>
+        <pre><code><span class="tag">&lt;head&gt;</span>
+  <span class="com">&lt;!-- Character encoding --&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- Responsive viewport --&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"viewport"</span> <span class="attr">content</span>=<span class="val">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- SEO: description shown in search results --&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"description"</span> <span class="attr">content</span>=<span class="val">"Learn HTML and CSS"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- Author, robots --&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"author"</span> <span class="attr">content</span>=<span class="val">"Your Name"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"robots"</span> <span class="attr">content</span>=<span class="val">"index, follow"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- Open Graph (Facebook, LinkedIn share) --&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:title"</span> <span class="attr">content</span>=<span class="val">"Page Title"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">property</span>=<span class="val">"og:image"</span> <span class="attr">content</span>=<span class="val">"thumbnail.jpg"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- Twitter Card --&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"twitter:card"</span> <span class="attr">content</span>=<span class="val">"summary_large_image"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- Favicon --&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="val">"icon"</span> <span class="attr">href</span>=<span class="val">"favicon.ico"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="val">"icon"</span> <span class="attr">href</span>=<span class="val">"icon.svg"</span> <span class="attr">type</span>=<span class="val">"image/svg+xml"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- External CSS --&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="val">"stylesheet"</span> <span class="attr">href</span>=<span class="val">"styles.css"</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- Preload critical resource --&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="val">"preload"</span> <span class="attr">href</span>=<span class="val">"font.woff2"</span> <span class="attr">as</span>=<span class="val">"font"</span> <span class="attr">crossorigin</span><span class="tag">&gt;</span>
+
+  <span class="com">&lt;!-- Structured data (JSON-LD) --&gt;</span>
+  <span class="tag">&lt;script</span> <span class="attr">type</span>=<span class="val">"application/ld+json"</span><span class="tag">&gt;</span>
+  { "@context": "https://schema.org",
+    "@type": "WebPage", "name": "Title" }
+  <span class="tag">&lt;/script&gt;</span>
+
+  <span class="tag">&lt;title&gt;</span>Page Title — Site Name<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ENTITIES ===== -->
+  <section class="topic-section" id="html-entities">
+    <div class="section-header">
+      <span class="section-tag html">HTML5 · Characters</span>
+      <h2>HTML Entities &amp; Special Characters</h2>
+      <p>Some characters have special meaning in HTML (like <code>&lt;</code> and <code>&gt;</code>) and must be written as <strong>character entities</strong> to be displayed correctly. Entities start with <code>&amp;</code> and end with <code>;</code>.</p>
+    </div>
+    <div class="subsection">
+      <table class="attr-table">
+        <tr><th>Entity Name</th><th>Entity Number</th><th>Character</th><th>Description</th></tr>
+        <tr><td><code>&amp;lt;</code></td><td><code>&amp;#60;</code></td><td>&lt;</td><td>Less than</td></tr>
+        <tr><td><code>&amp;gt;</code></td><td><code>&amp;#62;</code></td><td>&gt;</td><td>Greater than</td></tr>
+        <tr><td><code>&amp;amp;</code></td><td><code>&amp;#38;</code></td><td>&amp;</td><td>Ampersand</td></tr>
+        <tr><td><code>&amp;quot;</code></td><td><code>&amp;#34;</code></td><td>"</td><td>Quotation mark</td></tr>
+        <tr><td><code>&amp;apos;</code></td><td><code>&amp;#39;</code></td><td>'</td><td>Apostrophe</td></tr>
+        <tr><td><code>&amp;nbsp;</code></td><td><code>&amp;#160;</code></td><td>(space)</td><td>Non-breaking space</td></tr>
+        <tr><td><code>&amp;copy;</code></td><td><code>&amp;#169;</code></td><td>&copy;</td><td>Copyright</td></tr>
+        <tr><td><code>&amp;reg;</code></td><td><code>&amp;#174;</code></td><td>&reg;</td><td>Registered trademark</td></tr>
+        <tr><td><code>&amp;trade;</code></td><td><code>&amp;#8482;</code></td><td>&trade;</td><td>Trademark</td></tr>
+        <tr><td><code>&amp;euro;</code></td><td><code>&amp;#8364;</code></td><td>&euro;</td><td>Euro sign</td></tr>
+        <tr><td><code>&amp;pound;</code></td><td><code>&amp;#163;</code></td><td>&pound;</td><td>Pound sign</td></tr>
+        <tr><td><code>&amp;mdash;</code></td><td><code>&amp;#8212;</code></td><td>&mdash;</td><td>Em dash</td></tr>
+        <tr><td><code>&amp;rarr;</code></td><td><code>&amp;#8594;</code></td><td>&rarr;</td><td>Right arrow</td></tr>
+        <tr><td><code>&amp;hearts;</code></td><td><code>&amp;#9829;</code></td><td>&hearts;</td><td>Heart symbol</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ==================== CHAPTER 2: CSS ==================== -->
+  <div class="chapter-divider-inner css-chapter">
+    <div class="chapter-title css-title"><span>Chapter 2</span> — CSS3</div>
+    <div class="chapter-subtitle">Cascading Style Sheets · Styling the Web</div>
+  </div>
+
+  <!-- ===== CSS INTRO ===== -->
+  <section class="topic-section" id="css-intro">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Fundamentals</span>
+      <h2>CSS Fundamentals</h2>
+      <p>CSS (Cascading Style Sheets) controls the visual presentation of HTML elements — colors, fonts, spacing, layout, animations, and responsive design. CSS3 is the current standard, introducing rounded corners, gradients, animations, Flexbox, Grid, and much more.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>Anatomy of a CSS Rule</h3>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Rule Structure</div></div>
+        <pre><code><span class="com">/* Selector { Declaration Block } */</span>
+
+<span class="sel">h1</span> {              <span class="com">/* ← Selector: what to style */</span>
+  <span class="prop">color</span>: <span class="val">#f0a500</span>;  <span class="com">/* ← Property: value; */</span>
+  <span class="prop">font-size</span>: <span class="num">2rem</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
+}
+
+<span class="com">/* Multiple selectors share a block */</span>
+<span class="sel">h1, h2, h3</span> {
+  <span class="prop">font-family</span>: <span class="val">'Georgia', serif</span>;
+}
+
+<span class="com">/* Descendant: p inside .card */</span>
+<span class="sel">.card p</span> {
+  <span class="prop">line-height</span>: <span class="num">1.8</span>;
+}
+
+<span class="com">/* CSS Comment syntax */</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STYLESHEETS ===== -->
+  <section class="topic-section" id="css-stylesheets">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Stylesheets</span>
+      <h2>Inline, Embedded &amp; External Style Sheets</h2>
+      <p>There are three ways to apply CSS to HTML. Each has a different priority in the cascade and different use cases. Understanding all three is foundational to controlling how styles are applied.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="three-col">
+        <div>
+          <h4>1. Inline Styles</h4>
+          <p style="color:var(--text2);font-size:14px">Applied directly on an HTML element using the <code>style</code> attribute. Highest specificity. Hard to maintain.</p>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML</div></div>
+            <pre><code><span class="tag">&lt;p</span> <span class="attr">style</span>=<span class="val">"
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+"</span><span class="tag">&gt;</span>
+  Red bold text
+<span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;div</span> <span class="attr">style</span>=<span class="val">"
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+"</span><span class="tag">&gt;</span>
+  ...
+<span class="tag">&lt;/div&gt;</span></code></pre>
+          </div>
+          <div class="callout warn">
+            <div class="callout-title">⚠️ Use sparingly</div>
+            <p>Hard to override and maintain. Use only for dynamic JS-injected styles.</p>
+          </div>
+        </div>
+        <div>
+          <h4>2. Embedded (Internal)</h4>
+          <p style="color:var(--text2);font-size:14px">Inside a <code>&lt;style&gt;</code> tag in the <code>&lt;head&gt;</code>. Good for single-page styles or email templates.</p>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML</div></div>
+            <pre><code><span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;style&gt;</span>
+    <span class="com">/* These rules apply
+       only to this page */</span>
+
+    <span class="sel">body</span> {
+      <span class="prop">background</span>: <span class="val">#f0f0f0</span>;
+      <span class="prop">font-family</span>: <span class="val">sans-serif</span>;
+    }
+
+    <span class="sel">h1</span> {
+      <span class="prop">color</span>: <span class="val">#333</span>;
+    }
+
+    <span class="sel">.card</span> {
+      <span class="prop">padding</span>: <span class="num">20px</span>;
+      <span class="prop">border-radius</span>: <span class="num">8px</span>;
+    }
+  <span class="tag">&lt;/style&gt;</span>
+<span class="tag">&lt;/head&gt;</span></code></pre>
+          </div>
+        </div>
+        <div>
+          <h4>3. External Stylesheet</h4>
+          <p style="color:var(--text2);font-size:14px">Separate <code>.css</code> file linked with <code>&lt;link&gt;</code>. Best practice for all real projects — reusable across pages.</p>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">HTML + CSS</div></div>
+            <pre><code><span class="com">&lt;!-- In HTML head --&gt;</span>
+<span class="tag">&lt;link</span>
+  <span class="attr">rel</span>=<span class="val">"stylesheet"</span>
+  <span class="attr">href</span>=<span class="val">"styles.css"</span>
+<span class="tag">&gt;</span>
+
+<span class="com">/* styles.css — separate file */</span>
+<span class="sel">body</span> {
+  <span class="prop">margin</span>: <span class="num">0</span>;
+  <span class="prop">font-family</span>: <span class="val">Georgia, serif</span>;
+}
+
+<span class="sel">h1</span> { <span class="prop">color</span>: <span class="val">navy</span>; }
+
+<span class="com">/* Import another CSS file */</span>
+<span class="kw">@import</span> <span class="val">url('reset.css')</span>;
+<span class="kw">@import</span> <span class="val">url('typography.css')</span>;</code></pre>
+          </div>
+          <div class="callout tip">
+            <div class="callout-title">✓ Best Practice</div>
+            <p>External stylesheets are cached by browsers, reducing load time on repeat visits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SELECTORS ===== -->
+  <section class="topic-section" id="css-selectors">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Selectors</span>
+      <h2>CSS Selectors</h2>
+      <p>Selectors are patterns that tell the browser which HTML elements a CSS rule applies to. CSS3 introduced many powerful selectors including attribute selectors, nth-child, and more.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — All Selector Types</div></div>
+        <pre><code><span class="com">/* ─── BASIC SELECTORS ─── */</span>
+<span class="sel">*</span>           { <span class="prop">box-sizing</span>: <span class="val">border-box</span>; }   <span class="com">/* Universal */</span>
+<span class="sel">p</span>           { <span class="prop">color</span>: <span class="val">black</span>; }              <span class="com">/* Type/Element */</span>
+<span class="sel">.card</span>       { <span class="prop">padding</span>: <span class="num">20px</span>; }            <span class="com">/* Class */</span>
+<span class="sel">#header</span>     { <span class="prop">position</span>: <span class="val">fixed</span>; }           <span class="com">/* ID */</span>
+
+<span class="com">/* ─── COMBINATOR SELECTORS ─── */</span>
+<span class="sel">div p</span>       { }   <span class="com">/* Descendant: all p inside div */</span>
+<span class="sel">div &gt; p</span>     { }   <span class="com">/* Child: direct p inside div */</span>
+<span class="sel">h1 + p</span>      { }   <span class="com">/* Adjacent sibling: p right after h1 */</span>
+<span class="sel">h1 ~ p</span>      { }   <span class="com">/* General sibling: all p after h1 */</span>
+
+<span class="com">/* ─── ATTRIBUTE SELECTORS ─── */</span>
+<span class="sel">[href]</span>            { }  <span class="com">/* Has href attribute */</span>
+<span class="sel">[type="email"]</span>    { }  <span class="com">/* Exact match */</span>
+<span class="sel">[class~="btn"]</span>    { }  <span class="com">/* Contains word "btn" */</span>
+<span class="sel">[href^="https"]</span>   { }  <span class="com">/* Starts with "https" */</span>
+<span class="sel">[href$=".pdf"]</span>    { }  <span class="com">/* Ends with ".pdf" */</span>
+<span class="sel">[href*="google"]</span>  { }  <span class="com">/* Contains "google" anywhere */</span>
+
+<span class="com">/* ─── PSEUDO-CLASSES ─── */</span>
+<span class="sel">a:hover</span>           { <span class="prop">color</span>: <span class="val">blue</span>; }
+<span class="sel">input:focus</span>       { <span class="prop">outline</span>: <span class="val">2px solid blue</span>; }
+<span class="sel">li:first-child</span>    { <span class="prop">font-weight</span>: <span class="val">bold</span>; }
+<span class="sel">li:last-child</span>     { <span class="prop">margin-bottom</span>: <span class="num">0</span>; }
+<span class="sel">li:nth-child(2n)</span>  { <span class="prop">background</span>: <span class="val">#f0f0f0</span>; }
+<span class="sel">p:not(.special)</span>  { <span class="prop">color</span>: <span class="val">gray</span>; }
+<span class="sel">input:checked</span>     { <span class="prop">accent-color</span>: <span class="val">green</span>; }
+<span class="sel">input:disabled</span>    { <span class="prop">opacity</span>: <span class="num">0.5</span>; }
+<span class="sel">input:required</span>    { <span class="prop">border-color</span>: <span class="val">red</span>; }
+<span class="sel">input:valid</span>       { <span class="prop">border-color</span>: <span class="val">green</span>; }
+<span class="sel">input:invalid</span>     { <span class="prop">border-color</span>: <span class="val">red</span>; }
+
+<span class="com">/* ─── PSEUDO-ELEMENTS ─── */</span>
+<span class="sel">p::before</span>   { <span class="prop">content</span>: <span class="val">"→ "</span>; <span class="prop">color</span>: <span class="val">blue</span>; }
+<span class="sel">p::after</span>    { <span class="prop">content</span>: <span class="val">" ←"</span>; }
+<span class="sel">p::first-line</span>   { <span class="prop">font-weight</span>: <span class="val">bold</span>; }
+<span class="sel">p::first-letter</span> { <span class="prop">font-size</span>: <span class="num">2em</span>; <span class="prop">float</span>: <span class="val">left</span>; }
+<span class="sel">::selection</span>     { <span class="prop">background</span>: <span class="val">yellow</span>; }</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CASCADE ===== -->
+  <section class="topic-section" id="css-cascade">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Cascade</span>
+      <h2>Rule Cascading</h2>
+      <p>The <strong>cascade</strong> is the algorithm CSS uses to determine which rule wins when multiple rules target the same element and property. It considers three factors in order: <strong>origin &amp; importance</strong>, then <strong>specificity</strong>, then <strong>source order</strong>.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Cascade in Action</div></div>
+        <pre><code><span class="com">/* 1. ORIGIN ORDER (from least to most authoritative): */</span>
+<span class="com">/*    Browser defaults → User styles → Author styles → !important */</span>
+
+<span class="com">/* 2. SOURCE ORDER: Last rule wins when specificity is equal */</span>
+<span class="sel">p</span> { <span class="prop">color</span>: <span class="val">blue</span>; }    <span class="com">/* loses — comes first */</span>
+<span class="sel">p</span> { <span class="prop">color</span>: <span class="val">red</span>; }     <span class="com">/* wins — comes last */</span>
+
+<span class="com">/* 3. !important overrides everything (avoid overusing) */</span>
+<span class="sel">p</span> { <span class="prop">color</span>: <span class="val">blue !important</span>; }  <span class="com">/* wins, even if less specific */</span>
+
+<span class="com">/* 4. Cascading with inheritance */</span>
+<span class="sel">body</span> { <span class="prop">font-family</span>: <span class="val">Georgia</span>; }
+<span class="com">/* All children inherit font-family unless overridden */</span>
+<span class="sel">code</span> { <span class="prop">font-family</span>: <span class="val">monospace</span>; } <span class="com">/* Overrides inherited value */</span></code></pre>
+      </div>
+
+      <div class="demo-box">
+        <div class="demo-header">Demo — Cascade Priority</div>
+        <div class="demo-content">
+          <div style="font-family:var(--font-mono);font-size:13px">
+            <div class="cascade-el" style="background:rgba(120,169,255,0.08);color:var(--blue)">① Browser default — black unstyled text (lowest priority)</div>
+            <div class="cascade-el" style="background:rgba(111,220,140,0.08);color:var(--green)">② Author stylesheet rule — green text (medium priority)</div>
+            <div class="cascade-el" style="background:rgba(190,149,255,0.08);color:var(--purple)">③ More specific author rule — purple (wins over green)</div>
+            <div class="cascade-el" style="background:rgba(255,107,53,0.08);color:var(--accent2)">④ !important — orange (overrides everything, avoid!)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SPECIFICITY ===== -->
+  <section class="topic-section" id="css-specificity">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Specificity</span>
+      <h2>Specificity</h2>
+      <p>Specificity is a score that determines which CSS rule wins when multiple rules target the same element. It's calculated as a 3-part number: <strong>ID — Class/Attribute/Pseudo-class — Type/Pseudo-element</strong>.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Specificity Calculation</div></div>
+        <pre><code><span class="com">/* Format: (IDs, Classes, Elements) → higher = wins */</span>
+
+<span class="sel">*</span>               <span class="com">/* (0,0,0) = 0   — universal */</span>
+<span class="sel">p</span>               <span class="com">/* (0,0,1) = 1   — element */</span>
+<span class="sel">p.intro</span>         <span class="com">/* (0,1,1) = 11  — element + class */</span>
+<span class="sel">.nav .item</span>      <span class="com">/* (0,2,0) = 20  — two classes */</span>
+<span class="sel">#header</span>         <span class="com">/* (1,0,0) = 100 — ID (very high!) */</span>
+<span class="sel">#header .logo</span>   <span class="com">/* (1,1,0) = 110 — ID + class */</span>
+
+<span class="com">/* Inline style: (1,0,0,0) = always wins except !important */</span>
+<span class="com">/* !important:   (1,0,0,0,0) = nuclear option */</span>
+
+<span class="com">/* Example conflict: which wins? */</span>
+<span class="sel">.menu a</span>         { <span class="prop">color</span>: <span class="val">blue</span>; }  <span class="com">/* (0,1,1) = 11 */</span>
+<span class="sel">nav ul li a</span>     { <span class="prop">color</span>: <span class="val">red</span>; }   <span class="com">/* (0,0,4) = 4  */</span>
+<span class="com">/* .menu a wins! Higher specificity. */</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INHERITANCE ===== -->
+  <section class="topic-section" id="css-inheritance">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Inheritance</span>
+      <h2>Inheritance</h2>
+      <p>Inheritance is CSS's mechanism where certain property values set on parent elements are passed down to their children automatically. Not all properties inherit — mainly text-related ones do. You can explicitly control inheritance with keywords.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Inheritance</div></div>
+            <pre><code><span class="com">/* Inherited by default: */</span>
+<span class="com">/* color, font-family, font-size,
+   font-weight, line-height,
+   letter-spacing, text-align,
+   list-style, cursor, visibility */</span>
+
+<span class="sel">body</span> {
+  <span class="prop">font-family</span>: <span class="val">Georgia, serif</span>;
+  <span class="prop">color</span>: <span class="val">#333</span>;
+  <span class="com">/* All descendants inherit these */</span>
+}
+
+<span class="com">/* NOT inherited by default: */</span>
+<span class="com">/* margin, padding, border, background,
+   width, height, display, position */</span>
+
+<span class="com">/* Force inheritance with keywords: */</span>
+<span class="sel">.child</span> {
+  <span class="com">/* inherit: take parent's value */</span>
+  <span class="prop">color</span>: <span class="val">inherit</span>;
+
+  <span class="com">/* initial: reset to CSS default */</span>
+  <span class="prop">font-size</span>: <span class="val">initial</span>;
+
+  <span class="com">/* unset: inherit if inherited prop,
+            initial if not */</span>
+  <span class="prop">border</span>: <span class="val">unset</span>;
+
+  <span class="com">/* revert: browser default */</span>
+  <span class="prop">display</span>: <span class="val">revert</span>;
+}</code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Live Inheritance Demo</div>
+            <div class="demo-content">
+              <div class="inherit-parent">
+                Parent: font-family=monospace, color=blue
+                <div class="inherit-child">
+                  Child inherits font-family from parent ✓<br>
+                  But has its own color: green ✓
+                  <div style="padding:8px;margin-top:8px;border:1px dashed #2e3447;font-size:11px;color:#9aa0b8">
+                    Grandchild: inherits both font &amp; grandparent color until child overrides
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h4>Inheritance Keywords</h4>
+          <table class="attr-table" style="font-size:13px;margin-top:12px">
+            <tr><th>Keyword</th><th>Meaning</th></tr>
+            <tr><td><code>inherit</code></td><td>Explicitly take parent's computed value</td></tr>
+            <tr><td><code>initial</code></td><td>Reset to CSS specification's initial value</td></tr>
+            <tr><td><code>unset</code></td><td>inherit if naturally inherited, else initial</td></tr>
+            <tr><td><code>revert</code></td><td>Roll back to browser's built-in stylesheet</td></tr>
+            <tr><td><code>revert-layer</code></td><td>Roll back to previous cascade layer</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BOX MODEL ===== -->
+  <section class="topic-section" id="css-boxmodel">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Layout</span>
+      <h2>The CSS Box Model</h2>
+      <p>Every HTML element is a rectangular box composed of four layers: <strong>content</strong>, <strong>padding</strong>, <strong>border</strong>, and <strong>margin</strong>. Understanding the box model is essential for all CSS layout work.</p>
+    </div>
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Box Model</div></div>
+            <pre><code><span class="sel">.box</span> {
+  <span class="com">/* Content dimensions */</span>
+  <span class="prop">width</span>: <span class="num">200px</span>;
+  <span class="prop">height</span>: <span class="num">100px</span>;
+
+  <span class="com">/* Padding: space inside border */</span>
+  <span class="prop">padding</span>: <span class="num">20px</span>;         <span class="com">/* all sides */</span>
+  <span class="prop">padding</span>: <span class="num">10px 20px</span>;    <span class="com">/* top/bot left/right */</span>
+  <span class="prop">padding</span>: <span class="num">10px 20px 15px 25px</span>; <span class="com">/* T R B L */</span>
+
+  <span class="com">/* Border */</span>
+  <span class="prop">border</span>: <span class="num">2px</span> <span class="val">solid</span> <span class="val">#333</span>;
+  <span class="prop">border-radius</span>: <span class="num">8px</span>;
+
+  <span class="com">/* Margin: space outside border */</span>
+  <span class="prop">margin</span>: <span class="num">20px</span> <span class="val">auto</span>;  <span class="com">/* center horizontally */</span>
+
+  <span class="com">/* CRITICAL: box-sizing */</span>
+  <span class="com">/* content-box (default): padding and border
+     ADD to the declared width */</span>
+  <span class="prop">box-sizing</span>: <span class="val">content-box</span>;
+
+  <span class="com">/* border-box (recommended!): padding and
+     border are INCLUDED in width */</span>
+  <span class="prop">box-sizing</span>: <span class="val">border-box</span>;
+}
+
+<span class="com">/* Apply border-box globally (best practice) */</span>
+<span class="sel">*, *::before, *::after</span> {
+  <span class="prop">box-sizing</span>: <span class="val">border-box</span>;
+}</code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Box Model Visual</div>
+            <div class="demo-content">
+              <div style="padding:16px;background:rgba(255,107,53,0.1);border:2px dashed #ff6b35;border-radius:4px;font-family:var(--font-mono);font-size:11px;color:#ff6b35;text-align:center">
+                MARGIN (outer space)
+                <div style="margin:12px 0;padding:12px;background:rgba(190,149,255,0.1);border:2px solid #be95ff;color:#be95ff;border-radius:3px">
+                  BORDER
+                  <div style="margin:8px 0;padding:12px;background:rgba(120,169,255,0.1);border:1px dashed #78a9ff;color:#78a9ff;border-radius:2px">
+                    PADDING (inner space)
+                    <div style="padding:10px;background:rgba(111,220,140,0.15);color:#6fdc8c;border-radius:2px">
+                      CONTENT<br><span style="font-size:10px;opacity:0.7">width × height</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BACKGROUNDS ===== -->
+  <section class="topic-section" id="css-backgrounds">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Visual</span>
+      <h2>Backgrounds</h2>
+      <p>CSS3 dramatically expanded background control. You can now layer multiple backgrounds, use gradients, control sizing precisely, and create complex visual effects — all in pure CSS without images.</p>
+    </div>
+
+    <div class="subsection">
+      <h3>Background Properties</h3>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — All Background Properties</div></div>
+        <pre><code><span class="sel">.element</span> {
+  <span class="com">/* Solid color */</span>
+  <span class="prop">background-color</span>: <span class="val">#f0a500</span>;
+  <span class="prop">background-color</span>: <span class="val">rgba(240, 165, 0, 0.5)</span>;  <span class="com">/* semi-transparent */</span>
+
+  <span class="com">/* Image */</span>
+  <span class="prop">background-image</span>: <span class="val">url('pattern.png')</span>;
+
+  <span class="com">/* Repeat: repeat|repeat-x|repeat-y|no-repeat|space|round */</span>
+  <span class="prop">background-repeat</span>: <span class="val">no-repeat</span>;
+
+  <span class="com">/* Position: keywords, px, %, or combo */</span>
+  <span class="prop">background-position</span>: <span class="val">center center</span>;
+  <span class="prop">background-position</span>: <span class="num">50% 50%</span>;
+  <span class="prop">background-position</span>: <span class="num">20px 40px</span>;
+
+  <span class="com">/* Size: keywords or dimensions */</span>
+  <span class="prop">background-size</span>: <span class="val">cover</span>;    <span class="com">/* Fill box, may crop */</span>
+  <span class="prop">background-size</span>: <span class="val">contain</span>;  <span class="com">/* Fit inside, no crop */</span>
+  <span class="prop">background-size</span>: <span class="num">300px 200px</span>;
+  <span class="prop">background-size</span>: <span class="num">100% auto</span>;
+
+  <span class="com">/* Attachment: fixed to viewport or scrolls with page */</span>
+  <span class="prop">background-attachment</span>: <span class="val">fixed</span>;    <span class="com">/* Parallax effect */</span>
+  <span class="prop">background-attachment</span>: <span class="val">scroll</span>;   <span class="com">/* Default */</span>
+  <span class="prop">background-attachment</span>: <span class="val">local</span>;    <span class="com">/* Scrolls with element */</span>
+
+  <span class="com">/* Origin: where background-image starts */</span>
+  <span class="prop">background-origin</span>: <span class="val">padding-box</span>; <span class="com">/* default */</span>
+  <span class="prop">background-origin</span>: <span class="val">border-box</span>;
+  <span class="prop">background-origin</span>: <span class="val">content-box</span>;
+
+  <span class="com">/* Clip: where background is painted */</span>
+  <span class="prop">background-clip</span>: <span class="val">padding-box</span>;
+  <span class="prop">background-clip</span>: <span class="val">text</span>;  <span class="com">/* CSS4: clip to text shape! */</span>
+}
+
+<span class="com">/* ─── GRADIENTS ─── */</span>
+<span class="sel">.gradient-linear</span> {
+  <span class="com">/* Direction, then color stops */</span>
+  <span class="prop">background</span>: <span class="tag">linear-gradient</span>(<span class="num">135deg</span>, <span class="val">#f0a500</span>, <span class="val">#ff6b35</span>);
+  <span class="prop">background</span>: <span class="tag">linear-gradient</span>(<span class="val">to right</span>, <span class="val">red</span> <span class="num">0%</span>, <span class="val">blue</span> <span class="num">100%</span>);
+  <span class="com">/* Multiple stops */</span>
+  <span class="prop">background</span>: <span class="tag">linear-gradient</span>(<span class="num">90deg</span>,
+    <span class="val">#f0a500</span> <span class="num">0%</span>, <span class="val">#ff6b35</span> <span class="num">33%</span>,
+    <span class="val">#be95ff</span> <span class="num">66%</span>, <span class="val">#78a9ff</span> <span class="num">100%</span>);
+}
+
+<span class="sel">.gradient-radial</span> {
+  <span class="prop">background</span>: <span class="tag">radial-gradient</span>(<span class="val">circle at center</span>,
+    <span class="val">#f0a500</span>, <span class="val">transparent</span>);
+}
+
+<span class="sel">.gradient-conic</span> {
+  <span class="prop">background</span>: <span class="tag">conic-gradient</span>(<span class="val">red</span>, <span class="val">yellow</span>, <span class="val">green</span>,
+    <span class="val">blue</span>, <span class="val">red</span>);  <span class="com">/* Color wheel! */</span>
+}
+
+<span class="com">/* ─── MULTIPLE BACKGROUNDS ─── */</span>
+<span class="sel">.multi-bg</span> {
+  <span class="prop">background</span>:
+    <span class="val">url('stars.png') top/contain no-repeat</span>,
+    <span class="tag">linear-gradient</span>(<span class="num">180deg</span>, <span class="val">#0d0f14</span>, <span class="val">#1a1e2a</span>);
+  <span class="com">/* First listed = topmost layer */</span>
+}</code></pre>
+      </div>
+
+      <div class="demo-box">
+        <div class="demo-header">Live Background Demos</div>
+        <div class="demo-content">
+          <div class="three-col">
+            <div style="height:80px;border-radius:8px;background:linear-gradient(135deg,#f0a500,#ff6b35);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:#000;font-weight:600">linear-gradient<br>135deg</div>
+            <div style="height:80px;border-radius:8px;background:radial-gradient(circle at 30% 50%,#78a9ff,#0d0f14);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:#fff">radial-gradient<br>circle</div>
+            <div style="height:80px;border-radius:8px;background:conic-gradient(#f0a500,#ff6b35,#be95ff,#78a9ff,#6fdc8c,#f0a500);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:#000;font-weight:600">conic-gradient<br>color wheel</div>
+            <div style="height:80px;border-radius:8px;background:linear-gradient(90deg,#f0a500 0%,#ff6b35 33%,#be95ff 66%,#78a9ff 100%);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:#000;font-weight:600">multi-stop<br>gradient</div>
+            <div style="height:80px;border-radius:8px;background:repeating-linear-gradient(45deg,#1a1e2a 0px,#1a1e2a 10px,#252a38 10px,#252a38 20px);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:#9aa0b8">repeating<br>stripes</div>
+            <div style="height:80px;border-radius:8px;background:rgba(120,169,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(120,169,255,0.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:#78a9ff">glassmorphism<br>backdrop-filter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BORDER IMAGES ===== -->
+  <section class="topic-section" id="css-border-images">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Borders</span>
+      <h2>Border Images</h2>
+      <p>CSS3's <code>border-image</code> property lets you use an image (or gradient!) as the border of any element. The image is divided into nine slices, mapped to the border regions. This enables decorative, custom borders impossible with plain colors.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Border Image &amp; Regular Borders</div></div>
+        <pre><code><span class="com">/* ─── REGULAR BORDERS (CSS2) ─── */</span>
+<span class="sel">.box</span> {
+  <span class="com">/* Shorthand: width style color */</span>
+  <span class="prop">border</span>: <span class="num">2px</span> <span class="val">solid</span> <span class="val">#333</span>;
+
+  <span class="com">/* Individual sides */</span>
+  <span class="prop">border-top</span>: <span class="num">4px</span> <span class="val">dashed</span> <span class="val">red</span>;
+  <span class="prop">border-right</span>: <span class="num">2px</span> <span class="val">dotted</span> <span class="val">blue</span>;
+  <span class="prop">border-bottom</span>: <span class="num">3px</span> <span class="val">double</span> <span class="val">green</span>;
+  <span class="prop">border-left</span>: <span class="num">5px</span> <span class="val">groove</span> <span class="val">purple</span>;
+
+  <span class="com">/* Border styles: solid | dashed | dotted |
+     double | groove | ridge | inset | outset | none */</span>
+
+  <span class="com">/* Rounded corners (CSS3) */</span>
+  <span class="prop">border-radius</span>: <span class="num">8px</span>;
+  <span class="prop">border-radius</span>: <span class="num">50%</span>;           <span class="com">/* Circle */</span>
+  <span class="prop">border-radius</span>: <span class="num">20px 5px</span>;     <span class="com">/* TL/BR TR/BL */</span>
+  <span class="prop">border-radius</span>: <span class="num">10px 20px 30px 40px</span>; <span class="com">/* TL TR BR BL */</span>
+  <span class="com">/* Elliptical radius: horizontal/vertical */</span>
+  <span class="prop">border-radius</span>: <span class="num">50px/25px</span>;
+}
+
+<span class="com">/* ─── BORDER IMAGE (CSS3) ─── */</span>
+<span class="sel">.border-image-box</span> {
+  <span class="prop">border</span>: <span class="num">20px</span> <span class="val">solid</span> <span class="val">transparent</span>; <span class="com">/* needs border to show */</span>
+
+  <span class="com">/* Full shorthand */</span>
+  <span class="prop">border-image</span>: <span class="val">url('border.png')</span> <span class="num">30</span> <span class="val">round</span>;
+
+  <span class="com">/* Individual properties */</span>
+  <span class="prop">border-image-source</span>: <span class="val">url('border.png')</span>;
+  <span class="prop">border-image-slice</span>: <span class="num">30</span>;   <span class="com">/* slice inset from edges */</span>
+  <span class="prop">border-image-width</span>: <span class="num">1</span>;    <span class="com">/* scale factor */</span>
+  <span class="prop">border-image-outset</span>: <span class="num">0</span>;   <span class="com">/* extend beyond border box */</span>
+  <span class="prop">border-image-repeat</span>: <span class="val">round</span>;
+  <span class="com">/* repeat values: stretch | repeat | round | space */</span>
+}
+
+<span class="com">/* ─── GRADIENT AS BORDER IMAGE (CSS3) ─── */</span>
+<span class="sel">.gradient-border</span> {
+  <span class="prop">border</span>: <span class="num">4px</span> <span class="val">solid</span> <span class="val">transparent</span>;
+  <span class="prop">border-image</span>: <span class="tag">linear-gradient</span>(
+    <span class="num">90deg</span>, <span class="val">#f0a500</span>, <span class="val">#ff6b35</span>, <span class="val">#be95ff</span>
+  ) <span class="num">1</span>;  <span class="com">/* "1" = slice value */</span>
+}
+
+<span class="com">/* ─── OUTLINE (not part of box model) ─── */</span>
+<span class="sel">:focus</span> {
+  <span class="prop">outline</span>: <span class="num">3px</span> <span class="val">solid</span> <span class="val">#0077ff</span>;
+  <span class="prop">outline-offset</span>: <span class="num">2px</span>;
+}</code></pre>
+      </div>
+      <div class="demo-box">
+        <div class="demo-header">Border Demos</div>
+        <div class="demo-content">
+          <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+            <div style="padding:14px 20px;border:3px solid #f0a500;border-radius:8px;font-family:var(--font-mono);font-size:12px;color:#f0a500">solid border + radius</div>
+            <div style="padding:14px 20px;border:3px dashed #78a9ff;border-radius:8px;font-family:var(--font-mono);font-size:12px;color:#78a9ff">dashed border</div>
+            <div style="padding:14px 20px;border:3px dotted #6fdc8c;border-radius:8px;font-family:var(--font-mono);font-size:12px;color:#6fdc8c">dotted border</div>
+            <div style="padding:14px 20px;border:4px solid transparent;border-image:linear-gradient(90deg,#f0a500,#ff6b35,#be95ff) 1;font-family:var(--font-mono);font-size:12px;color:var(--text)">gradient border-image</div>
+            <div style="padding:14px 20px;border:3px double #be95ff;font-family:var(--font-mono);font-size:12px;color:#be95ff">double border</div>
+            <div style="width:70px;height:70px;border-radius:50%;border:4px solid #4ecdc4;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;color:#4ecdc4;text-align:center">circle<br>50%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TYPOGRAPHY ===== -->
+  <section class="topic-section" id="css-typography">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Typography</span>
+      <h2>Typography &amp; Fonts</h2>
+      <p>Typography is one of the most impactful aspects of web design. CSS provides precise control over every aspect of how text looks and reads.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Typography Properties</div></div>
+        <pre><code><span class="com">/* ─── WEB FONTS ─── */</span>
+<span class="kw">@font-face</span> {
+  <span class="prop">font-family</span>: <span class="val">'MyFont'</span>;
+  <span class="prop">src</span>: <span class="val">url('font.woff2')</span> <span class="val">format('woff2')</span>,
+       <span class="val">url('font.woff')</span>  <span class="val">format('woff')</span>;
+  <span class="prop">font-weight</span>: <span class="val">normal</span>;
+  <span class="prop">font-display</span>: <span class="val">swap</span>;  <span class="com">/* Prevent invisible text */</span>
+}
+
+<span class="sel">body</span> {
+  <span class="com">/* Font family with fallbacks */</span>
+  <span class="prop">font-family</span>: <span class="val">'Georgia', 'Times New Roman', serif</span>;
+
+  <span class="com">/* Font size */</span>
+  <span class="prop">font-size</span>: <span class="num">16px</span>;     <span class="com">/* absolute */</span>
+  <span class="prop">font-size</span>: <span class="num">1rem</span>;     <span class="com">/* relative to root (recommended) */</span>
+  <span class="prop">font-size</span>: <span class="num">1.2em</span>;    <span class="com">/* relative to parent */</span>
+  <span class="prop">font-size</span>: <span class="num">2vw</span>;      <span class="com">/* 2% of viewport width */</span>
+  <span class="prop">font-size</span>: <span class="tag">clamp</span>(<span class="num">14px</span>, <span class="num">2.5vw</span>, <span class="num">20px</span>);  <span class="com">/* fluid */</span>
+
+  <span class="prop">font-weight</span>: <span class="num">400</span>;     <span class="com">/* 100–900 or named */</span>
+  <span class="prop">font-style</span>: <span class="val">italic</span>;
+  <span class="prop">font-variant</span>: <span class="val">small-caps</span>;
+
+  <span class="com">/* Line height */</span>
+  <span class="prop">line-height</span>: <span class="num">1.6</span>;    <span class="com">/* unitless (recommended) */</span>
+
+  <span class="com">/* Letter and word spacing */</span>
+  <span class="prop">letter-spacing</span>: <span class="num">0.05em</span>;
+  <span class="prop">word-spacing</span>: <span class="num">4px</span>;
+
+  <span class="com">/* Text alignment */</span>
+  <span class="prop">text-align</span>: <span class="val">left | right | center | justify</span>;
+
+  <span class="com">/* Text decoration */</span>
+  <span class="prop">text-decoration</span>: <span class="val">underline</span>;
+  <span class="prop">text-decoration</span>: <span class="val">none</span>;  <span class="com">/* Remove link underline */</span>
+  <span class="prop">text-decoration</span>: <span class="num">2px</span> <span class="val">wavy red underline</span>;
+
+  <span class="com">/* Text transform */</span>
+  <span class="prop">text-transform</span>: <span class="val">uppercase | lowercase | capitalize</span>;
+
+  <span class="com">/* Overflow handling */</span>
+  <span class="prop">white-space</span>: <span class="val">nowrap</span>;       <span class="com">/* No line breaks */</span>
+  <span class="prop">overflow</span>: <span class="val">hidden</span>;
+  <span class="prop">text-overflow</span>: <span class="val">ellipsis</span>;  <span class="com">/* "..." for overflow */</span>
+
+  <span class="com">/* Text shadow */</span>
+  <span class="prop">text-shadow</span>: <span class="num">2px 2px 4px</span> <span class="val">rgba(0,0,0,0.5)</span>;
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COLORS ===== -->
+  <section class="topic-section" id="css-colors">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Colors</span>
+      <h2>Colors &amp; Gradients</h2>
+      <p>CSS supports a rich variety of color formats. Modern CSS added HSL, OKLCH (perceptually uniform), and alpha transparency, making color management much more intuitive.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Color Formats</div></div>
+        <pre><code><span class="sel">.element</span> {
+  <span class="com">/* Named colors (147 available) */</span>
+  <span class="prop">color</span>: <span class="val">red</span>;
+  <span class="prop">color</span>: <span class="val">cornflowerblue</span>;
+
+  <span class="com">/* Hex (3, 6, or 8 digits) */</span>
+  <span class="prop">color</span>: <span class="val">#f00</span>;       <span class="com">/* shorthand */</span>
+  <span class="prop">color</span>: <span class="val">#ff0000</span>;    <span class="com">/* full */</span>
+  <span class="prop">color</span>: <span class="val">#ff000080</span>;  <span class="com">/* with 50% alpha */</span>
+
+  <span class="com">/* RGB / RGBA */</span>
+  <span class="prop">color</span>: <span class="tag">rgb</span>(<span class="num">255</span>, <span class="num">0</span>, <span class="num">0</span>);
+  <span class="prop">color</span>: <span class="tag">rgba</span>(<span class="num">255</span>, <span class="num">0</span>, <span class="num">0</span>, <span class="num">0.5</span>);
+
+  <span class="com">/* HSL (Hue 0-360, Saturation %, Lightness %) */</span>
+  <span class="prop">color</span>: <span class="tag">hsl</span>(<span class="num">38</span>, <span class="num">100%</span>, <span class="num">47%</span>);
+  <span class="prop">color</span>: <span class="tag">hsla</span>(<span class="num">38</span>, <span class="num">100%</span>, <span class="num">47%</span>, <span class="num">0.8</span>);
+
+  <span class="com">/* Modern CSS Color Level 4 */</span>
+  <span class="prop">color</span>: <span class="tag">oklch</span>(<span class="num">0.7</span> <span class="num">0.2</span> <span class="num">80</span>);  <span class="com">/* perceptually uniform */</span>
+  <span class="prop">color</span>: <span class="tag">color-mix</span>(<span class="val">in srgb</span>, <span class="val">blue</span> <span class="num">50%</span>, <span class="val">red</span>);
+
+  <span class="com">/* currentColor — inherits from color property */</span>
+  <span class="prop">border-color</span>: <span class="val">currentColor</span>;
+
+  <span class="com">/* transparent */</span>
+  <span class="prop">background</span>: <span class="val">transparent</span>;
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FLEXBOX ===== -->
+  <section class="topic-section" id="css-flexbox">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Layout</span>
+      <h2>Flexbox</h2>
+      <p>Flexbox (Flexible Box Layout) is a one-dimensional layout model that excels at distributing space and aligning items in a row or column. It replaced float-based layouts and is ideal for navigation bars, card grids, centering, and component layouts.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Flexbox Properties</div></div>
+        <pre><code><span class="com">/* ─── CONTAINER properties ─── */</span>
+<span class="sel">.flex-container</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;          <span class="com">/* or inline-flex */</span>
+
+  <span class="com">/* Direction of main axis */</span>
+  <span class="prop">flex-direction</span>: <span class="val">row</span>;          <span class="com">/* ← default */</span>
+  <span class="prop">flex-direction</span>: <span class="val">row-reverse</span>;  <span class="com">/* → reverse */</span>
+  <span class="prop">flex-direction</span>: <span class="val">column</span>;       <span class="com">/* ↓ column */</span>
+  <span class="prop">flex-direction</span>: <span class="val">column-reverse</span>;
+
+  <span class="com">/* Wrap: allow items to wrap to next line */</span>
+  <span class="prop">flex-wrap</span>: <span class="val">nowrap | wrap | wrap-reverse</span>;
+
+  <span class="com">/* Shorthand: direction wrap */</span>
+  <span class="prop">flex-flow</span>: <span class="val">row wrap</span>;
+
+  <span class="com">/* Align items on MAIN axis */</span>
+  <span class="prop">justify-content</span>: <span class="val">flex-start</span>;    <span class="com">/* default */</span>
+  <span class="prop">justify-content</span>: <span class="val">flex-end</span>;
+  <span class="prop">justify-content</span>: <span class="val">center</span>;
+  <span class="prop">justify-content</span>: <span class="val">space-between</span>;
+  <span class="prop">justify-content</span>: <span class="val">space-around</span>;
+  <span class="prop">justify-content</span>: <span class="val">space-evenly</span>;
+
+  <span class="com">/* Align items on CROSS axis */</span>
+  <span class="prop">align-items</span>: <span class="val">stretch</span>;     <span class="com">/* default */</span>
+  <span class="prop">align-items</span>: <span class="val">flex-start</span>;
+  <span class="prop">align-items</span>: <span class="val">flex-end</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;     <span class="com">/* vertical center! */</span>
+  <span class="prop">align-items</span>: <span class="val">baseline</span>;
+
+  <span class="com">/* Align wrapped rows */</span>
+  <span class="prop">align-content</span>: <span class="val">space-between</span>;
+
+  <span class="prop">gap</span>: <span class="num">16px</span>;                 <span class="com">/* gutters between items */</span>
+  <span class="prop">gap</span>: <span class="num">16px 24px</span>;            <span class="com">/* row-gap column-gap */</span>
+}
+
+<span class="com">/* ─── ITEM properties ─── */</span>
+<span class="sel">.flex-item</span> {
+  <span class="com">/* Grow: how much item grows if there's extra space */</span>
+  <span class="prop">flex-grow</span>: <span class="num">1</span>;     <span class="com">/* takes up remaining space */</span>
+
+  <span class="com">/* Shrink: how much item shrinks if there's no space */</span>
+  <span class="prop">flex-shrink</span>: <span class="num">1</span>;   <span class="com">/* default: can shrink */</span>
+  <span class="prop">flex-shrink</span>: <span class="num">0</span>;   <span class="com">/* don't shrink */</span>
+
+  <span class="com">/* Basis: initial main-axis size */</span>
+  <span class="prop">flex-basis</span>: <span class="val">auto</span>;  <span class="com">/* or 200px, 30%, etc. */</span>
+
+  <span class="com">/* Shorthand: grow shrink basis */</span>
+  <span class="prop">flex</span>: <span class="num">1</span>;            <span class="com">/* = 1 1 0 */</span>
+  <span class="prop">flex</span>: <span class="val">none</span>;         <span class="com">/* = 0 0 auto */</span>
+  <span class="prop">flex</span>: <span class="num">0 0 200px</span>;
+
+  <span class="com">/* Self-alignment (overrides align-items) */</span>
+  <span class="prop">align-self</span>: <span class="val">center</span>;
+
+  <span class="com">/* Order (default 0, lower = earlier) */</span>
+  <span class="prop">order</span>: <span class="num">-1</span>;  <span class="com">/* move item to start */</span>
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GRID ===== -->
+  <section class="topic-section" id="css-grid">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Layout</span>
+      <h2>CSS Grid Layout</h2>
+      <p>CSS Grid is a two-dimensional layout system that controls both rows and columns simultaneously. It's ideal for full page layouts, complex card grids, dashboard UIs, and any design where items need to align on both axes.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Grid Layout</div></div>
+        <pre><code><span class="sel">.grid-container</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+
+  <span class="com">/* Define columns */</span>
+  <span class="prop">grid-template-columns</span>: <span class="num">200px 1fr 1fr</span>;
+  <span class="prop">grid-template-columns</span>: <span class="tag">repeat</span>(<span class="num">3</span>, <span class="num">1fr</span>);
+  <span class="prop">grid-template-columns</span>: <span class="tag">repeat</span>(<span class="val">auto-fill</span>, <span class="tag">minmax</span>(<span class="num">200px</span>, <span class="num">1fr</span>));
+
+  <span class="com">/* Define rows */</span>
+  <span class="prop">grid-template-rows</span>: <span class="val">auto 1fr auto</span>;
+
+  <span class="com">/* Named areas — visual layout */</span>
+  <span class="prop">grid-template-areas</span>:
+    <span class="val">"header header header"</span>
+    <span class="val">"sidebar main   main"</span>
+    <span class="val">"footer footer footer"</span>;
+
+  <span class="prop">gap</span>: <span class="num">20px</span>;
+}
+
+<span class="com">/* Assign items to named areas */</span>
+<span class="sel">.header</span> { <span class="prop">grid-area</span>: <span class="val">header</span>; }
+<span class="sel">.sidebar</span> { <span class="prop">grid-area</span>: <span class="val">sidebar</span>; }
+<span class="sel">.main</span>   { <span class="prop">grid-area</span>: <span class="val">main</span>; }
+<span class="sel">.footer</span> { <span class="prop">grid-area</span>: <span class="val">footer</span>; }
+
+<span class="com">/* Manual placement with line numbers */</span>
+<span class="sel">.item</span> {
+  <span class="prop">grid-column</span>: <span class="num">1</span> / <span class="num">3</span>;   <span class="com">/* span from line 1 to 3 */</span>
+  <span class="prop">grid-row</span>: <span class="num">2</span> / <span class="val">span 2</span>; <span class="com">/* start at row 2, span 2 rows */</span>
+
+  <span class="com">/* Alignment inside cell */</span>
+  <span class="prop">justify-self</span>: <span class="val">center</span>;
+  <span class="prop">align-self</span>: <span class="val">center</span>;
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRANSITIONS ===== -->
+  <section class="topic-section" id="css-transitions">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Animation</span>
+      <h2>Transitions</h2>
+      <p>CSS transitions smoothly animate changes between property values, such as on hover or focus. They are simple, performant, and don't require JavaScript — perfect for hover effects, UI feedback, and smooth state changes.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Transitions</div></div>
+        <pre><code><span class="sel">.button</span> {
+  <span class="prop">background</span>: <span class="val">#f0a500</span>;
+  <span class="prop">color</span>: <span class="val">#000</span>;
+  <span class="prop">padding</span>: <span class="num">12px 24px</span>;
+  <span class="prop">border-radius</span>: <span class="num">6px</span>;
+
+  <span class="com">/* property | duration | timing | delay */</span>
+  <span class="prop">transition</span>: <span class="val">background</span> <span class="num">0.3s</span> <span class="val">ease</span> <span class="num">0s</span>;
+
+  <span class="com">/* Multiple transitions */</span>
+  <span class="prop">transition</span>:
+    <span class="val">background</span> <span class="num">0.3s</span> <span class="val">ease</span>,
+    <span class="val">transform</span> <span class="num">0.2s</span> <span class="val">ease-out</span>,
+    <span class="val">box-shadow</span> <span class="num">0.3s</span> <span class="val">ease</span>;
+
+  <span class="com">/* Transition ALL changeable properties */</span>
+  <span class="prop">transition</span>: <span class="val">all</span> <span class="num">0.3s</span> <span class="val">ease</span>;
+}
+
+<span class="sel">.button:hover</span> {
+  <span class="prop">background</span>: <span class="val">#ffc107</span>;
+  <span class="prop">transform</span>: <span class="tag">translateY</span>(<span class="num">-2px</span>);
+  <span class="prop">box-shadow</span>: <span class="num">0 8px 24px</span> <span class="val">rgba(0,0,0,0.3)</span>;
+}
+
+<span class="com">/* Timing functions */</span>
+<span class="com">/* ease        — slow start, fast middle, slow end */</span>
+<span class="com">/* linear      — constant speed */</span>
+<span class="com">/* ease-in     — slow start */</span>
+<span class="com">/* ease-out    — slow end */</span>
+<span class="com">/* ease-in-out — slow both ends */</span>
+<span class="com">/* cubic-bezier(0.25, 0.1, 0.25, 1.0) — custom */</span>
+<span class="com">/* steps(5)    — discrete steps */</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ANIMATIONS ===== -->
+  <section class="topic-section" id="css-animations">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Animation</span>
+      <h2>CSS Animations</h2>
+      <p>CSS Animations allow you to define complex, multi-step animations with <code>@keyframes</code>. Unlike transitions, animations can run automatically, loop, and have multiple intermediate states — no JavaScript required.</p>
+    </div>
+    <div class="subsection">
+      <div class="two-col">
+        <div>
+          <div class="code-block">
+            <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — @keyframes</div></div>
+            <pre><code><span class="com">/* Define keyframes */</span>
+<span class="kw">@keyframes</span> <span class="val">pulse</span> {
+  <span class="num">0%</span>   { <span class="prop">transform</span>: <span class="tag">scale</span>(<span class="num">1</span>); <span class="prop">opacity</span>: <span class="num">1</span>; }
+  <span class="num">50%</span>  { <span class="prop">transform</span>: <span class="tag">scale</span>(<span class="num">1.1</span>); <span class="prop">opacity</span>: <span class="num">0.8</span>; }
+  <span class="num">100%</span> { <span class="prop">transform</span>: <span class="tag">scale</span>(<span class="num">1</span>); <span class="prop">opacity</span>: <span class="num">1</span>; }
+}
+
+<span class="kw">@keyframes</span> <span class="val">slideIn</span> {
+  <span class="val">from</span> { <span class="prop">transform</span>: <span class="tag">translateX</span>(<span class="num">-100%</span>); }
+  <span class="val">to</span>   { <span class="prop">transform</span>: <span class="tag">translateX</span>(<span class="num">0</span>); }
+}
+
+<span class="kw">@keyframes</span> <span class="val">rainbow</span> {
+  <span class="num">0%</span>  { <span class="prop">color</span>: <span class="val">red</span>; }
+  <span class="num">33%</span> { <span class="prop">color</span>: <span class="val">green</span>; }
+  <span class="num">66%</span> { <span class="prop">color</span>: <span class="val">blue</span>; }
+  <span class="num">100%</span>{ <span class="prop">color</span>: <span class="val">red</span>; }
+}
+
+<span class="sel">.animated</span> {
+  <span class="com">/* name | duration | easing | delay
+     iteration | direction | fill-mode | state */</span>
+  <span class="prop">animation</span>:
+    <span class="val">pulse</span> <span class="num">2s</span> <span class="val">ease-in-out</span> <span class="num">0s</span>
+    <span class="val">infinite</span> <span class="val">alternate</span> <span class="val">both</span> <span class="val">running</span>;
+}
+
+<span class="com">/* Individual properties */</span>
+<span class="sel">.box</span> {
+  <span class="prop">animation-name</span>: <span class="val">slideIn</span>;
+  <span class="prop">animation-duration</span>: <span class="num">0.5s</span>;
+  <span class="prop">animation-timing-function</span>: <span class="val">ease-out</span>;
+  <span class="prop">animation-delay</span>: <span class="num">0.2s</span>;
+  <span class="prop">animation-iteration-count</span>: <span class="num">1</span>; <span class="com">/* or infinite */</span>
+  <span class="prop">animation-direction</span>: <span class="val">normal</span>; <span class="com">/* or reverse/alternate */</span>
+  <span class="prop">animation-fill-mode</span>: <span class="val">forwards</span>; <span class="com">/* keep final state */</span>
+  <span class="prop">animation-play-state</span>: <span class="val">running</span>; <span class="com">/* or paused */</span>
+}</code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="demo-box">
+            <div class="demo-header">Live Animation Demo</div>
+            <div class="demo-content" style="min-height:160px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap">
+              <style>
+                @keyframes demoSpin { to { transform: rotate(360deg); } }
+                @keyframes demoPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+                @keyframes demoFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+                @keyframes demoRainbow { 0%{background:#f0a500} 33%{background:#6fdc8c} 66%{background:#78a9ff} 100%{background:#f0a500} }
+                .anim-spin { width:50px;height:50px;border:3px solid #be95ff;border-top-color:transparent;border-radius:50%;animation:demoSpin 1s linear infinite; }
+                .anim-pulse { width:50px;height:50px;background:#ff6b35;border-radius:8px;animation:demoPulse 1.5s ease-in-out infinite; }
+                .anim-float { width:50px;height:50px;background:#4ecdc4;border-radius:50%;animation:demoFloat 2s ease-in-out infinite; }
+                .anim-rainbow { width:50px;height:50px;border-radius:8px;animation:demoRainbow 3s linear infinite; }
+              </style>
+              <div style="text-align:center"><div class="anim-spin"></div><div style="font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-top:8px">spin</div></div>
+              <div style="text-align:center"><div class="anim-pulse"></div><div style="font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-top:8px">pulse</div></div>
+              <div style="text-align:center"><div class="anim-float"></div><div style="font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-top:8px">float</div></div>
+              <div style="text-align:center"><div class="anim-rainbow"></div><div style="font-family:var(--font-mono);font-size:11px;color:var(--text3);margin-top:8px">rainbow</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRANSFORMS ===== -->
+  <section class="topic-section" id="css-transforms">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Transforms</span>
+      <h2>CSS Transforms</h2>
+      <p>The <code>transform</code> property applies 2D and 3D transformations to elements — translating, rotating, scaling, and skewing. Transforms don't affect document flow and are GPU-accelerated for smooth animations.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Transform Functions</div></div>
+        <pre><code><span class="sel">.element</span> {
+  <span class="com">/* ─── 2D TRANSFORMS ─── */</span>
+  <span class="prop">transform</span>: <span class="tag">translate</span>(<span class="num">50px</span>, <span class="num">20px</span>);    <span class="com">/* move X, Y */</span>
+  <span class="prop">transform</span>: <span class="tag">translateX</span>(<span class="num">50px</span>);
+  <span class="prop">transform</span>: <span class="tag">translateY</span>(<span class="num">-30px</span>);
+
+  <span class="prop">transform</span>: <span class="tag">scale</span>(<span class="num">1.5</span>);          <span class="com">/* uniform scale */</span>
+  <span class="prop">transform</span>: <span class="tag">scale</span>(<span class="num">1.5</span>, <span class="num">0.8</span>);     <span class="com">/* X, Y separately */</span>
+  <span class="prop">transform</span>: <span class="tag">scaleX</span>(<span class="num">2</span>);
+
+  <span class="prop">transform</span>: <span class="tag">rotate</span>(<span class="num">45deg</span>);
+  <span class="prop">transform</span>: <span class="tag">rotate</span>(<span class="num">-90deg</span>);
+
+  <span class="prop">transform</span>: <span class="tag">skew</span>(<span class="num">20deg</span>, <span class="num">10deg</span>);
+  <span class="prop">transform</span>: <span class="tag">skewX</span>(<span class="num">20deg</span>);
+
+  <span class="com">/* Chain multiple transforms */</span>
+  <span class="prop">transform</span>: <span class="tag">translate</span>(<span class="num">-50%</span>, <span class="num">-50%</span>) <span class="tag">scale</span>(<span class="num">1.1</span>) <span class="tag">rotate</span>(<span class="num">5deg</span>);
+
+  <span class="com">/* Transform origin: where the transform pivots */</span>
+  <span class="prop">transform-origin</span>: <span class="val">center center</span>; <span class="com">/* default */</span>
+  <span class="prop">transform-origin</span>: <span class="val">top left</span>;
+  <span class="prop">transform-origin</span>: <span class="num">0% 0%</span>;
+
+  <span class="com">/* ─── 3D TRANSFORMS ─── */</span>
+  <span class="prop">transform</span>: <span class="tag">perspective</span>(<span class="num">1000px</span>) <span class="tag">rotateX</span>(<span class="num">30deg</span>);
+  <span class="prop">transform</span>: <span class="tag">rotateY</span>(<span class="num">180deg</span>);
+  <span class="prop">transform</span>: <span class="tag">translateZ</span>(<span class="num">100px</span>);
+  <span class="prop">transform</span>: <span class="tag">rotate3d</span>(<span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span>, <span class="num">45deg</span>);
+
+  <span class="com">/* Perspective on parent for 3D children */</span>
+  <span class="prop">perspective</span>: <span class="num">1000px</span>;
+  <span class="prop">transform-style</span>: <span class="val">preserve-3d</span>;
+  <span class="prop">backface-visibility</span>: <span class="val">hidden</span>; <span class="com">/* hide back of 3D element */</span>
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PSEUDO ===== -->
+  <section class="topic-section" id="css-pseudos">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Selectors</span>
+      <h2>Pseudo-classes &amp; Pseudo-elements</h2>
+      <p>Pseudo-classes select elements based on their <em>state</em> or <em>position</em>. Pseudo-elements create virtual elements to style specific parts of content (like the first letter or generated content before/after an element).</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — All Pseudo-classes</div></div>
+        <pre><code><span class="com">/* ─── USER ACTION states ─── */</span>
+<span class="sel">a:link</span>       { }  <span class="com">/* unvisited link */</span>
+<span class="sel">a:visited</span>    { }  <span class="com">/* visited link */</span>
+<span class="sel">:hover</span>       { }  <span class="com">/* mouse over element */</span>
+<span class="sel">:active</span>      { }  <span class="com">/* being clicked */</span>
+<span class="sel">:focus</span>       { }  <span class="com">/* keyboard-focused element */</span>
+<span class="sel">:focus-within</span>{ }  <span class="com">/* parent of focused element */</span>
+<span class="sel">:focus-visible</span>{ } <span class="com">/* focus from keyboard only */</span>
+
+<span class="com">/* ─── FORM states ─── */</span>
+<span class="sel">:checked</span>     { }  <span class="com">/* checked checkbox/radio */</span>
+<span class="sel">:disabled</span>    { }  <span class="com">/* disabled input */</span>
+<span class="sel">:enabled</span>     { }  <span class="com">/* enabled input */</span>
+<span class="sel">:required</span>    { }  <span class="com">/* required field */</span>
+<span class="sel">:optional</span>    { }  <span class="com">/* optional field */</span>
+<span class="sel">:valid</span>       { }  <span class="com">/* valid input value */</span>
+<span class="sel">:invalid</span>     { }  <span class="com">/* invalid input value */</span>
+<span class="sel">:placeholder-shown</span> { } <span class="com">/* placeholder visible */</span>
+<span class="sel">:read-only</span>   { }
+<span class="sel">:read-write</span>  { }
+
+<span class="com">/* ─── STRUCTURAL ─── */</span>
+<span class="sel">:first-child</span>         { } <span class="com">/* first among siblings */</span>
+<span class="sel">:last-child</span>          { }
+<span class="sel">:nth-child(2)</span>        { } <span class="com">/* 2nd child */</span>
+<span class="sel">:nth-child(2n)</span>       { } <span class="com">/* every even child */</span>
+<span class="sel">:nth-child(odd)</span>      { } <span class="com">/* odd children */</span>
+<span class="sel">:nth-child(3n+1)</span>     { } <span class="com">/* 1st, 4th, 7th... */</span>
+<span class="sel">:nth-last-child(2)</span>   { } <span class="com">/* 2nd from end */</span>
+<span class="sel">:first-of-type</span>       { } <span class="com">/* first p among siblings */</span>
+<span class="sel">:last-of-type</span>        { }
+<span class="sel">:nth-of-type(2)</span>      { }
+<span class="sel">:only-child</span>          { } <span class="com">/* only child of parent */</span>
+<span class="sel">:only-of-type</span>        { }
+<span class="sel">:empty</span>               { } <span class="com">/* no children */</span>
+<span class="sel">:root</span>                { } <span class="com">/* = html element */</span>
+<span class="sel">:not(.special)</span>       { } <span class="com">/* negation */</span>
+<span class="sel">:is(h1, h2, h3)</span>      { } <span class="com">/* matches any */</span>
+<span class="sel">:where(h1, h2, h3)</span>   { } <span class="com">/* like :is but 0 specificity */</span>
+<span class="sel">:has(img)</span>            { } <span class="com">/* parent has a child img */</span>
+
+<span class="com">/* ─── PSEUDO-ELEMENTS ─── */</span>
+<span class="sel">::before</span>       { <span class="prop">content</span>: <span class="val">"★"</span>; }
+<span class="sel">::after</span>        { <span class="prop">content</span>: <span class="val">""</span>; <span class="prop">display</span>: <span class="val">block</span>; }
+<span class="sel">::first-line</span>   { <span class="prop">font-weight</span>: <span class="val">bold</span>; }
+<span class="sel">::first-letter</span> { <span class="prop">font-size</span>: <span class="num">3em</span>; <span class="prop">float</span>: <span class="val">left</span>; }
+<span class="sel">::selection</span>    { <span class="prop">background</span>: <span class="val">yellow</span>; }
+<span class="sel">::placeholder</span>  { <span class="prop">color</span>: <span class="val">gray</span>; }
+<span class="sel">::marker</span>       { <span class="prop">color</span>: <span class="val">blue</span>; } <span class="com">/* li bullet */</span>
+<span class="sel">::backdrop</span>     { } <span class="com">/* behind fullscreen/dialog */</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CSS VARIABLES ===== -->
+  <section class="topic-section" id="css-variables">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Custom Properties</span>
+      <h2>CSS Custom Properties (Variables)</h2>
+      <p>CSS Custom Properties (also called CSS Variables) let you store values in named variables that can be reused throughout a stylesheet. They are scoped, cascade like regular properties, and can be updated dynamically with JavaScript — enabling themes, responsive adjustments, and design systems.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Custom Properties</div></div>
+        <pre><code><span class="com">/* Declare on :root for global scope */</span>
+<span class="sel">:root</span> {
+  <span class="com">/* Naming convention: --property-name */</span>
+  <span class="prop">--color-primary</span>: <span class="val">#f0a500</span>;
+  <span class="prop">--color-bg</span>: <span class="val">#0d0f14</span>;
+  <span class="prop">--spacing-md</span>: <span class="num">16px</span>;
+  <span class="prop">--border-radius</span>: <span class="num">8px</span>;
+  <span class="prop">--font-heading</span>: <span class="val">'Playfair Display', serif</span>;
+  <span class="prop">--shadow</span>: <span class="num">0 4px 16px</span> <span class="val">rgba(0,0,0,0.3)</span>;
+}
+
+<span class="com">/* Use with var() */</span>
+<span class="sel">.button</span> {
+  <span class="prop">background</span>: <span class="tag">var</span>(<span class="prop">--color-primary</span>);
+  <span class="prop">padding</span>: <span class="tag">var</span>(<span class="prop">--spacing-md</span>);
+  <span class="prop">border-radius</span>: <span class="tag">var</span>(<span class="prop">--border-radius</span>);
+  <span class="prop">box-shadow</span>: <span class="tag">var</span>(<span class="prop">--shadow</span>);
+
+  <span class="com">/* Fallback value */</span>
+  <span class="prop">color</span>: <span class="tag">var</span>(<span class="prop">--color-text</span>, <span class="val">#ffffff</span>);
+}
+
+<span class="com">/* Override at a specific scope */</span>
+<span class="sel">.dark-theme</span> {
+  <span class="prop">--color-bg</span>: <span class="val">#000</span>;
+  <span class="prop">--color-text</span>: <span class="val">#fff</span>;
+}
+
+<span class="com">/* Dark mode via media query */</span>
+<span class="kw">@media</span> (<span class="prop">prefers-color-scheme</span>: <span class="val">dark</span>) {
+  <span class="sel">:root</span> {
+    <span class="prop">--color-bg</span>: <span class="val">#121212</span>;
+    <span class="prop">--color-text</span>: <span class="val">#e0e0e0</span>;
+  }
+}
+
+<span class="com">/* JavaScript: read and modify CSS variables */</span>
+<span class="com">// Get: getComputedStyle(el).getPropertyValue('--color-primary')</span>
+<span class="com">// Set: el.style.setProperty('--color-primary', '#ff0000')</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEDIA QUERIES ===== -->
+  <section class="topic-section" id="css-media">
+    <div class="section-header">
+      <span class="section-tag css">CSS3 · Responsive</span>
+      <h2>Media Queries</h2>
+      <p>Media queries apply CSS rules conditionally based on the user's device characteristics — screen size, orientation, resolution, color scheme preference, and more. They are the foundation of responsive web design.</p>
+    </div>
+    <div class="subsection">
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span></span><span></span><span></span></div><div class="code-lang">CSS — Media Queries</div></div>
+        <pre><code><span class="com">/* ─── SYNTAX ─── */</span>
+<span class="kw">@media</span> <span class="val">media-type</span> <span class="val">and</span> (<span class="val">feature</span>: <span class="val">value</span>) { ... }
+
+<span class="com">/* ─── MEDIA TYPES ─── */</span>
+<span class="kw">@media</span> <span class="val">screen</span>  { }  <span class="com">/* screens */</span>
+<span class="kw">@media</span> <span class="val">print</span>   { }  <span class="com">/* printing */</span>
+<span class="kw">@media</span> <span class="val">all</span>     { }  <span class="com">/* all devices (default) */</span>
+
+<span class="com">/* ─── BREAKPOINTS (mobile-first) ─── */</span>
+<span class="com">/* Default: mobile styles */</span>
+<span class="sel">.container</span> { <span class="prop">padding</span>: <span class="num">16px</span>; }
+
+<span class="kw">@media</span> (<span class="prop">min-width</span>: <span class="num">640px</span>) {   <span class="com">/* sm: small tablets */</span>
+  <span class="sel">.container</span> { <span class="prop">padding</span>: <span class="num">24px</span>; }
+}
+
+<span class="kw">@media</span> (<span class="prop">min-width</span>: <span class="num">768px</span>) {   <span class="com">/* md: tablets */</span>
+  <span class="sel">.grid</span> { <span class="prop">grid-template-columns</span>: <span class="tag">repeat</span>(<span class="num">2</span>, <span class="num">1fr</span>); }
+}
+
+<span class="kw">@media</span> (<span class="prop">min-width</span>: <span class="num">1024px</span>) {  <span class="com">/* lg: desktop */</span>
+  <span class="sel">.grid</span> { <span class="prop">grid-template-columns</span>: <span class="tag">repeat</span>(<span class="num">3</span>, <span class="num">1fr</span>); }
+}
+
+<span class="kw">@media</span> (<span class="prop">min-width</span>: <span class="num">1280px</span>) {  <span class="com">/* xl: large desktop */</span>
+  <span class="sel">.container</span> { <span class="prop">max-width</span>: <span class="num">1200px</span>; }
+}
+
+<span class="com">/* ─── ORIENTATION ─── */</span>
+<span class="kw">@media</span> (<span class="prop">orientation</span>: <span class="val">landscape</span>) { }
+<span class="kw">@media</span> (<span class="prop">orientation</span>: <span class="val">portrait</span>) { }
+
+<span class="com">/* ─── DARK MODE ─── */</span>
+<span class="kw">@media</span> (<span class="prop">prefers-color-scheme</span>: <span class="val">dark</span>) { }
+
+<span class="com">/* ─── REDUCE MOTION (accessibility) ─── */</span>
+<span class="kw">@media</span> (<span class="prop">prefers-reduced-motion</span>: <span class="val">reduce</span>) {
+  <span class="sel">*</span> { <span class="prop">animation-duration</span>: <span class="num">0.001ms</span> <span class="val">!important</span>; }
+}
+
+<span class="com">/* ─── HIGH RESOLUTION ─── */</span>
+<span class="kw">@media</span> (<span class="prop">min-resolution</span>: <span class="num">2dppx</span>) {  <span class="com">/* Retina */</span>
+  <span class="sel">.logo</span> { <span class="prop">background-image</span>: <span class="val">url('logo@2x.png')</span>; }
+}
+
+<span class="com">/* ─── LOGICAL OPERATORS ─── */</span>
+<span class="kw">@media</span> (<span class="prop">min-width</span>: <span class="num">768px</span>) <span class="val">and</span> (<span class="prop">max-width</span>: <span class="num">1024px</span>) { }
+<span class="kw">@media</span> <span class="val">screen</span> <span class="val">and</span> (<span class="prop">min-width</span>: <span class="num">768px</span>) { }
+<span class="kw">@media</span> (<span class="prop">max-width</span>: <span class="num">480px</span>), (<span class="prop">orientation</span>: <span class="val">portrait</span>) { }
+<span class="kw">@media</span> <span class="val">not print</span> { }
+
+<span class="com">/* ─── CONTAINER QUERIES (CSS4!) ─── */</span>
+<span class="sel">.parent</span> { <span class="prop">container-type</span>: <span class="val">inline-size</span>; }
+<span class="kw">@container</span> (<span class="prop">min-width</span>: <span class="num">400px</span>) {
+  <span class="sel">.card</span> { <span class="prop">flex-direction</span>: <span class="val">row</span>; }
+}</code></pre>
